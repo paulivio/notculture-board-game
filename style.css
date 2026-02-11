@@ -1,0 +1,393 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: white;
+  text-align: center;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#pathLayer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;   /* 🔥 below tiles */
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(7, 80px);
+  grid-template-rows: repeat(7, 80px);
+  gap: 4px;
+
+  padding: 10px;
+  background-color: #4a4d4c;
+  border-radius: 12px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  position: relative;   /* 🔥 required for absolute canvas */
+}
+
+.board-logo {
+  position: absolute;
+  top: 49.25%;
+  left: 49.25%;
+  transform: translate(-50%, -50%);
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cell {
+  width: 70px;
+  height: 70px;
+  border-radius: 16px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+  z-index:2;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 1000;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+
+
+/* Categories */
+.film {
+  background-color: purple;
+}
+
+.science {
+  background-color: steelblue;
+}
+
+.general {
+  background-color: green;
+}
+
+.history {
+  background-color: orange;
+}
+
+/* Start & Finish */
+.start {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+}
+
+.finish {
+  background-color: gold;
+  color: black;
+  font-weight: bold;
+}
+
+.player {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: red;
+
+  transition: 
+    left 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index:5;
+}
+
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+#diceResult {
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+
+#questionMeta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  opacity: 0;
+  transform: translateY(-6px);
+  animation: metaFadeIn 0.3s ease forwards;
+}
+
+/* Category colours */
+.category-film {
+  color: purple;
+}
+
+.category-science {
+  color: steelblue;
+}
+
+.category-general {
+  color: green;
+}
+
+.category-history {
+  color: orange;
+}
+
+/* Difficulty stars */
+#questionDifficulty {
+  font-size: 16px;
+  letter-spacing: 1px;
+}
+
+/* Animation */
+@keyframes metaFadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+.modal-content {
+  background: #222;
+  padding: 20px;
+  border-radius: 12px;
+  width: 300px;
+}
+
+#answers button {
+  display: block;
+  width: 100%;
+  margin-top: 10px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+#feedback {
+  margin-top: 12px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.correct {
+  color: #4caf50; /* green */
+}
+
+.incorrect {
+  color: #f44336; /* red */
+}
+
+#winModal button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#questionMeta {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+#questionMeta span {
+  margin: 0 6px;
+}
+
+#questionEditor {
+  margin-top: 20px;
+  padding: 16px;
+  border: 1px solid #444;
+  width: 500px;
+}
+
+#questionEditor input,
+#questionEditor select,
+#questionEditor button {
+  display: block;
+  width: 100x;
+  margin-top: 8px;
+  padding: 6px;
+}
+
+#questionList {
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.category-group {
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+
+.question-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  border-bottom: 1px solid #444;
+  font-size: 14px;
+}
+
+.question-meta {
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+.delete-btn {
+  background: #b00020;
+  color: white;
+  border: none;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#diceImage {
+  width: 80px;
+  height: 80px;
+  transition: transform 0.1s ease;
+  margin-bottom: 20px;
+}
+
+#diceImage.rolling {
+  transform: rotate(10deg);
+}
+
+#rollDice {
+  margin-bottom: 30px;
+}
+
+#board {
+  position: relative;
+}
+
+.player {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.player-1 {
+  background: red;
+}
+
+.player-2 {
+  background: blue;
+}
+
+.cell:not(.inactive):hover {
+  transform: scale(1.05);
+}
+
+.editor-error {
+  color: red;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+
+.category-header {
+  background: #333;
+  color: white;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  user-select: none;
+
+  position: sticky;   /* 👈 add this */
+  top: 0;             /* 👈 add this */
+  z-index: 10;        /* 👈 add this */
+}
+.category-header:hover {
+  background: #444;
+}
+
+.category-content {
+  background: #000000;
+  padding: 8px;
+}
+
+.question-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #000000;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.question-item:last-child {
+  border-bottom: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.game-layout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+}
+
+.controls button {
+  margin-bottom: 10px;
+}
+
+#diceImage {
+  margin: 20px 0;
+}
