@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>NotCulture Board Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="game-layout">
+
+    <!-- SIDE CONTROLS -->
+    <div class="controls">
+      <h1>NotCulture Board Game</h1>
+
+      <button id="rollDice">Roll Dice</button>
+      <button id="restartSide">Restart Game</button>
+
+      <div id="turnIndicator">Player 1's Turn</div>
+
+      <img id="diceImage" src="assets/dice/dice-1.png" alt="Dice" />
+
+      <button id="toggleEditor">Add / Edit Questions</button> 
+      <button id="debugToggle">Toggle Debug Mode</button>
+
+      <div id="editorError" class="editor-error"></div>
+    </div>
+
+    <!-- BOARD -->
+    <div class="board" id="board"></div>
+
+  </div>
+
+  <hr />
+
+<div id="editorError" class="editor-error"></div>
+
+<div id="questionEditor" class="hidden">
+  
+  <h2>Add a Question</h2>
+
+  <input id="qe-question" placeholder="Question text" />
+
+  <select id="qe-category">
+    <option value="film">Film & TV</option>
+    <option value="science">Science & Technology</option>
+    <option value="general">General Knowledge</option>
+    <option value="history">History & Arts</option>
+  </select>
+
+  <select id="qe-difficulty">
+    <option value="1">1 (Easy)</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6 (Hard)</option>
+  </select>
+
+  <input id="qe-a0" placeholder="Answer A" />
+  <input id="qe-a1" placeholder="Answer B" />
+  <input id="qe-a2" placeholder="Answer C" />
+  <input id="qe-a3" placeholder="Answer D" />
+
+  <select id="qe-correct">
+    <option value="0">Correct: A</option>
+    <option value="1">Correct: B</option>
+    <option value="2">Correct: C</option>
+    <option value="3">Correct: D</option>
+  </select>
+
+  <button id="addQuestion">Add Question</button>
+  <button id="exportQuestions">Export JSON</button>
+
+<hr />
+<h3>Existing Questions</h3>
+<div id="questionList"></div>
+
+</div>
+
+<div id="modal" class="modal hidden">
+ <div class="modal-content">
+<div id="questionMeta">
+  <span id="questionCategory"></span>
+  <span id="questionDifficulty"></span>
+</div>
+<h2 id="questionText"></h2>
+  <div id="answers"></div>
+  <div id="feedback"></div>
+
+  
+  <button id="skipQuestion" class="hidden">Skip (Debug)</button>
+
+ </div>
+ </div>
+
+ <div id="winModal" class="modal hidden">
+  <div class="modal-content">
+    <h2>You Win! 🎉</h2>
+    <button id="restartGame">Restart Game</button>
+  </div>
+</div>
+
+<script type="module" src="./js/main.js"></script>
+
+</body>
