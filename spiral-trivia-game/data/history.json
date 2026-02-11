@@ -1,0 +1,692 @@
+[
+
+{
+    "id": "history-002",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Who was the first President of the United States?",
+    "answers": ["Thomas Jefferson", "George Washington", "Abraham Lincoln", "John Adams"],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-003",
+    "category": "history",
+    "difficulty": 3,
+    "question": "In which year did World War II end?",
+    "answers": ["1943", "1944", "1945", "1946"],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-004",
+    "category": "history",
+    "difficulty": 4,
+    "question": "Which empire built the Colosseum?",
+    "answers": ["Greek Empire", "Roman Empire", "Ottoman Empire", "British Empire"],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-005",
+    "category": "history",
+    "difficulty": 5,
+    "question": "Who was the British Prime Minister during most of World War II?",
+    "answers": ["Neville Chamberlain", "Winston Churchill", "Margaret Thatcher", "Tony Blair"],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-006",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The Renaissance began in which European country?",
+    "answers": ["France", "Germany", "Italy", "Spain"],
+    "correctIndex": 2
+  },
+  {
+  "id": "history-007",
+  "category": "history",
+  "difficulty": 1,
+  "question": "Who built the pyramids?",
+  "answers": ["Romans", "Greeks", "Egyptians", "Mayans"],
+  "correctIndex": 2
+},
+{
+  "id": "history-008",
+  "category": "history",
+  "difficulty": 2,
+  "question": "Which wall divided Berlin during the Cold War?",
+  "answers": ["Iron Wall", "Berlin Wall", "Cold Barrier", "German Divide"],
+  "correctIndex": 1
+},
+{
+  "id": "history-009",
+  "category": "history",
+  "difficulty": 3,
+  "question": "Who was known as the Maid of Orléans?",
+  "answers": ["Cleopatra", "Joan of Arc", "Marie Antoinette", "Queen Victoria"],
+  "correctIndex": 1
+},
+{
+  "id": "history-010",
+  "category": "history",
+  "difficulty": 4,
+  "question": "Which year did the Titanic sink?",
+  "answers": ["1905", "1912", "1918", "1921"],
+  "correctIndex": 1
+},
+{
+  "id": "history-011",
+  "category": "history",
+  "difficulty": 5,
+  "question": "Who was the first Roman Emperor?",
+  "answers": ["Julius Caesar", "Augustus", "Nero", "Tiberius"],
+  "correctIndex": 1
+},
+{
+  "id": "history-012",
+  "category": "history",
+  "difficulty": 6,
+  "question": "The Battle of Hastings took place in which year?",
+  "answers": ["1066", "1215", "1415", "1666"],
+  "correctIndex": 0
+},
+  {
+    "id": "history-013",
+    "difficulty": 1,
+    "question": "Which English monarch reigned during the Spanish Armada in 1588?",
+    "answers": [
+      "Mary I",
+      "Elizabeth I",
+      "James I",
+      "Henry VIII"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-014",
+    "difficulty": 1,
+    "question": "Which artist painted 'Guernica' in response to the bombing during the Spanish Civil War?",
+    "answers": [
+      "Salvador Dalí",
+      "Pablo Picasso",
+      "Joan Miró",
+      "Francisco Goya"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-015",
+    "difficulty": 1,
+    "question": "Which empire was ruled at its height by Suleiman the Magnificent?",
+    "answers": [
+      "Byzantine Empire",
+      "Ottoman Empire",
+      "Persian Empire",
+      "Mongol Empire"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-016",
+    "difficulty": 2,
+    "question": "The Magna Carta was signed in which year?",
+    "answers": [
+      "1066",
+      "1215",
+      "1314",
+      "1453"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-017",
+    "difficulty": 2,
+    "question": "Which composer wrote the opera 'The Marriage of Figaro'?",
+    "answers": [
+      "Beethoven",
+      "Mozart",
+      "Verdi",
+      "Wagner"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-018",
+    "difficulty": 2,
+    "question": "Which city was divided by a wall from 1961 to 1989?",
+    "answers": [
+      "Prague",
+      "Vienna",
+      "Berlin",
+      "Warsaw"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-019",
+    "difficulty": 3,
+    "question": "Which pharaoh’s tomb was discovered largely intact in 1922 by Howard Carter?",
+    "answers": [
+      "Ramses II",
+      "Akhenaten",
+      "Tutankhamun",
+      "Seti I"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-020",
+    "difficulty": 3,
+    "question": "Which playwright wrote 'The Importance of Being Earnest'?",
+    "answers": [
+      "George Bernard Shaw",
+      "Oscar Wilde",
+      "Henrik Ibsen",
+      "Noël Coward"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-021",
+    "difficulty": 3,
+    "question": "Which battle in 1815 marked the final defeat of Napoleon Bonaparte?",
+    "answers": [
+      "Austerlitz",
+      "Trafalgar",
+      "Leipzig",
+      "Waterloo"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-022",
+    "difficulty": 4,
+    "question": "Which artistic movement is Salvador Dalí most closely associated with?",
+    "answers": [
+      "Impressionism",
+      "Cubism",
+      "Surrealism",
+      "Futurism"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-023",
+    "difficulty": 4,
+    "question": "Which 14th-century pandemic is estimated to have killed up to one-third of Europe's population?",
+    "answers": [
+      "The Great Famine",
+      "The Black Death",
+      "The Antonine Plague",
+      "The Justinian Plague"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-024",
+    "difficulty": 4,
+    "question": "Which architect designed St Paul’s Cathedral in London?",
+    "answers": [
+      "Inigo Jones",
+      "Christopher Wren",
+      "John Nash",
+      "Nicholas Hawksmoor"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-025",
+    "difficulty": 5,
+    "question": "Which 17th-century war was fought primarily between Royalists and Parliamentarians in England?",
+    "answers": [
+      "The War of the Roses",
+      "The English Civil War",
+      "The Nine Years' War",
+      "The Glorious Revolution"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-026",
+    "difficulty": 5,
+    "question": "Which Dutch painter created 'The Night Watch'?",
+    "answers": [
+      "Vermeer",
+      "Rembrandt",
+      "Frans Hals",
+      "Rubens"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-027",
+    "difficulty": 5,
+    "question": "Which document, issued in 1689, limited the powers of the English monarchy and established parliamentary sovereignty?",
+    "answers": [
+      "Magna Carta",
+      "Act of Settlement",
+      "English Bill of Rights",
+      "Petition of Right"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-028",
+    "difficulty": 6,
+    "question": "Which Carthaginian general crossed the Alps with elephants during the Second Punic War?",
+    "answers": [
+      "Hamilcar Barca",
+      "Hannibal",
+      "Scipio Africanus",
+      "Mago Barca"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-029",
+    "difficulty": 6,
+    "question": "Which artistic technique, meaning 'light-dark', was mastered by Caravaggio?",
+    "answers": [
+      "Sfumato",
+      "Chiaroscuro",
+      "Impasto",
+      "Pointillism"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-030",
+    "difficulty": 6,
+    "question": "Which 1555 treaty established the principle of 'cuius regio, eius religio' within the Holy Roman Empire?",
+    "answers": [
+      "Peace of Westphalia",
+      "Treaty of Augsburg",
+      "Treaty of Tordesillas",
+      "Edict of Nantes"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-031",
+    "difficulty": 6,
+    "question": "Which Russian ruler abolished serfdom in 1861?",
+    "answers": [
+      "Peter the Great",
+      "Catherine the Great",
+      "Alexander II",
+      "Nicholas I"
+    ],
+    "correctIndex": 2
+  },
+
+  {
+    "id": "history-032",
+    "difficulty": 2,
+    "question": "Which American president delivered the Gettysburg Address in 1863?",
+    "answers": [
+      "Ulysses S. Grant",
+      "Abraham Lincoln",
+      "Andrew Johnson",
+      "Theodore Roosevelt"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-033",
+    "difficulty": 3,
+    "question": "Which composer wrote the ballet 'The Rite of Spring'?",
+    "answers": [
+      "Tchaikovsky",
+      "Stravinsky",
+      "Debussy",
+      "Ravel"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-034",
+    "difficulty": 4,
+    "question": "Which dynasty ruled China when the Great Wall was largely rebuilt in its current form?",
+    "answers": [
+      "Tang",
+      "Ming",
+      "Qing",
+      "Song"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-035",
+    "difficulty": 4,
+    "question": "Which art movement was founded by Filippo Tommaso Marinetti in 1909?",
+    "answers": [
+      "Dadaism",
+      "Futurism",
+      "Expressionism",
+      "Constructivism"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-036",
+    "difficulty": 5,
+    "question": "Which 18th-century conflict is also known as the French and Indian War in North America?",
+    "answers": [
+      "War of Austrian Succession",
+      "Seven Years' War",
+      "War of Spanish Succession",
+      "American Revolutionary War"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-037",
+    "difficulty": 5,
+    "question": "Which painter is known for the frescoes of the Scrovegni Chapel in Padua?",
+    "answers": [
+      "Giotto",
+      "Masaccio",
+      "Botticelli",
+      "Titian"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "history-038",
+    "difficulty": 6,
+    "question": "Which battle in 480 BCE saw a small Greek force led by King Leonidas resist the Persian army?",
+    "answers": [
+      "Marathon",
+      "Plataea",
+      "Salamis",
+      "Thermopylae"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-039",
+    "difficulty": 6,
+    "question": "Which philosopher wrote 'The Social Contract' in 1762?",
+    "answers": [
+      "Voltaire",
+      "John Locke",
+      "Jean-Jacques Rousseau",
+      "Montesquieu"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-040",
+    "difficulty": 3,
+    "question": "Which British prime minister led the UK for most of the Second World War?",
+    "answers": [
+      "Neville Chamberlain",
+      "Winston Churchill",
+      "Clement Attlee",
+      "Anthony Eden"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-041",
+    "difficulty": 4,
+    "question": "Which cathedral is famous for housing the Shrine of Thomas Becket?",
+    "answers": [
+      "York Minster",
+      "Canterbury Cathedral",
+      "Durham Cathedral",
+      "Winchester Cathedral"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-042",
+    "difficulty": 5,
+    "question": "Which 19th-century artistic movement sought to capture light and everyday scenes with visible brushstrokes?",
+    "answers": [
+      "Romanticism",
+      "Impressionism",
+      "Realism",
+      "Symbolism"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-043",
+    "difficulty": 6,
+    "question": "Which treaty in 1648 ended the Thirty Years' War?",
+    "answers": [
+      "Treaty of Utrecht",
+      "Peace of Westphalia",
+      "Treaty of Nijmegen",
+      "Treaty of Vienna"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-044",
+    "difficulty": 4,
+    "question": "Which ancient wonder was located in Alexandria?",
+    "answers": [
+      "Colossus of Rhodes",
+      "Temple of Artemis",
+      "Lighthouse of Alexandria",
+      "Hanging Gardens"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-045",
+    "difficulty": 5,
+    "question": "Which emperor converted to Christianity after reportedly seeing a vision before the Battle of the Milvian Bridge?",
+    "answers": [
+      "Augustus",
+      "Constantine",
+      "Justinian",
+      "Diocletian"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-046",
+    "difficulty": 6,
+    "question": "Which medieval Islamic scholar wrote 'The Muqaddimah', considered an early work of sociology?",
+    "answers": [
+      "Al-Farabi",
+      "Ibn Sina",
+      "Ibn Khaldun",
+      "Al-Ghazali"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-047",
+    "difficulty": 3,
+    "question": "Which artist painted the ceiling of the Sistine Chapel?",
+    "answers": [
+      "Leonardo da Vinci",
+      "Michelangelo",
+      "Raphael",
+      "Caravaggio"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-048",
+    "difficulty": 5,
+    "question": "Which English queen reigned for just nine days in 1553?",
+    "answers": [
+      "Mary I",
+      "Lady Jane Grey",
+      "Elizabeth I",
+      "Anne Boleyn"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-049",
+    "difficulty": 6,
+    "question": "Which war was sparked by the defenestration of Prague in 1618?",
+    "answers": [
+      "Thirty Years' War",
+      "War of the Spanish Succession",
+      "Seven Years' War",
+      "Crimean War"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "history-050",
+    "difficulty": 4,
+    "question": "Which Spanish artist is known for co-founding Cubism?",
+    "answers": [
+      "Joan Miró",
+      "Francisco Goya",
+      "Pablo Picasso",
+      "El Greco"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-051",
+    "difficulty": 6,
+    "question": "Which Byzantine emperor ordered the codification of Roman law known as the Corpus Juris Civilis?",
+    "answers": [
+      "Constantine",
+      "Theodosius",
+      "Justinian I",
+      "Heraclius"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-052",
+    "difficulty": 3,
+    "question": "Which revolution began in France in 1789?",
+    "answers": [
+      "July Revolution",
+      "French Revolution",
+      "Glorious Revolution",
+      "February Revolution"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-053",
+    "difficulty": 5,
+    "question": "Which art style is characterised by dramatic use of light and emotional intensity, flourishing in 17th-century Europe?",
+    "answers": [
+      "Rococo",
+      "Baroque",
+      "Neoclassicism",
+      "Mannerism"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-054",
+    "difficulty": 6,
+    "question": "Which 19th-century political thinker authored 'Das Kapital'?",
+    "answers": [
+      "Friedrich Engels",
+      "Karl Marx",
+      "Max Weber",
+      "Vladimir Lenin"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-055",
+    "difficulty": 4,
+    "question": "Which battle in 1066 took place shortly before the Battle of Hastings and saw Harold II defeat Harald Hardrada?",
+    "answers": [
+      "Stamford Bridge",
+      "Towton",
+      "Bosworth Field",
+      "Edgehill"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "history-056",
+    "difficulty": 5,
+    "question": "Which Italian city-state was ruled by the Medici family during the Renaissance?",
+    "answers": [
+      "Venice",
+      "Milan",
+      "Florence",
+      "Genoa"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-057",
+    "difficulty": 6,
+    "question": "Which Japanese period began in 1603 under Tokugawa Ieyasu?",
+    "answers": [
+      "Meiji",
+      "Edo",
+      "Heian",
+      "Kamakura"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-058",
+    "difficulty": 3,
+    "question": "Which American document begins with the words 'We the People'?",
+    "answers": [
+      "Declaration of Independence",
+      "Bill of Rights",
+      "US Constitution",
+      "Articles of Confederation"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-059",
+    "difficulty": 5,
+    "question": "Which English Romantic poet wrote 'Ozymandias'?",
+    "answers": [
+      "William Wordsworth",
+      "John Keats",
+      "Lord Byron",
+      "Percy Bysshe Shelley"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-060",
+    "difficulty": 6,
+    "question": "Which council in 325 CE sought to establish consensus in early Christian doctrine?",
+    "answers": [
+      "Council of Trent",
+      "Council of Chalcedon",
+      "First Council of Nicaea",
+      "Council of Constance"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-061",
+    "difficulty": 4,
+    "question": "Which English monarch defeated Richard III at the Battle of Bosworth Field?",
+    "answers": [
+      "Henry VII",
+      "Henry VIII",
+      "Edward IV",
+      "James II"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "history-062",
+    "difficulty": 6,
+    "question": "Which 20th-century art movement was founded at the Cabaret Voltaire in Zurich in 1916?",
+    "answers": [
+      "Futurism",
+      "Dada",
+      "Surrealism",
+      "Constructivism"
+    ],
+    "correctIndex": 1
+  }
+]
