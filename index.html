@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
   <title>NotCulture Board Game</title>
   <link rel="stylesheet" href="style.css">
@@ -14,16 +15,28 @@
     <div class="controls">
       <h1>NotCulture Board Game</h1>
 
+      <div id="playerBar" class="player-bar"></div>
+
       <button id="rollDice">Roll Dice</button>
       <button id="restartSide">Restart Game</button>
+      <div class="player-controls">
+  <button id="removePlayer">− Player</button>
+  <span id="playerCount">2 Players</span>
+  <button id="addPlayer">+ Player</button>
+</div>
 
       <div id="turnIndicator">Player 1's Turn</div>
 
       <img id="diceImage" src="assets/dice/dice-1.png" alt="Dice" />
 
-      <button id="toggleEditor">Add / Edit Questions</button> 
-      <button id="debugToggle">Toggle Debug Mode</button>
+    <div class="settings-wrapper">
+  <button id="settingsToggle">⚙ Settings</button>
 
+  <div id="settingsMenu" class="settings-menu hidden">
+    <button id="toggleEditor">Add / Edit Questions</button>
+    <button id="debugToggle">Toggle Debug Mode</button>
+  </div>
+</div>
       <div id="editorError" class="editor-error"></div>
     </div>
 
@@ -37,7 +50,8 @@
 <div id="editorError" class="editor-error"></div>
 
 <div id="questionEditor" class="hidden">
-  
+  <div>
+     <button id="closeEditor" class="close-btn">✕</button>
   <h2>Add a Question</h2>
 
   <input id="qe-question" placeholder="Question text" />
@@ -76,7 +90,7 @@
 <hr />
 <h3>Existing Questions</h3>
 <div id="questionList"></div>
-
+</div>
 </div>
 
 <div id="modal" class="modal hidden">

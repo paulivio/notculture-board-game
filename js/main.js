@@ -7,16 +7,26 @@ import {
   getMaxPosition,
   positionPlayer   // 👈 add this
 } from "./board.js";
+
+import { playSound } from "./sound.js";
 /* =========================
    DOM REFERENCES
 ========================= */
-
+const playerColors = {
+  1: "red",
+  2: "blue",
+  3: "yellow",
+  4: "purple"
+};  
 const board = document.getElementById("board");
 const rollDiceButton = document.getElementById("rollDice");
-
 const diceImage = document.getElementById("diceImage");
 
 const restartSideButton = document.getElementById("restartSide");
+
+const addPlayerBtn = document.getElementById("addPlayer");
+const removePlayerBtn = document.getElementById("removePlayer");
+const playerCountDisplay = document.getElementById("playerCount");
 
 const modal = document.getElementById("modal");
 const questionText = document.getElementById("questionText");
@@ -27,11 +37,20 @@ const questionDifficulty = document.getElementById("questionDifficulty");
 
 const turnIndicator = document.getElementById("turnIndicator");
 
+const settingsToggle = document.getElementById("settingsToggle");
+const settingsMenu = document.getElementById("settingsMenu");
+
 const debugToggle = document.getElementById("debugToggle");
 const skipQuestionBtn = document.getElementById("skipQuestion");
 
 const winModal = document.getElementById("winModal");
 const restartButton = document.getElementById("restartGame");
+const closeEditorBtn = document.getElementById("closeEditor");
+
+closeEditorBtn.addEventListener("click", () => {
+  editor.classList.add("hidden");
+   document.body.classList.remove("lock-scroll"); // 🔥 add this
+});
 
 const toggleEditorBtn = document.getElementById("toggleEditor");
 const editor = document.getElementById("questionEditor");
@@ -62,7 +81,12 @@ function init() {
   setupEventListeners();
   loadQuestions();
   updateTurnDisplay();
+    window.addEventListener("resize", () => {
+    setupBoard(board);
+  });
 }
+
+
 
 /* =========================
    DATA
@@ -88,12 +112,18 @@ function validateQuestions(questionList) {
 ========================= */
 
 function setupEventListeners() {
+  addPlayerBtn.addEventListener("click", handleAddPlayer);
+removePlayerBtn.addEventListener("click", handleRemovePlayer);
   rollDiceButton.addEventListener("click", handleDiceRoll);
   restartButton.addEventListener("click", resetGame);
   restartSideButton.addEventListener("click", resetGame);
-  toggleEditorBtn.addEventListener("click", () =>
-    editor.classList.toggle("hidden")
-  );
+toggleEditorBtn.addEventListener("click", () => {
+  editor.classList.remove("hidden");
+  settingsMenu.classList.add("hidden");
+  document.body.classList.add("lock-scroll"); // 🔥 add this
+});
+  settingsToggle.addEventListener("click", () => {
+  settingsMenu.classList.toggle("hidden");});
   addQuestionBtn.addEventListener("click", handleAddQuestion);
   exportBtn.addEventListener("click", exportQuestions);
   debugToggle.addEventListener("click", toggleDebugMode);
@@ -131,6 +161,8 @@ function toggleDebugMode() {
 
 function handleDiceRoll() {
   if (state.isTurnLocked) return;
+
+  playSound("dice");
 
   state.isTurnLocked = true;
   rollDiceButton.disabled = true;
@@ -241,7 +273,7 @@ function getQuestion(category, difficulty) {
 function showQuestion(question, roll) {
   state.activeQuestion = question;
   state.pendingMove = roll;
-
+document.body.classList.add("lock-scroll");
   questionCategory.textContent = categoryLabels[question.category];
   questionCategory.className = `category-${question.category}`;
 
@@ -267,16 +299,18 @@ function showQuestion(question, roll) {
   });
 
   modal.classList.remove("hidden");
+  document.body.classList.add("lock-scroll");
 }
 
 function handleAnswer(index) {
   const correct = index === state.activeQuestion.correctIndex;
-
+document.body.classList.add("lock-scroll");
   feedbackDiv.textContent = correct ? "Correct!" : "Incorrect";
   feedbackDiv.className = correct ? "correct" : "incorrect";
 
   setTimeout(() => {
     modal.classList.add("hidden");
+      document.body.classList.remove("lock-scroll"); // 🔥 ADD THIS
 
     if (correct) movePlayer(state.pendingMove);
 
@@ -284,7 +318,42 @@ function handleAnswer(index) {
   }, 1200);
 }
 
+function handleAddPlayer() {
+  if (state.players.length >= state.maxPlayers) return;
+
+  const newId = state.players.length + 1;
+
+  state.players.push({
+    id: newId,
+    name: `Player ${newId}`,
+    position: 0
+  });
+
+  updatePlayerUI();
+  renderPlayerBar();
+  setupBoard(board);
+}
+function handleRemovePlayer() {
+  if (state.players.length <= state.minPlayers) return;
+
+  state.players.pop();
+
+  if (state.currentPlayerIndex >= state.players.length) {
+    state.currentPlayerIndex = 0;
+  }
+
+  updatePlayerUI();
+  renderPlayerBar();
+  setupBoard(board);
+}
+
+function updatePlayerUI() {
+  playerCountDisplay.textContent =
+    `${state.players.length} Player${state.players.length > 1 ? "s" : ""}`;
+}
+
 function unlockTurn() {
+ 
   state.activeQuestion = null;
   state.pendingMove = 0;
   state.isTurnLocked = false;
@@ -295,6 +364,7 @@ function unlockTurn() {
     (state.currentPlayerIndex + 1) % state.players.length;
 
   updateTurnDisplay();
+  renderPlayerBar();
 }
 function resetGame() {
 
@@ -329,9 +399,12 @@ function resetGame() {
 }
 
 function handleSkipQuestion() {
+
+  document.body.classList.add("lock-scroll");
   if (!state.debugMode) return;
 
   modal.classList.add("hidden");
+  document.body.classList.remove("lock-scroll"); // 🔥 ADD THIS
 
   movePlayer(state.pendingMove);
   unlockTurn();
@@ -467,10 +540,45 @@ function exportQuestions() {
   });
 }
 
+function renderPlayerBar() {
+  const playerBar = document.getElementById("playerBar");
+  playerBar.innerHTML = "";
+
+  state.players.forEach(player => {
+    const chip = document.createElement("div");
+    chip.className = "player-chip";
+
+    if (player.id === state.players[state.currentPlayerIndex].id) {
+      chip.classList.add("active");
+    }
+
+    const dot = document.createElement("div");
+    dot.className = "player-dot";
+    dot.style.background = playerColors[player.id];
+
+   const name = document.createElement("span");
+name.textContent = player.name;
+name.style.cursor = "pointer";
+
+name.addEventListener("click", () => {
+  const newName = prompt("Enter new name:", player.name);
+  if (newName && newName.trim() !== "") {
+    player.name = newName.trim();
+    renderPlayerBar();
+  }
+});
+
+    chip.appendChild(dot);
+    chip.appendChild(name);
+    playerBar.appendChild(chip);
+  });
+}
+
 
 function updateTurnDisplay() {
   const currentPlayer = state.players[state.currentPlayerIndex];
   turnIndicator.textContent = `Player ${currentPlayer.id}'s Turn`;
+  renderPlayerBar();
 }
 
 function generateQuestionId(category) {

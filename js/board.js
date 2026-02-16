@@ -2,7 +2,7 @@ import { state, categories } from "./state.js";
 
 let cells = [];
 let spiralPath = [];
-
+import { playSound } from "./sound.js";
 /* =========================
    BOARD SETUP
 ========================= */
@@ -113,6 +113,8 @@ state.players.forEach(playerData => {
    MOVEMENT
 ========================= */
 
+const MOVE_DURATION = 500; // must match CSS transition (0.3s)
+
 export function movePlayer(steps) {
   const currentPlayer = state.players[state.currentPlayerIndex];
   const maxPosition = spiralPath.length - 1;
@@ -131,12 +133,15 @@ export function movePlayer(steps) {
     }
 
     if (currentPlayer.position < maxPosition) {
+      playSound("move");  // 🔥 synced sound
+
       currentPlayer.position++;
       positionPlayer(currentPlayer.position, currentPlayer.id);
     }
 
     movesRemaining--;
-    setTimeout(stepMove, 200);
+
+    setTimeout(stepMove, MOVE_DURATION);
   }
 
   stepMove();
@@ -151,19 +156,35 @@ export function positionPlayer(position, playerId) {
   const cellRect = cell.getBoundingClientRect();
 
   const player = document.querySelector(`.player-${playerId}`);
+  if (!player) return;
 
-  if (!player) return; // 🔥 Prevent crash
+  // 🔥 Token size relative to tile
+  const tokenSize = cellRect.width * 0.4;
+  player.style.width = tokenSize + "px";
+  player.style.height = tokenSize + "px";
 
-  let offsetX = 5;
-  let offsetY = 5;
+  const centerX = cellRect.left - boardRect.left + (cellRect.width / 2);
+  const centerY = cellRect.top - boardRect.top + (cellRect.height / 2);
 
-  if (playerId === 2) {
-    offsetX = 35;
-    offsetY = 35;
+  // 🔥 Get all players on this same position
+  const playersHere = state.players.filter(p => p.position === position);
+
+  const index = playersHere.findIndex(p => p.id === playerId);
+  const total = playersHere.length;
+
+  let offsetX = -tokenSize / 2;
+  let offsetY = -tokenSize / 2;
+
+  if (total > 1) {
+    const radius = tokenSize * 0.6;
+    const angle = (2 * Math.PI * index) / total;
+
+    offsetX += Math.cos(angle) * radius;
+    offsetY += Math.sin(angle) * radius;
   }
 
-  player.style.left = (cellRect.left - boardRect.left + offsetX) + "px";
-  player.style.top = (cellRect.top - boardRect.top + offsetY) + "px";
+  player.style.left = (centerX + offsetX) + "px";
+  player.style.top = (centerY + offsetY) + "px";
 }
 
 export function getCurrentCell() {

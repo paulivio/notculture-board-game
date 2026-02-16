@@ -19,57 +19,62 @@ body {
 
 .board {
   display: grid;
-  grid-template-columns: repeat(7, 80px);
-  grid-template-rows: repeat(7, 80px);
-  gap: 4px;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
 
-  padding: 10px;
+  width: min(92vw, 92vh);
+  aspect-ratio: 1 / 1;
+
+ gap: clamp(4px, 1.2vw, 10px);
+  padding: 8px;
+
   background-color: #4a4d4c;
   border-radius: 12px;
 
-  margin-left: auto;
-  margin-right: auto;
-
-  position: relative;   /* 🔥 required for absolute canvas */
+  position: relative;
 }
+
 
 .board-logo {
   position: absolute;
-  top: 49.25%;
-  left: 49.25%;
-  transform: translate(-50%, -50%);
-  width: 260px;
-  height: 260px;
+  inset: 0;
+  margin: auto;
+
+  width: 43%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+
   object-fit: contain;
 
   z-index: 3;
   pointer-events: none;
 }
-
 .cell {
-  width: 70px;
-  height: 70px;
-  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
   background: white;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-weight: bold;
+  font-size: clamp(10px, 2vw, 16px);
+
   box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   transition: transform 0.2s ease;
-  z-index:2;
+  z-index: 2;
 }
 
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  z-index: 1000;
+  background: rgba(0,0,0,0.85);
+  z-index: 9999;
 }
 
 .modal.hidden {
@@ -110,17 +115,30 @@ body {
 
 .player {
   position: absolute;
-  width: 30px;
-  height: 30px;
+  width: 45%;
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
-  background: red;
 
-  transition: 
-    left 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    top 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  transition:
+    left 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    top 0.5s cubic-bezier(0.22, 1, 0.36, 1);
   z-index:5;
 }
 
+.player-1 {
+  background: red;
+}
+
+.player-2 {
+  background: blue;
+}
+.player-3 {
+  background: yellow;
+}
+
+.player-4 {
+  background: rgb(247, 21, 232);
+}
 
 button {
   padding: 10px 20px;
@@ -230,10 +248,29 @@ button {
 }
 
 #questionEditor {
-  margin-top: 20px;
-  padding: 16px;
-  border: 1px solid #444;
-  width: 500px;
+  position: fixed;
+  inset: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 2000;
+}
+
+#questionEditor.hidden {
+  display: none;
+}
+
+#questionEditor > div {
+  background: #222;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
 }
 
 #questionEditor input,
@@ -304,20 +341,8 @@ button {
   position: relative;
 }
 
-.player {
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-}
 
-.player-1 {
-  background: red;
-}
 
-.player-2 {
-  background: blue;
-}
 
 .cell:not(.inactive):hover {
   transform: scale(1.05);
@@ -370,18 +395,26 @@ button {
   display: none;
 }
 
+html, body {
+  margin: 0;
+}
+
 .game-layout {
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 40px;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 100vh;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .controls {
   display: flex;
   flex-direction: column;
-  width: 240px;
+  width: 100%;
+  max-width: 400px;
 }
 
 .controls button {
@@ -390,4 +423,119 @@ button {
 
 #diceImage {
   margin: 20px 0;
+}
+
+@media (min-width: 900px) {
+
+  .game-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 40px;
+  }
+
+  .controls {
+    flex: 0 0 320px;   /* Fixed starting width */
+    max-width: 500px;
+  }
+
+.board {
+  flex: 1 1 auto;
+  height: auto;
+  max-height: 80vh;
+  max-width: 80vh;   /* 🔥 Important */
+}
+}
+.player-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.player-controls span {
+  font-weight: bold;
+}
+
+
+.player-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 10px 0 15px 0;
+}
+
+.player-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #222;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.player-chip.active {
+  outline: 2px solid white;
+  transform: scale(1.05);
+}
+
+.player-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+
+.settings-wrapper {
+  position: relative;
+  z-index: 10;
+}
+
+#settingsToggle {
+  margin-bottom: 10px;
+}
+
+.settings-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #444;
+
+  z-index: 20;
+}
+
+.settings-menu button {
+  margin: 0;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+#questionEditor > div {
+  position: relative;
+   z-index: 3000;  /* 🔥 raise above settings */
+}
+
+body.lock-scroll {
+  overflow: hidden;
 }

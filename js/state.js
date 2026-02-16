@@ -2,10 +2,12 @@
 
 export const state = {
   questions: [],
-  players: [
-  { id: 1, position: 0 },
-  { id: 2, position: 0 }
+players: [
+  { id: 1, name: "Player 1", position: 0 },
+  { id: 2, name: "Player 2", position: 0 }
 ],
+maxPlayers: 4,
+minPlayers: 1,
 currentPlayerIndex: 0,
   activeQuestion: null,
   pendingMove: 0,
