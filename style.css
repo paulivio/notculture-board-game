@@ -462,6 +462,16 @@ html, body {
   max-width: 80vh;   /* 🔥 Important */
 }
 }
+
+@media (max-width: 600px) {
+
+  .board-logo {
+    width: 42%;     /* reduce slightly */
+  }
+
+}
+
+
 .player-controls {
   display: flex;
   justify-content: space-between;
