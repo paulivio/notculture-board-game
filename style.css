@@ -554,3 +554,10 @@ html, body {
 body.lock-scroll {
   overflow: hidden;
 }
+
+.dice-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;   /* 🔥 much smaller spacing */
+}
