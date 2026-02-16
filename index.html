@@ -9,42 +9,49 @@
 
 <body>
 
-  <div class="game-layout">
+<div class="game-layout">
 
-    <!-- SIDE CONTROLS -->
-    <div class="controls">
-      <h1>NotCulture Board Game</h1>
+  <!-- TOP PANEL -->
+  <div class="top-panel">
+    <h1>NotCulture Board Game</h1>
 
-      <div id="playerBar" class="player-bar"></div>
+    <div id="playerBar" class="player-bar"></div>
 
-      <button id="rollDice">Roll Dice</button>
-      <button id="restartSide">Restart Game</button>
-      <div class="player-controls">
-  <button id="removePlayer">− Player</button>
-  <span id="playerCount">2 Players</span>
-  <button id="addPlayer">+ Player</button>
-</div>
+    <button id="rollDice">Roll Dice</button>
 
-      <div id="turnIndicator">Player 1's Turn</div>
+    <img id="diceImage" src="assets/dice/dice-1.png" alt="Dice" />
 
-      <img id="diceImage" src="assets/dice/dice-1.png" alt="Dice" />
-
-    <div class="settings-wrapper">
-  <button id="settingsToggle">⚙ Settings</button>
-
-  <div id="settingsMenu" class="settings-menu hidden">
-    <button id="toggleEditor">Add / Edit Questions</button>
-    <button id="debugToggle">Toggle Debug Mode</button>
+    
   </div>
-</div>
-      <div id="editorError" class="editor-error"></div>
+
+  <!-- BOARD -->
+  <div class="board" id="board"></div>
+
+  <!-- BOTTOM PANEL -->
+  <div class="bottom-panel">
+
+    <div class="player-controls">
+      <button id="removePlayer">− Player</button>
+      <span id="playerCount">2 Players</span>
+      <button id="addPlayer">+ Player</button>
     </div>
 
-    <!-- BOARD -->
-    <div class="board" id="board"></div>
+    <button id="restartSide">Restart Game</button>
+
+    <div class="settings-wrapper">
+      <button id="settingsToggle">⚙ Settings</button>
+
+      <div id="settingsMenu" class="settings-menu hidden">
+        <button id="toggleEditor">Add / Edit Questions</button>
+        <button id="debugToggle">Toggle Debug Mode</button>
+      </div>
+    </div>
+
+    <div id="editorError" class="editor-error"></div>
 
   </div>
 
+</div>
   <hr />
 
 <div id="editorError" class="editor-error"></div>

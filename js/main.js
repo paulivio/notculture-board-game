@@ -80,10 +80,11 @@ function init() {
   setupBoard(board);
   setupEventListeners();
   loadQuestions();
-  updateTurnDisplay();
+
     window.addEventListener("resize", () => {
     setupBoard(board);
   });
+  renderPlayerBar();
 }
 
 
@@ -363,7 +364,7 @@ function unlockTurn() {
   state.currentPlayerIndex =
     (state.currentPlayerIndex + 1) % state.players.length;
 
-  updateTurnDisplay();
+  
   renderPlayerBar();
 }
 function resetGame() {
@@ -395,7 +396,7 @@ function resetGame() {
     positionPlayer(player.position, player.id);
   });
 
-  updateTurnDisplay();
+  updatePlayerBar();
 }
 
 function handleSkipQuestion() {
@@ -575,11 +576,7 @@ name.addEventListener("click", () => {
 }
 
 
-function updateTurnDisplay() {
-  const currentPlayer = state.players[state.currentPlayerIndex];
-  turnIndicator.textContent = `Player ${currentPlayer.id}'s Turn`;
-  renderPlayerBar();
-}
+
 
 function generateQuestionId(category) {
   const categoryQuestions = state.questions.filter(

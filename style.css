@@ -410,6 +410,21 @@ html, body {
   box-sizing: border-box;
 }
 
+.top-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.bottom-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
 .controls {
   display: flex;
   flex-direction: column;
