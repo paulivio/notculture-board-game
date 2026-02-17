@@ -19,14 +19,25 @@
     <div class="dice-section">
   <button id="rollDice">Roll Dice</button>
   <img id="diceImage" src="assets/dice/dice-1.png" alt="Dice" />
-</div>
+
   </div>
 
+
+
+</div>
   <!-- BOARD -->
   <div class="board" id="board"></div>
 
-  <!-- BOTTOM PANEL -->
-  <div class="bottom-panel">
+<div class="bottom-panel">
+
+  <!-- MODE SELECTOR -->
+  <div id="gameModePanel" class="game-mode-panel">
+    <button id="localModeBtn">Local Game</button>
+    <button id="onlineModeBtn">Online Game</button>
+  </div>
+
+  <!-- LOCAL CONTROLS -->
+  <div id="localControls">
 
     <div class="player-controls">
       <button id="removePlayer">− Player</button>
@@ -34,16 +45,36 @@
       <button id="addPlayer">+ Player</button>
     </div>
 
-    <button id="restartSide">Restart Game</button>
+  </div>
 
-    <div class="settings-wrapper">
-      <button id="settingsToggle">⚙ Settings</button>
+  <!-- ONLINE CONTROLS -->
+  <div id="onlineControls" class="hidden">
 
-      <div id="settingsMenu" class="settings-menu hidden">
-        <button id="toggleEditor">Add / Edit Questions</button>
-        <button id="debugToggle">Toggle Debug Mode</button>
-      </div>
+    <div class="mp-section">
+      <button id="createRoomBtn">Create Room</button>
+      <div id="createdRoomDisplay"></div>
     </div>
+
+    <div class="mp-section">
+      <input id="roomCodeInput" placeholder="Room Code" />
+      <input id="playerNameInput" placeholder="Your Name" />
+      <button id="joinRoomBtn">Join</button>
+    </div>
+  </div>
+
+  <!-- ALWAYS VISIBLE CONTROLS -->
+  <button id="restartSide">Restart Game</button>
+
+  <div class="settings-wrapper">
+    <button id="settingsToggle">⚙ Settings</button>
+    <div id="settingsMenu" class="settings-menu hidden">
+      <button id="toggleEditor">Add / Edit Questions</button>
+      <button id="debugToggle">Toggle Debug Mode</button>
+    </div>
+  </div>
+
+</div>
+</div>
 
     <div id="editorError" class="editor-error"></div>
 

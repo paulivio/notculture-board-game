@@ -572,3 +572,32 @@ body.lock-scroll {
   align-items: center;
   gap: 2px;   /* 🔥 much smaller spacing */
 }
+
+.multiplayer-panel {
+  background: #222;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.multiplayer-panel input {
+  padding: 4px 6px;
+}
+
+.multiplayer-panel button {
+  padding: 4px 8px;
+}
+
+.game-mode-panel {
+  margin-bottom: 8px;
+}
+#createdRoomDisplay {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #4caf50;
+}
