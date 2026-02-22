@@ -1,7 +1,7 @@
 console.log("🔥🔥🔥 MAIN JS VERSION 2 LOADED 🔥🔥🔥");
 console.log("TOP OF FILE")
-let lastProcessedRollId = null;
-state.activePlayerKey = null;
+
+
 import { db, ref, set, update, get, onValue } from "./firebase.js";
 import { state, categories, categoryLabels } from "./state.js";
 import { 
@@ -14,6 +14,8 @@ import {
 } from "./board.js";
 import { playSound } from "./sound.js";
 
+state.activePlayerKey = null;
+let lastProcessedRollId = null;
 /* =========================
    FIREBASE TEST
 ========================= */
