@@ -393,13 +393,24 @@ window.addEventListener("DOMContentLoaded", init);
 function init() {
 
   const savedRoom = localStorage.getItem("notculture_roomCode");
-const savedPlayerId = localStorage.getItem("notculture_playerId");
+  const savedPlayerId = localStorage.getItem("notculture_playerId");
+  const savedPlayerName = localStorage.getItem("notculture_playerName");
 
-if (savedRoom && savedPlayerId) {
-  window.currentRoomCode = savedRoom;
-  window.myPlayerId = savedPlayerId;
-  listenToRoom(savedRoom);
-}
+  if (savedRoom && savedPlayerId && savedPlayerName) {
+
+    console.log("Attempting reconnect...");
+
+    window.currentRoomCode = savedRoom;
+    window.myPlayerId = savedPlayerId;
+    window.myPlayerName = savedPlayerName;
+
+    // 🔥 Re-run join logic safely
+    joinRoom(savedRoom, savedPlayerName).then(() => {
+      listenToRoom(savedRoom);
+    });
+
+  }
+
   setupBoard(board);
   setupEventListeners();
   loadQuestions();
@@ -449,9 +460,13 @@ createRoomBtn.addEventListener("click", async () => {
     gameState: "waiting"
   });
 
-  window.currentRoomCode = roomCode;
+window.myPlayerId = playerId;
+window.myPlayerName = playerName;
+window.currentRoomCode = roomCode;
 
-  localStorage.setItem("notculture_roomCode", roomCode);
+localStorage.setItem("notculture_roomCode", roomCode);
+
+localStorage.setItem("notculture_playerName", playerName);
 
   createdRoomDisplay.textContent = `Room Code: ${roomCode}`;
 
