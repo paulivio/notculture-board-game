@@ -1,6 +1,7 @@
 console.log("🔥🔥🔥 MAIN JS VERSION 2 LOADED 🔥🔥🔥");
 console.log("TOP OF FILE")
 let lastProcessedRollId = null;
+state.activePlayerKey = null;
 import { db, ref, set, update, get, onValue } from "./firebase.js";
 import { state, categories, categoryLabels } from "./state.js";
 import { 
@@ -251,6 +252,7 @@ function listenToRoom (roomCode) {
     const playerKeys = roomData.playerOrder || [];
     const activeIndex = roomData.currentPlayerIndex || 0;
     const activePlayerKey = playerKeys[activeIndex];
+    state.activePlayerKey = activePlayerKey;
 
     rollDiceButton.disabled = window.myPlayerId !== activePlayerKey;
 
@@ -281,13 +283,52 @@ function listenToRoom (roomCode) {
         console.log("My ID:", window.myPlayerId);
         console.log("Active ID:", activePlayerKey);
 
-        if (window.myPlayerId === activePlayerKey) {
-          simulateOnlineRoll(value);
-        }
+const isActivePlayer = window.myPlayerId === activePlayerKey;
 
-      }
-    }
+const answerButtons = document.querySelectorAll(".answer-button");
 
+answerButtons.forEach(btn => {
+  btn.disabled = !isActivePlayer;
+});
+
+    simulateOnlineRoll(value);
+
+if (window.myPlayerId === activePlayerKey) {
+
+
+  
+  const difficulty = value; // or however you map roll to difficulty
+  const question = getQuestion(state.pendingCategory, difficulty);
+
+console.log("Selected question:", question);
+
+
+    await update(roomRef, {
+      currentQuestion: question.id
+    });
+
+    } // close activePlayerKey check
+
+  } // close id !== lastProcessedRollId
+
+} // close roomData.currentRoll
+      
+/* Handle Question */
+
+if (roomData.currentQuestion) {
+
+  const question = state.questions.find(
+    q => q.id === roomData.currentQuestion
+  );
+
+  if (question) {
+    displayQuestion(question);
+  }
+
+} else {
+  // If question cleared → close modal
+  modal.classList.add("hidden");
+}
   }); // end onValue
 
 }; // end listenToRoom
@@ -571,23 +612,16 @@ function processRoll(roll) {
   // 🎲 If on START, pick random category
   if (!category) {
     category = categories[Math.floor(Math.random() * categories.length)];
-    console.log("Start square — random category:", category);
   }
 
   console.log("Question category:", category);
   console.log("Roll difficulty:", roll);
 
-  const question = getQuestion(category, roll);
+  // Store for later (movement after correct answer)
+  state.pendingMove = roll;
+  state.pendingCategory = category;
 
-  if (!question) {
-    console.log("No matching question found.");
-    unlockTurn();
-    return;
-  }
-
-  showQuestion(question, roll);
 }
-
  
 
 function getQuestion(category, difficulty) {
@@ -659,6 +693,11 @@ document.body.classList.add("lock-scroll");
 
 async function handleAnswer(index) {
 
+  // 🔒 Online safety: only active player can answer
+  if (window.gameMode === "online") {
+    if (window.myPlayerId !== state.activePlayerKey) return;
+  }
+
   const correct = index === state.activeQuestion.correctIndex;
 
   document.body.classList.add("lock-scroll");
@@ -671,28 +710,36 @@ async function handleAnswer(index) {
     modal.classList.add("hidden");
     document.body.classList.remove("lock-scroll");
 
-    if (correct) {
+    if (window.gameMode === "online") {
 
-      if (window.gameMode === "online") {
+      const roomRef = ref(db, `rooms/${window.currentRoomCode}`);
 
+      // ✅ Move ONLY if correct
+      if (correct) {
         await updatePlayerPosition(
           window.currentRoomCode,
           state.currentPlayerIndex,
           state.pendingMove
         );
-
-      } else {
-
-        movePlayer(state.pendingMove);
-
       }
 
-    }
+      // 🔥 VERY IMPORTANT:
+      // Clear question + roll BEFORE changing turn
+      await update(roomRef, {
+        currentQuestion: null,
+        currentRoll: null
+      });
 
-    // 🔥 TURN ALWAYS ADVANCES
-    if (window.gameMode === "online") {
+      // Now advance turn
       await updateTurn(window.currentRoomCode);
+
     } else {
+
+      // Local mode logic
+      if (correct) {
+        movePlayer(state.pendingMove);
+      }
+
       state.currentPlayerIndex =
         (state.currentPlayerIndex + 1) % state.players.length;
     }
@@ -702,6 +749,7 @@ async function handleAnswer(index) {
 
   }, 1200);
 }
+
 
 
 function handleAddPlayer() {
