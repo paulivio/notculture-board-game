@@ -392,7 +392,7 @@ window.addEventListener("DOMContentLoaded", init);
 
 async function init() {
 
- const savedRoom = localStorage.getItem("notculture_roomCode");
+const savedRoom = localStorage.getItem("notculture_roomCode");
 const savedPlayerId = localStorage.getItem("notculture_playerId");
 const savedPlayerName = localStorage.getItem("notculture_playerName");
 
