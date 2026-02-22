@@ -448,6 +448,10 @@ if (savedRoom && savedPlayerId && savedPlayerName) {
   try {
     console.log("Attempting reconnect...");
 
+window.gameMode = "online";
+localControls.classList.add("hidden");
+onlineControls.classList.remove("hidden");
+
     window.currentRoomCode = savedRoom;
     window.myPlayerId = savedPlayerId;
     window.myPlayerName = savedPlayerName;
@@ -488,11 +492,23 @@ localModeBtn.addEventListener("click", () => {
   localControls.classList.remove("hidden");
   onlineControls.classList.add("hidden");
 });
+const restartGameBtn = document.getElementById("restartGameBtn");
+const leaveRoomBtn = document.getElementById("leaveRoomBtn");
+
+
 
 onlineModeBtn.addEventListener("click", () => {
   window.gameMode = "online";
   localControls.classList.add("hidden");
   onlineControls.classList.remove("hidden");
+});
+
+restartGameBtn.addEventListener("click", () => {
+  restartGame();
+});
+
+leaveRoomBtn.addEventListener("click", () => {
+  leaveRoom();
 });
 
 

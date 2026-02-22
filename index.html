@@ -63,18 +63,22 @@
   </div>
 
   <!-- ALWAYS VISIBLE CONTROLS -->
-  <button id="restartSide">Restart Game</button>
 
-  <div class="settings-wrapper">
-    <button id="settingsToggle">⚙ Settings</button>
-    <div id="settingsMenu" class="settings-menu hidden">
-      <button id="toggleEditor">Add / Edit Questions</button>
-      <button id="debugToggle">Toggle Debug Mode</button>
-    </div>
+
+<div class="settings-wrapper">
+  <button id="settingsToggle">⚙ Settings</button>
+
+  <div id="settingsMenu" class="settings-menu hidden">
+    <button id="toggleEditor">Add / Edit Questions</button>
+    <button id="debugToggle">Toggle Debug Mode</button>
+    <hr />
+    <button id="restartGameBtn">Restart Game</button>
+    <button id="leaveRoomBtn">Leave Room</button>
   </div>
+</div>
 
 </div>
-<button onclick="leaveRoom()">Leave Room</button>
+
 </div>
 
     <div id="editorError" class="editor-error"></div>
