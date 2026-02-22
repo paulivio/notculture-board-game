@@ -456,42 +456,46 @@ const playerNameInput = document.getElementById("playerNameInput");
 const createdRoomDisplay = document.getElementById("createdRoomDisplay");
 
 createRoomBtn.addEventListener("click", async () => {
+
+  const playerName = playerNameInput.value.trim();
+
+  if (!playerName) {
+    alert("Enter your name first.");
+    return;
+  }
+
   const roomCode = generateRoomCode();
 
+  const playerId = Date.now().toString();
+
+  // Save identity
+  localStorage.setItem("notculture_playerId", playerId);
+  localStorage.setItem("notculture_playerName", playerName);
+  localStorage.setItem("notculture_roomCode", roomCode);
+
+  window.myPlayerId = playerId;
+  window.myPlayerName = playerName;
+  window.currentRoomCode = roomCode;
+
+  // Create room WITH first player already inside
   await set(ref(db, `rooms/${roomCode}`), {
-    players: null,
+    players: {
+      [playerId]: {
+        id: playerId,
+        name: playerName,
+        position: 0
+      }
+    },
+    playerOrder: [playerId],
     currentPlayerIndex: 0,
     currentRoll: null,
     gameState: "waiting"
   });
 
-window.myPlayerId = savedPlayerId;
-window.myPlayerName = savedPlayerName;
-window.currentRoomCode = roomCode;
-
-localStorage.setItem("notculture_roomCode", roomCode);
-
-localStorage.setItem("notculture_playerName", playerName);
-
   createdRoomDisplay.textContent = `Room Code: ${roomCode}`;
-
- listenToRoom(roomCode);
-});
-
-joinRoomBtn.addEventListener("click", async () => {
-  const roomCode = roomCodeInput.value.trim().toUpperCase();
-  const playerName = playerNameInput.value.trim();
-
-  if (!roomCode || !playerName) {
-    alert("Enter room code and name.");
-    return;
-  }
-
-  await joinRoom(roomCode, playerName);
 
   listenToRoom(roomCode);
 });
-
 }
 
 
