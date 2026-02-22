@@ -1,6 +1,10 @@
 // js/state.js
 
 export const state = {
+
+
+  questionsLoaded: false,
+  
   questions: [],
   
 players: [],

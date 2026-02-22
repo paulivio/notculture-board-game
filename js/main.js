@@ -55,16 +55,20 @@ window.updatePlayerPosition = async (roomCode, playerIndex, steps) => {
 };
 
 window.updateTurn = async (roomCode) => {
+
   const roomRef = ref(db, `rooms/${roomCode}`);
   const snapshot = await get(roomRef);
 
   if (!snapshot.exists()) return;
 
   const roomData = snapshot.val();
-  const players = Object.values(roomData.players || {});
+
+  const playerOrder = roomData.playerOrder || [];
   const currentIndex = roomData.currentPlayerIndex || 0;
 
-  const nextIndex = (currentIndex + 1) % players.length;
+  if (playerOrder.length === 0) return;
+
+  const nextIndex = (currentIndex + 1) % playerOrder.length;
 
   await update(roomRef, {
     currentPlayerIndex: nextIndex
@@ -242,6 +246,7 @@ function listenToRoom (roomCode) {
   onValue(roomRef, async (snapshot) => {
 
     const roomData = snapshot.val();
+    
     if (!roomData) return;
 
     console.log("Room updated:", roomData);
@@ -258,74 +263,103 @@ function listenToRoom (roomCode) {
 
     const playersArray = Object.values(firebasePlayers);
 
-    state.players = playersArray.map((p, index) => ({
-      id: index + 1,
-      name: p.name,
-      position: p.position
-    }));
+const previousPlayers = state.players;
 
+state.players = playersArray.map((p, index) => ({
+  id: index + 1,
+  name: p.name,
+  position: p.position
+}));
+
+renderPlayerBar();
+
+const board = document.getElementById("board");
+
+state.players.forEach((player, i) => {
+
+  let token = document.querySelector(`.player-${player.id}`);
+
+  if (!token) {
+    token = document.createElement("div");
+    token.classList.add("player");
+    token.classList.add(`player-${player.id}`);
+    board.appendChild(token);
+
+    // Only position instantly when first created
+    positionPlayer(player.position, player.id);
+    return;
+  }
+
+  const previous = previousPlayers[i];
+
+  if (previous && player.position > previous.position) {
+
+    animateOnlineMove(
+      player.id,
+      previous.position,
+      player.position - previous.position
+    );
+
+  }
+
+});
     state.currentPlayerIndex = activeIndex;
 
-    setupBoard(document.getElementById("board"));
-    renderPlayerBar();
+    // 🔥 Reset local turn lock when turn changes
+state.isTurnLocked = false;
+rollDiceButton.disabled = window.myPlayerId !== activePlayerKey;
+
+renderPlayerBar();
 
     /* Handle Roll */
 
-    if (roomData.currentRoll) {
+if (
+  roomData.currentRoll &&
+  window.myPlayerId === activePlayerKey
+) {
 
-      const { value, id } = roomData.currentRoll;
+  const { value, id } = roomData.currentRoll;
 
-      if (id !== lastProcessedRollId) {
+  if (id !== lastProcessedRollId) {
 
-        lastProcessedRollId = id;
+    lastProcessedRollId = id;
 
-        console.log("Roll received:", value);
-        console.log("My ID:", window.myPlayerId);
-        console.log("Active ID:", activePlayerKey);
-
-const isActivePlayer = window.myPlayerId === activePlayerKey;
-
-const answerButtons = document.querySelectorAll(".answer-button");
-
-answerButtons.forEach(btn => {
-  btn.disabled = !isActivePlayer;
-});
+    console.log("Roll received:", value);
+    console.log("My ID:", window.myPlayerId);
+    console.log("Active ID:", activePlayerKey);
 
     simulateOnlineRoll(value);
+  }
+}
 
-if (window.myPlayerId === activePlayerKey) {
-
-
-  
-  const difficulty = value; // or however you map roll to difficulty
-  const question = getQuestion(state.pendingCategory, difficulty);
-
-console.log("Selected question:", question);
-
-
-    await update(roomRef, {
-      currentQuestion: question.id
-    });
-
-    } // close activePlayerKey check
-
-  } // close id !== lastProcessedRollId
-
-} // close roomData.currentRoll
+// 🔥 Reset roll tracking when cleared
+if (!roomData.currentRoll) {
+  lastProcessedRollId = null;
+}
       
 /* Handle Question */
 
 if (roomData.currentQuestion) {
 
+  if (!state.questionsLoaded) {
+    console.log("Questions not loaded yet. Waiting...");
+    return;
+  }
+
   const question = state.questions.find(
     q => q.id === roomData.currentQuestion
   );
 
-  if (question) {
-    displayQuestion(question);
+  if (!question) {
+    console.error("Question not found in local pool:", roomData.currentQuestion);
+    return;
   }
 
-} else {
+ const rollValue = roomData.currentRoll?.value ?? state.pendingMove;
+showQuestion(question, rollValue);
+}
+
+ else {
   // If question cleared → close modal
   modal.classList.add("hidden");
 }
@@ -485,20 +519,37 @@ function setupEventListeners() {
 }
 
 async function loadQuestions() {
+
   const categoryFiles = ["film", "science", "general", "history"];
 
-  const loaded = await Promise.all(
-    categoryFiles.map(cat =>
-      fetch(`data/${cat}.json`)
-        .then(res => res.json())
-        .then(data => data.map(q => ({ ...q, category: cat })))
-    )
-  );
+  try {
 
-  state.questions = loaded.flat();
-  renderQuestionList();
+    const loaded = await Promise.all(
+      categoryFiles.map(async cat => {
+        const res = await fetch(`data/${cat}.json`);
+
+        if (!res.ok) {
+          console.error(`Failed to load ${cat}.json`);
+          return [];
+        }
+
+        const data = await res.json();
+        return data.map(q => ({ ...q, category: cat }));
+      })
+    );
+
+    state.questions = loaded.flat();
+    state.questionsLoaded = true;
+
+    console.log("Questions loaded:", state.questions.length);
+
+    renderQuestionList();
+
+  } catch (err) {
+    console.error("Error loading questions:", err);
+    state.questions = [];
+  }
 }
-
 
 
 function toggleDebugMode() {
@@ -609,20 +660,68 @@ function processRoll(roll) {
     currentCell.classList.contains(cat)
   );
 
-  // 🎲 If on START, pick random category
   if (!category) {
     category = categories[Math.floor(Math.random() * categories.length)];
   }
 
-  console.log("Question category:", category);
-  console.log("Roll difficulty:", roll);
-
-  // Store for later (movement after correct answer)
   state.pendingMove = roll;
   state.pendingCategory = category;
 
+  console.log("Question category:", category);
+  console.log("Roll difficulty:", roll);
+
+  // ✅ ONLINE MODE: active player selects question here
+  if (window.gameMode === "online") {
+
+    if (window.myPlayerId === state.activePlayerKey) {
+
+      const question = getQuestion(category, roll);
+
+      if (!question) {
+        console.error("No question found for:", category, roll);
+        return;
+      }
+
+      const roomRef = ref(db, `rooms/${window.currentRoomCode}`);
+
+      update(roomRef, {
+        currentQuestion: question.id
+      });
+
+    }
+
+  } else {
+    // LOCAL MODE
+    const question = getQuestion(category, roll);
+    if (question) {
+      showQuestion(question, roll);
+    }
+  }
 }
  
+
+function animateOnlineMove(playerId, startPosition, steps) {
+
+  const MOVE_DURATION = 500;
+  let current = startPosition;
+  let movesRemaining = steps;
+
+  function step() {
+
+    if (movesRemaining <= 0) return;
+
+    playSound("move");
+
+    current++;
+    positionPlayer(current, playerId);
+
+    movesRemaining--;
+
+    setTimeout(step, MOVE_DURATION);
+  }
+
+  step();
+}
 
 function getQuestion(category, difficulty) {
 
@@ -723,15 +822,18 @@ async function handleAnswer(index) {
         );
       }
 
-      // 🔥 VERY IMPORTANT:
-      // Clear question + roll BEFORE changing turn
-      await update(roomRef, {
-        currentQuestion: null,
-        currentRoll: null
-      });
+    const snapshot = await get(roomRef);
+const roomData = snapshot.val();
 
-      // Now advance turn
-      await updateTurn(window.currentRoomCode);
+const nextIndex =
+  (roomData.currentPlayerIndex + 1) %
+  roomData.playerOrder.length;
+
+await update(roomRef, {
+  currentQuestion: null,
+  currentRoll: null,
+  currentPlayerIndex: nextIndex
+});
 
     } else {
 
@@ -1020,6 +1122,24 @@ name.addEventListener("click", () => {
   });
 }
 
+function syncPlayerTokens() {
+
+  const board = document.getElementById("board");
+
+  state.players.forEach(player => {
+
+    let token = document.querySelector(`.player-${player.id}`);
+
+    if (!token) {
+      token = document.createElement("div");
+      token.classList.add("player");
+      token.classList.add(`player-${player.id}`);
+      board.appendChild(token);
+    }
+
+    positionPlayer(player.position, player.id);
+  });
+}
 
 
 
