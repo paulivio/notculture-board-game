@@ -543,8 +543,25 @@ createRoomBtn.addEventListener("click", async () => {
 
   listenToRoom(roomCode);
 });
-}
 
+joinRoomBtn.addEventListener("click", async () => {
+
+  const roomCode = roomCodeInput.value.trim().toUpperCase();
+  const playerName = playerNameInput.value.trim();
+
+  if (!roomCode || !playerName) {
+    alert("Enter room code and name.");
+    return;
+  }
+
+  localStorage.setItem("notculture_playerName", playerName);
+  localStorage.setItem("notculture_roomCode", roomCode);
+
+  await joinRoom(roomCode, playerName);
+  listenToRoom(roomCode);
+});
+
+}
 
 
 /* =========================
