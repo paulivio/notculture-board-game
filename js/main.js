@@ -466,7 +466,7 @@ createRoomBtn.addEventListener("click", async () => {
   });
 
 window.myPlayerId = savedPlayerId;
-window.myPlayerName = playerName;
+window.myPlayerName = savedPlayerName;
 window.currentRoomCode = roomCode;
 
 localStorage.setItem("notculture_roomCode", roomCode);
