@@ -16,6 +16,7 @@ import { playSound } from "./sound.js";
 
 state.activePlayerKey = null;
 let lastProcessedRollId = null;
+let unsubscribeRoomListener = null;
 /* =========================
    FIREBASE TEST
 ========================= */
@@ -32,6 +33,51 @@ window.testFirebase = async () => {
   } catch (err) {
     console.error("Firebase write FAILED ❌", err);
   }
+};
+
+window.leaveRoom = async () => {
+
+  if (!window.currentRoomCode || !window.myPlayerId) {
+    localStorage.clear();
+    location.reload();
+    return;
+  }
+
+  const roomRef = ref(db, `rooms/${window.currentRoomCode}`);
+
+  const snapshot = await get(roomRef);
+
+  if (snapshot.exists()) {
+
+    const roomData = snapshot.val();
+    const players = roomData.players || {};
+    const playerOrder = roomData.playerOrder || [];
+
+    // Remove player from Firebase
+    delete players[window.myPlayerId];
+
+    const newOrder = playerOrder.filter(
+      id => id !== window.myPlayerId
+    );
+
+    await update(roomRef, {
+      players: players,
+      playerOrder: newOrder
+    });
+  }
+
+  // Stop listening to room updates
+  if (unsubscribeRoomListener) {
+    unsubscribeRoomListener();
+    unsubscribeRoomListener = null;
+  }
+
+  // Clear local identity
+  localStorage.removeItem("notculture_roomCode");
+  localStorage.removeItem("notculture_playerId");
+  localStorage.removeItem("notculture_playerName");
+
+  location.reload();
 };
 
 window.updatePlayerPosition = async (roomCode, playerIndex, steps) => {
@@ -260,8 +306,7 @@ function listenToRoom (roomCode) {
 
   const roomRef = ref(db, `rooms/${roomCode}`);
 
-  onValue(roomRef, async (snapshot) => {
-
+ unsubscribeRoomListener = onValue(roomRef, async (snapshot) => {
     const roomData = snapshot.val();
     
     if (!roomData) return;
