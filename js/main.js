@@ -390,26 +390,31 @@ console.log("listenToRoom defined");
 
 window.addEventListener("DOMContentLoaded", init);
 
-function init() {
+async function init() {
 
-  const savedRoom = localStorage.getItem("notculture_roomCode");
-  const savedPlayerId = localStorage.getItem("notculture_playerId");
-  const savedPlayerName = localStorage.getItem("notculture_playerName");
+ const savedRoom = localStorage.getItem("notculture_roomCode");
+const savedPlayerId = localStorage.getItem("notculture_playerId");
+const savedPlayerName = localStorage.getItem("notculture_playerName");
 
-  if (savedRoom && savedPlayerId && savedPlayerName) {
+if (savedRoom && savedPlayerId && savedPlayerName) {
 
+  try {
     console.log("Attempting reconnect...");
 
     window.currentRoomCode = savedRoom;
     window.myPlayerId = savedPlayerId;
     window.myPlayerName = savedPlayerName;
 
-    // 🔥 Re-run join logic safely
-    joinRoom(savedRoom, savedPlayerName).then(() => {
-      listenToRoom(savedRoom);
-    });
+    await joinRoom(savedRoom, savedPlayerName);
+    listenToRoom(savedRoom);
 
+  } catch (err) {
+    console.log("Reconnect failed, clearing saved session.");
+    localStorage.removeItem("notculture_roomCode");
+    localStorage.removeItem("notculture_playerId");
+    localStorage.removeItem("notculture_playerName");
   }
+}
 
   setupBoard(board);
   setupEventListeners();
