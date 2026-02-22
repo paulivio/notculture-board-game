@@ -504,6 +504,10 @@ const createdRoomDisplay = document.getElementById("createdRoomDisplay");
 
 createRoomBtn.addEventListener("click", async () => {
 
+window.gameMode = "online";
+localControls.classList.add("hidden");
+onlineControls.classList.remove("hidden");
+
   const playerName = playerNameInput.value.trim();
 
   if (!playerName) {
@@ -545,6 +549,10 @@ createRoomBtn.addEventListener("click", async () => {
 });
 
 joinRoomBtn.addEventListener("click", async () => {
+
+ window.gameMode = "online";
+  localControls.classList.add("hidden");
+  onlineControls.classList.remove("hidden");
 
   const roomCode = roomCodeInput.value.trim().toUpperCase();
   const playerName = playerNameInput.value.trim();
