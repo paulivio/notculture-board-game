@@ -566,7 +566,7 @@ onlineControls.classList.remove("hidden");
 
 joinRoomBtn.addEventListener("click", async () => {
 
- window.gameMode = "online";
+  window.gameMode = "online";
   localControls.classList.add("hidden");
   onlineControls.classList.remove("hidden");
 
@@ -577,6 +577,9 @@ joinRoomBtn.addEventListener("click", async () => {
     alert("Enter room code and name.");
     return;
   }
+
+  // 🔥 Clear previous identity so we don't reconnect as someone else
+  localStorage.removeItem("notculture_playerId");
 
   localStorage.setItem("notculture_playerName", playerName);
   localStorage.setItem("notculture_roomCode", roomCode);
