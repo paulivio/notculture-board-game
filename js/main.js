@@ -153,14 +153,27 @@ window.joinRoom = async (roomCode, playerName) => {
 
   const roomData = snapshot.val();
 
-  const playerId = Date.now().toString();
+let playerId = localStorage.getItem("notculture_playerId");
+
+if (!playerId) {
+  playerId = Date.now().toString();
+  localStorage.setItem("notculture_playerId", playerId);
+}
 
   // Store locally who I am
   window.myPlayerId = playerId;
   window.myPlayerName = playerName;
   window.currentRoomCode = roomCode;
 
-  const existingOrder = roomData.playerOrder || [];
+const existingPlayers = roomData.players || {};
+const existingOrder = roomData.playerOrder || [];
+
+// If player already exists → just reconnect
+if (existingPlayers[playerId]) {
+
+  console.log("Reconnected as existing player:", playerId);
+
+} else {
 
   await update(roomRef, {
     [`players/${playerId}`]: {
@@ -171,9 +184,11 @@ window.joinRoom = async (roomCode, playerName) => {
     playerOrder: [...existingOrder, playerId]
   });
 
+
   console.log("Joined room:", roomCode);
 };
 
+}
 
 
 /* =========================
@@ -376,6 +391,15 @@ console.log("listenToRoom defined");
 window.addEventListener("DOMContentLoaded", init);
 
 function init() {
+
+  const savedRoom = localStorage.getItem("notculture_roomCode");
+const savedPlayerId = localStorage.getItem("notculture_playerId");
+
+if (savedRoom && savedPlayerId) {
+  window.currentRoomCode = savedRoom;
+  window.myPlayerId = savedPlayerId;
+  listenToRoom(savedRoom);
+}
   setupBoard(board);
   setupEventListeners();
   loadQuestions();
@@ -426,6 +450,8 @@ createRoomBtn.addEventListener("click", async () => {
   });
 
   window.currentRoomCode = roomCode;
+
+  localStorage.setItem("notculture_roomCode", roomCode);
 
   createdRoomDisplay.textContent = `Room Code: ${roomCode}`;
 
