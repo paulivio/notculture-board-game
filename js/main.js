@@ -465,7 +465,7 @@ createRoomBtn.addEventListener("click", async () => {
     gameState: "waiting"
   });
 
-window.myPlayerId = playerId;
+window.myPlayerId = savedPlayerId;
 window.myPlayerName = playerName;
 window.currentRoomCode = roomCode;
 
