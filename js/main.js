@@ -391,7 +391,7 @@ if (roomData.currentRoll) {
     lastProcessedRollId = id;
 
     // 🎲 All players animate dice
-playSound("dice");
+
 
 animateRollingDice3D(value, () => {
   if (window.myPlayerId === activePlayerKey) {
@@ -1254,7 +1254,7 @@ function generateQuestionId(category) {
 
 
 function animateRollingDice(finalRoll, callback) {
-
+ playSound("dice");  // 🎲 sound always plays when 3D dice starts
   const dice = document.createElement("img");
   dice.src = `assets/dice/dice-${Math.floor(Math.random()*6)+1}.png`;
   dice.classList.add("rolling-dice");
@@ -1286,7 +1286,7 @@ function animateRollingDice(finalRoll, callback) {
 }
 
 function animateRollingDice3D(finalRoll, callback) {
-
+playSound("dice");
   const wrapper = document.createElement("div");
   wrapper.classList.add("dice-wrapper");
 
