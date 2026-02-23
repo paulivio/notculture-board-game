@@ -599,3 +599,13 @@ body.lock-scroll {
   font-weight: bold;
   color: #4caf50;
 }
+
+.answer-correct {
+  background-color: #4caf50 !important;
+  color: white;
+}
+
+.answer-wrong {
+  background-color: #f44336 !important;
+  color: white;
+}

@@ -60,6 +60,11 @@ window.leaveRoom = async () => {
       id => id !== window.myPlayerId
     );
 
+    if (newOrder.length === 0) {
+  await set(roomRef, null); // 🔥 delete whole room
+} 
+console.log("Room deleted (empty)");
+
     await update(roomRef, {
       players: players,
       playerOrder: newOrder
@@ -916,7 +921,8 @@ document.body.classList.add("lock-scroll");
   question.answers.forEach((answer, index) => {
     const btn = document.createElement("button");
     btn.textContent = answer;
-    btn.onclick = () => handleAnswer(index);
+    btn.onclick = () => handleAnswer(index, btn);
+
     answersDiv.appendChild(btn);
   });
 
@@ -924,16 +930,28 @@ document.body.classList.add("lock-scroll");
   document.body.classList.add("lock-scroll");
 }
 
-async function handleAnswer(index) {
+async function handleAnswer(index, clickedBtn) {
 
   // 🔒 Online safety: only active player can answer
   if (window.gameMode === "online") {
     if (window.myPlayerId !== state.activePlayerKey) return;
   }
 
-  const correct = index === state.activeQuestion.correctIndex;
+  const correctIndex = state.activeQuestion.correctIndex;
+  const correct = index === correctIndex;
 
-  document.body.classList.add("lock-scroll");
+  const buttons = answersDiv.querySelectorAll("button");
+
+  // Disable all buttons
+  buttons.forEach(btn => btn.disabled = true);
+
+  // Highlight selected button
+  if (correct) {
+    clickedBtn.classList.add("answer-correct");
+  } else {
+    clickedBtn.classList.add("answer-wrong");
+    buttons[correctIndex].classList.add("answer-correct");
+  }
 
   feedbackDiv.textContent = correct ? "Correct!" : "Incorrect";
   feedbackDiv.className = correct ? "correct" : "incorrect";
@@ -947,7 +965,6 @@ async function handleAnswer(index) {
 
       const roomRef = ref(db, `rooms/${window.currentRoomCode}`);
 
-      // ✅ Move ONLY if correct
       if (correct) {
         await updatePlayerPosition(
           window.currentRoomCode,
@@ -956,22 +973,21 @@ async function handleAnswer(index) {
         );
       }
 
-    const snapshot = await get(roomRef);
-const roomData = snapshot.val();
+      const snapshot = await get(roomRef);
+      const roomData = snapshot.val();
 
-const nextIndex =
-  (roomData.currentPlayerIndex + 1) %
-  roomData.playerOrder.length;
+      const nextIndex =
+        (roomData.currentPlayerIndex + 1) %
+        roomData.playerOrder.length;
 
-await update(roomRef, {
-  currentQuestion: null,
-  currentRoll: null,
-  currentPlayerIndex: nextIndex
-});
+      await update(roomRef, {
+        currentQuestion: null,
+        currentRoll: null,
+        currentPlayerIndex: nextIndex
+      });
 
     } else {
 
-      // Local mode logic
       if (correct) {
         movePlayer(state.pendingMove);
       }
@@ -983,9 +999,8 @@ await update(roomRef, {
     state.pendingMove = 0;
     unlockTurn();
 
-  }, 1200);
+  }, 2000);
 }
-
 
 
 function handleAddPlayer() {
