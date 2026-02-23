@@ -189,7 +189,7 @@ Join room function
 ========================*/
 
 
-window.joinRoom = async (roomCode, playerName) => {
+window.joinRoom = async (roomCode, playerName, forceNew = false) => {
 
   const roomRef = ref(db, `rooms/${roomCode}`);
   const snapshot = await get(roomRef);
@@ -203,7 +203,7 @@ window.joinRoom = async (roomCode, playerName) => {
 
 let playerId = localStorage.getItem("notculture_playerId");
 
-if (!playerId) {
+if (!playerId || forceNew) {
   playerId = Date.now().toString();
   localStorage.setItem("notculture_playerId", playerId);
 }
@@ -578,13 +578,10 @@ joinRoomBtn.addEventListener("click", async () => {
     return;
   }
 
-  // 🔥 Clear previous identity so we don't reconnect as someone else
-  localStorage.removeItem("notculture_playerId");
-
   localStorage.setItem("notculture_playerName", playerName);
   localStorage.setItem("notculture_roomCode", roomCode);
 
-  await joinRoom(roomCode, playerName);
+  await joinRoom(roomCode, playerName, true); // 🔥 force new ID
   listenToRoom(roomCode);
 });
 
