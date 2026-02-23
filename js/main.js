@@ -447,9 +447,14 @@ async function init() {
   setupEventListeners();
   loadQuestions();
 
-    window.addEventListener("resize", () => {
-    setupBoard(board);
+  window.addEventListener("resize", () => {
+  setupBoard(board);
+
+  // 🔥 Reposition all tokens after board resizes
+  state.players.forEach(player => {
+    positionPlayer(player.position, player.id);
   });
+});
   renderPlayerBar();
 
 const localModeBtn = document.getElementById("localModeBtn");
