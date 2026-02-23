@@ -445,6 +445,11 @@ if (roomData.answerResult && state.activeQuestion) {
   // Disable all buttons
   buttons.forEach(btn => btn.disabled = true);
 
+  // 🔊 Play sound ONLY for non-active players
+  if (window.myPlayerId !== state.activePlayerKey) {
+    playSound(wasCorrect ? "correct" : "wrong");
+  }
+
   // Highlight selected answer
   if (buttons[selectedIndex]) {
     buttons[selectedIndex].classList.add(
@@ -898,20 +903,11 @@ document.body.classList.add("lock-scroll");
 
 async function handleAnswer(index, clickedBtn) {
 
-  // 🔒 Online safety: only active player can answer
+  // 🔒 Only active player can answer in online mode
   if (window.gameMode === "online") {
-
     if (window.myPlayerId !== state.activePlayerKey) return;
   }
 
-
-await update(roomRef, {
-  answerResult: {
-    selectedIndex: index,
-    correctIndex: correctIndex,
-    wasCorrect: correct
-  }
-});
   const correctIndex = state.activeQuestion.correctIndex;
   const correct = index === correctIndex;
 
@@ -923,10 +919,23 @@ await update(roomRef, {
 
   const buttons = answersDiv.querySelectorAll("button");
 
-  // Disable all buttons
   buttons.forEach(btn => btn.disabled = true);
 
-  // Highlight selected button
+ if (window.gameMode === "online") {
+
+  const roomRef = ref(db, `rooms/${window.currentRoomCode}`);
+
+  await update(roomRef, {
+    answerResult: {
+      selectedIndex: index,
+      correctIndex: correctIndex,
+      wasCorrect: correct
+    }
+  });
+
+  }
+
+  // Local visual feedback still runs here for local mode
   if (correct) {
     clickedBtn.classList.add("answer-correct");
   } else {
