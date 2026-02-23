@@ -940,6 +940,12 @@ async function handleAnswer(index, clickedBtn) {
   const correctIndex = state.activeQuestion.correctIndex;
   const correct = index === correctIndex;
 
+  if (correct) {
+  playSound("correct");
+} else {
+  playSound("wrong");
+}
+
   const buttons = answersDiv.querySelectorAll("button");
 
   // Disable all buttons

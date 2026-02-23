@@ -1,6 +1,8 @@
 const sounds = {
   dice: createSound("assets/sounds/dice.mp3"),
-  move: createSound("assets/sounds/move.mp3")
+  move: createSound("assets/sounds/move.mp3"),
+  correct: createSound("assets/sounds/correct.mp3"),  // ✅ add
+  wrong: createSound("assets/sounds/wrong.mp3")       // ✅ add
 };
 
 function createSound(src) {
