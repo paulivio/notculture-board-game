@@ -209,9 +209,9 @@ if (!playerId || forceNew) {
 }
 
   // Store locally who I am
-  window.myPlayerId = playerId;
-  window.myPlayerName = playerName;
-  window.currentRoomCode = roomCode;
+window.myPlayerId = playerId;
+window.myPlayerName = playerName;
+window.currentRoomCode = roomCode;
 
 const existingPlayers = roomData.players || {};
 const existingOrder = roomData.playerOrder || [];
@@ -235,6 +235,8 @@ if (existingPlayers[playerId]) {
 
   console.log("Joined room:", roomCode);
 };
+
+listenToRoom(roomCode);
 
 }
 
