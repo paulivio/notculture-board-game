@@ -391,14 +391,13 @@ if (roomData.currentRoll) {
     lastProcessedRollId = id;
 
     // 🎲 All players animate dice
-    animateRollingDice3D(value, () => {
+playSound("dice");
 
-      // Only active player processes roll logic
-      if (window.myPlayerId === activePlayerKey) {
-        processRoll(value);
-      }
-
-    });
+animateRollingDice3D(value, () => {
+  if (window.myPlayerId === activePlayerKey) {
+    processRoll(value);
+  }
+});
 
   }
 }
@@ -707,7 +706,6 @@ function toggleDebugMode() {
 function handleDiceRoll() {
   if (state.isTurnLocked) return;
 
-  playSound("dice");
 
   state.isTurnLocked = true;
   rollDiceButton.disabled = true;
