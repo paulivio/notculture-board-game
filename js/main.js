@@ -382,10 +382,7 @@ renderPlayerBar();
 
     /* Handle Roll */
 
-if (
-  roomData.currentRoll &&
-  window.myPlayerId === activePlayerKey
-) {
+if (roomData.currentRoll) {
 
   const { value, id } = roomData.currentRoll;
 
@@ -393,11 +390,16 @@ if (
 
     lastProcessedRollId = id;
 
-    console.log("Roll received:", value);
-    console.log("My ID:", window.myPlayerId);
-    console.log("Active ID:", activePlayerKey);
+    // 🎲 All players animate dice
+    animateRollingDice3D(value, () => {
 
-    simulateOnlineRoll(value);
+      // Only active player processes roll logic
+      if (window.myPlayerId === activePlayerKey) {
+        processRoll(value);
+      }
+
+    });
+
   }
 }
 
@@ -712,84 +714,18 @@ function handleDiceRoll() {
 
   const roll = Math.floor(Math.random() * 6) + 1;
 
-  // 🔥 DEBUG MODE: skip animation + pause
+  // 🔥 DEBUG MODE: skip animation
   if (state.debugMode) {
-    diceImage.src = `assets/dice/dice-${roll}.png`;
-    processRoll(roll); // go straight to logic
-    return;
-  }
-
-  // 🎲 Normal animated roll
-  let flashes = 0;
-  let delay = 80;
-
-  function animateRoll() {
-    const randomFace = Math.floor(Math.random() * 6) + 1;
-    diceImage.src = `assets/dice/dice-${randomFace}.png`;
-
-    const rotation = Math.random() * 30 - 15;
-    diceImage.style.transform = `rotate(${rotation}deg)`;
-
-    flashes++;
-
-    if (flashes < 12) {
-      delay += 15;
-      setTimeout(animateRoll, delay);
-    } else {
-      diceImage.style.transform = "rotate(0deg)";
-      diceImage.src = `assets/dice/dice-${roll}.png`;
-
-      setTimeout(() => {
-        processRoll(roll);
-      }, 800);
-    }
-  }
-
-  animateRoll();
-}
-
-function simulateOnlineRoll(roll) {
-
-  if (state.isTurnLocked) return;
-
-  state.isTurnLocked = true;
-  rollDiceButton.disabled = true;
-
-  playSound("dice");
-
-  if (state.debugMode) {
-    diceImage.src = `assets/dice/dice-${roll}.png`;
     processRoll(roll);
     return;
   }
 
-  let flashes = 0;
-  let delay = 80;
-
-  function animateRoll() {
-    const randomFace = Math.floor(Math.random() * 6) + 1;
-    diceImage.src = `assets/dice/dice-${randomFace}.png`;
-
-    const rotation = Math.random() * 30 - 15;
-    diceImage.style.transform = `rotate(${rotation}deg)`;
-
-    flashes++;
-
-    if (flashes < 12) {
-      delay += 15;
-      setTimeout(animateRoll, delay);
-    } else {
-      diceImage.style.transform = "rotate(0deg)";
-      diceImage.src = `assets/dice/dice-${roll}.png`;
-
-      setTimeout(() => {
-        processRoll(roll);
-      }, 800);
-    }
-  }
-
-  animateRoll();
+  animateRollingDice3D(roll, () => {
+  processRoll(roll);
+});
 }
+
+
 
 function processRoll(roll) {
 
@@ -1316,4 +1252,124 @@ function generateQuestionId(category) {
   const nextNumber = maxNumber + 1;
 
   return `${category}-${String(nextNumber).padStart(3, "0")}`;
+}
+
+
+function animateRollingDice(finalRoll, callback) {
+
+  const dice = document.createElement("img");
+  dice.src = `assets/dice/dice-${Math.floor(Math.random()*6)+1}.png`;
+  dice.classList.add("rolling-dice");
+
+  document.body.appendChild(dice);
+
+  let interval = setInterval(() => {
+    const randomFace = Math.floor(Math.random() * 6) + 1;
+    dice.src = `assets/dice/dice-${randomFace}.png`;
+  }, 100);
+
+  setTimeout(() => {
+    clearInterval(interval);
+
+    dice.src = `assets/dice/dice-${finalRoll}.png`;
+
+    setTimeout(() => {
+      dice.style.transition = "opacity 0.4s ease";
+      dice.style.opacity = "0";
+
+      setTimeout(() => {
+        dice.remove();
+        if (callback) callback();  // 🔥 THIS IS CRITICAL
+      }, 500);
+
+    }, 1200);
+
+  }, 2000);
+}
+
+function animateRollingDice3D(finalRoll, callback) {
+
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("dice-wrapper");
+
+  const cube = document.createElement("div");
+  cube.classList.add("dice-cube");
+
+  for (let i = 1; i <= 6; i++) {
+    const face = document.createElement("div");
+    face.classList.add("dice-face", `face-${i}`);
+    face.textContent = i;
+    cube.appendChild(face);
+  }
+
+  wrapper.appendChild(cube);
+  document.body.appendChild(wrapper);
+
+  // Starting state
+  let posX = -150;
+  let centerX = window.innerWidth / 2;
+  let speed = 10;              // movement speed
+  let rotationX = 0;
+  let rotationY = 0;
+  let rotationSpeed = 4;      // rotation speed
+  let slowing = false;
+
+  function animate() {
+
+    posX += speed;
+    rotationX += rotationSpeed;
+    rotationY += rotationSpeed * 0.8;
+
+    // Slow down when near center
+    if (posX > centerX - 200) {
+      slowing = true;
+    }
+
+    if (slowing) {
+      speed *= 0.96;
+      rotationSpeed *= 0.96;
+    }
+
+    wrapper.style.left = posX + "px";
+    wrapper.style.top = "50%";
+    wrapper.style.transform = "translate(-50%, -50%)";
+
+    cube.style.transform =
+      `rotateX(${rotationX}deg) rotateY(${rotationY}deg)`;
+
+   const cubeSize = 120;
+if (posX < centerX - cubeSize / 2)  {
+      requestAnimationFrame(animate);
+    } else {
+      land();
+    }
+  }
+
+  function land() {
+
+  const faceRotations = {
+    1: "rotateX(0deg) rotateY(0deg)",
+    2: "rotateY(-90deg)",
+    3: "rotateY(-180deg)",
+    4: "rotateY(90deg)",
+    5: "rotateX(90deg)",
+    6: "rotateX(-90deg)"
+  };
+
+  cube.style.transition = "transform 0.8s cubic-bezier(.17,.67,.25,1.2)";
+  cube.style.transform = faceRotations[finalRoll];
+
+  setTimeout(() => {
+    wrapper.style.transition = "opacity 0.4s ease";
+    wrapper.style.opacity = "0";
+
+    setTimeout(() => {
+      wrapper.remove();
+      if (callback) callback();
+    }, 400);
+
+  }, 2000);
+}
+
+  requestAnimationFrame(animate);
 }

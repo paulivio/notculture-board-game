@@ -609,3 +609,88 @@ body.lock-scroll {
   background-color: #f44336 !important;
   color: white;
 }
+
+/* 🎲 Rolling Dice */
+.rolling-dice {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  left: 50%;
+  top: -150px; /* start above screen */
+  transform: translate(-50%, 0) rotate(0deg);
+
+  z-index: 5000;
+  pointer-events: none;
+
+  animation: diceDrop 1s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+
+@keyframes diceDrop {
+  0% {
+    top: -150px;
+    transform: translate(-50%, 0) rotate(0deg);
+  }
+  70% {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(720deg);
+  }
+  85% {
+    top: 47%;
+    transform: translate(-50%, -50%) rotate(900deg);
+  }
+  100% {
+    top: 50%;
+    transform: translate(-50%, -50%) rotate(1080deg);
+  }
+}
+
+.dice-landed {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 🎲 3D Dice Container */
+.dice-wrapper {
+  position: fixed;
+  left: -150px;
+  top: 50%;
+  transform: translateY(-50%);
+  perspective: 1000px;
+  z-index: 5000;
+  pointer-events: none;
+}
+
+/* 🎲 The Cube */
+.dice-cube {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1.2s cubic-bezier(.17,.67,.25,1.2);
+}
+
+/* 🎲 Each Face */
+.dice-face {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: white;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 48px;
+  font-weight: bold;
+  color: black;
+  border: 2px solid #ccc;
+}
+
+/* Face positions */
+.face-1 { transform: rotateY(0deg) translateZ(60px); }
+.face-2 { transform: rotateY(90deg) translateZ(60px); }
+.face-3 { transform: rotateY(180deg) translateZ(60px); }
+.face-4 { transform: rotateY(-90deg) translateZ(60px); }
+.face-5 { transform: rotateX(90deg) translateZ(60px); }
+.face-6 { transform: rotateX(-90deg) translateZ(60px); }
+
