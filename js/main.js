@@ -441,33 +441,7 @@ window.addEventListener("DOMContentLoaded", init);
 
 async function init() {
 
-const savedRoom = localStorage.getItem("notculture_roomCode");
-const savedPlayerId = localStorage.getItem("notculture_playerId");
-const savedPlayerName = localStorage.getItem("notculture_playerName");
 
-if (savedRoom && savedPlayerId && savedPlayerName) {
-
-  try {
-    console.log("Attempting reconnect...");
-
-window.gameMode = "online";
-localControls.classList.add("hidden");
-onlineControls.classList.remove("hidden");
-
-    window.currentRoomCode = savedRoom;
-    window.myPlayerId = savedPlayerId;
-    window.myPlayerName = savedPlayerName;
-
-    await joinRoom(savedRoom, savedPlayerName);
-    listenToRoom(savedRoom);
-
-  } catch (err) {
-    console.log("Reconnect failed, clearing saved session.");
-    localStorage.removeItem("notculture_roomCode");
-    localStorage.removeItem("notculture_playerId");
-    localStorage.removeItem("notculture_playerName");
-  }
-}
 
   setupBoard(board);
   setupEventListeners();
@@ -488,6 +462,21 @@ window.gameMode = "local";
 // Default state
 localControls.classList.remove("hidden");
 onlineControls.classList.add("hidden");
+
+const savedRoom = localStorage.getItem("notculture_roomCode");
+const savedPlayerId = localStorage.getItem("notculture_playerId");
+const savedPlayerName = localStorage.getItem("notculture_playerName");
+
+if (savedRoom && savedPlayerId && savedPlayerName) {
+
+  console.log("Attempting reconnect...");
+
+  window.gameMode = "online";
+  localControls.classList.add("hidden");
+  onlineControls.classList.remove("hidden");
+
+  await joinRoom(savedRoom, savedPlayerName);
+}
 
 localModeBtn.addEventListener("click", () => {
   window.gameMode = "local";
