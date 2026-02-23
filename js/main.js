@@ -433,6 +433,33 @@ showQuestion(question, rollValue);
   // If question cleared → close modal
   modal.classList.add("hidden");
 }
+
+/* Handle Answer Result */
+
+if (roomData.answerResult && state.activeQuestion) {
+
+  const { selectedIndex, correctIndex, wasCorrect } = roomData.answerResult;
+
+  const buttons = answersDiv.querySelectorAll("button");
+
+  // Disable all buttons
+  buttons.forEach(btn => btn.disabled = true);
+
+  // Highlight selected answer
+  if (buttons[selectedIndex]) {
+    buttons[selectedIndex].classList.add(
+      wasCorrect ? "answer-correct" : "answer-wrong"
+    );
+  }
+
+  // Highlight correct answer if wrong
+  if (!wasCorrect && buttons[correctIndex]) {
+    buttons[correctIndex].classList.add("answer-correct");
+  }
+
+  feedbackDiv.textContent = wasCorrect ? "Correct!" : "Incorrect";
+  feedbackDiv.className = wasCorrect ? "correct" : "incorrect";
+}
   }); // end onValue
 
 }; // end listenToRoom
@@ -448,6 +475,10 @@ window.addEventListener("DOMContentLoaded", init);
 async function init() {
 
 
+document.body.addEventListener("click", () => {
+  const unlock = new Audio();
+  unlock.play().catch(() => {});
+}, { once: true });
 
   setupBoard(board);
   setupEventListeners();
@@ -632,6 +663,7 @@ function setupEventListeners() {
 
   rollDiceButton?.addEventListener("click", () => {
     if (window.gameMode === "online") {
+      
       if (!window.currentRoomCode) return;
       rollDiceMultiplayer(window.currentRoomCode);
     } else {
@@ -868,9 +900,18 @@ async function handleAnswer(index, clickedBtn) {
 
   // 🔒 Online safety: only active player can answer
   if (window.gameMode === "online") {
+
     if (window.myPlayerId !== state.activePlayerKey) return;
   }
 
+
+await update(roomRef, {
+  answerResult: {
+    selectedIndex: index,
+    correctIndex: correctIndex,
+    wasCorrect: correct
+  }
+});
   const correctIndex = state.activeQuestion.correctIndex;
   const correct = index === correctIndex;
 
@@ -920,11 +961,12 @@ async function handleAnswer(index, clickedBtn) {
         (roomData.currentPlayerIndex + 1) %
         roomData.playerOrder.length;
 
-      await update(roomRef, {
-        currentQuestion: null,
-        currentRoll: null,
-        currentPlayerIndex: nextIndex
-      });
+     await update(roomRef, {
+  currentQuestion: null,
+  currentRoll: null,
+  currentPlayerIndex: nextIndex,
+  answerResult: null
+});
 
     } else {
 
@@ -1211,25 +1253,6 @@ name.addEventListener("click", () => {
   });
 }
 
-function syncPlayerTokens() {
-
-  const board = document.getElementById("board");
-
-  state.players.forEach(player => {
-
-    let token = document.querySelector(`.player-${player.id}`);
-
-    if (!token) {
-      token = document.createElement("div");
-      token.classList.add("player");
-      token.classList.add(`player-${player.id}`);
-      board.appendChild(token);
-    }
-
-    positionPlayer(player.position, player.id);
-  });
-}
-
 
 
 function generateQuestionId(category) {
@@ -1253,37 +1276,6 @@ function generateQuestionId(category) {
 }
 
 
-function animateRollingDice(finalRoll, callback) {
- playSound("dice");  // 🎲 sound always plays when 3D dice starts
-  const dice = document.createElement("img");
-  dice.src = `assets/dice/dice-${Math.floor(Math.random()*6)+1}.png`;
-  dice.classList.add("rolling-dice");
-
-  document.body.appendChild(dice);
-
-  let interval = setInterval(() => {
-    const randomFace = Math.floor(Math.random() * 6) + 1;
-    dice.src = `assets/dice/dice-${randomFace}.png`;
-  }, 100);
-
-  setTimeout(() => {
-    clearInterval(interval);
-
-    dice.src = `assets/dice/dice-${finalRoll}.png`;
-
-    setTimeout(() => {
-      dice.style.transition = "opacity 0.4s ease";
-      dice.style.opacity = "0";
-
-      setTimeout(() => {
-        dice.remove();
-        if (callback) callback();  // 🔥 THIS IS CRITICAL
-      }, 500);
-
-    }, 1200);
-
-  }, 2000);
-}
 
 function animateRollingDice3D(finalRoll, callback) {
 playSound("dice");
