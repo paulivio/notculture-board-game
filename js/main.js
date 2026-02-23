@@ -1,4 +1,4 @@
-console.log("🔥🔥🔥 MAIN JS VERSION 2 LOADED 🔥🔥🔥");
+console.log("🚀 BRANCH VERSION WITH 3D DICE LOADED 🚀");
 console.log("TOP OF FILE")
 
 
