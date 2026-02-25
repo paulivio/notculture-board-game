@@ -12,8 +12,8 @@ const FACE_ROTATIONS: Record<number, { rotateX: number; rotateY: number }> = {
   2: { rotateX: 0, rotateY: -90 },
   3: { rotateX: 0, rotateY: -180 },
   4: { rotateX: 0, rotateY: 90 },
-  5: { rotateX: 90, rotateY: 0 },
-  6: { rotateX: -90, rotateY: 0 },
+  5: { rotateX: -90, rotateY: 0 },
+  6: { rotateX: 90, rotateY: 0 },
 };
 
 const FACE_TRANSFORMS = [
