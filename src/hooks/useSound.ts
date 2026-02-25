@@ -2,11 +2,12 @@ import { useRef, useCallback } from "react";
 
 type SoundName = "dice" | "move" | "correct" | "wrong";
 
+const base = import.meta.env.BASE_URL;
 const SOUND_PATHS: Record<SoundName, string> = {
-  dice: "/assets/sounds/dice.mp3",
-  move: "/assets/sounds/move.mp3",
-  correct: "/assets/sounds/correct.mp3",
-  wrong: "/assets/sounds/wrong.mp3",
+  dice: `${base}assets/sounds/dice.mp3`,
+  move: `${base}assets/sounds/move.mp3`,
+  correct: `${base}assets/sounds/correct.mp3`,
+  wrong: `${base}assets/sounds/wrong.mp3`,
 };
 
 function createAudio(src: string): HTMLAudioElement {

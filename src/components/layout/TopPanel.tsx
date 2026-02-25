@@ -22,7 +22,7 @@ export default function TopPanel() {
           Roll Dice
         </TextureButton>
         <img
-          src={`/assets/dice/dice-${diceState.displayValue}.png`}
+          src={`${import.meta.env.BASE_URL}assets/dice/dice-${diceState.displayValue}.png`}
           alt="Dice"
           className="my-5 h-20 w-20"
         />

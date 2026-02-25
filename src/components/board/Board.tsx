@@ -33,7 +33,7 @@ export default function Board() {
 
       {/* Logo */}
       <img
-        src="/assets/logo.png"
+        src={`${import.meta.env.BASE_URL}assets/logo.png`}
         alt="NotCulture"
         className="pointer-events-none absolute left-1/2 top-1/2 z-[3] h-auto w-[43%] -translate-x-1/2 -translate-y-1/2"
       />
