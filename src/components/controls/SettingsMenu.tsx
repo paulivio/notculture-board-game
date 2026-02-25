@@ -1,12 +1,24 @@
 import { useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGame, useGameDispatch } from "../../context/GameContext";
+import { useOnline } from "../../context/OnlineContext";
+import { resetRoom } from "../../firebase/roomService";
 import { TextureButton } from "../ui/TextureButton";
 
 export default function SettingsMenu() {
   const state = useGame();
   const dispatch = useGameDispatch();
+  const { identity } = useOnline();
   const wrapperRef = useRef<HTMLDivElement>(null);
+
+  const handleRestart = () => {
+    dispatch({ type: "SHOW_SETTINGS", show: false });
+    if (state.gameMode === "online" && identity.roomCode) {
+      resetRoom(identity.roomCode);
+    } else {
+      dispatch({ type: "RESET_GAME" });
+    }
+  };
 
   // Close on outside click
   useEffect(() => {
@@ -62,10 +74,7 @@ export default function SettingsMenu() {
             <TextureButton
               className="w-full justify-start"
               variant="danger"
-              onClick={() => {
-                dispatch({ type: "RESET_GAME" });
-                dispatch({ type: "SHOW_SETTINGS", show: false });
-              }}
+              onClick={handleRestart}
             >
               Restart Game
             </TextureButton>

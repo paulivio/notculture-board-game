@@ -170,3 +170,27 @@ export async function clearTurnState(roomCode: string): Promise<void> {
     answerResult: null,
   });
 }
+
+export async function resetRoom(roomCode: string): Promise<void> {
+  const roomRef = ref(db, `rooms/${roomCode}`);
+  const snapshot = await get(roomRef);
+  if (!snapshot.exists()) return;
+
+  const roomData = snapshot.val();
+  const players = roomData.players || {};
+  const currentResetId = roomData.resetId || 0;
+
+  const resetPlayers: Record<string, { id: string; name: string; position: number }> = {};
+  for (const [key, player] of Object.entries(players)) {
+    resetPlayers[key] = { ...(player as { id: string; name: string; position: number }), position: 0 };
+  }
+
+  await update(roomRef, {
+    players: resetPlayers,
+    currentPlayerIndex: 0,
+    currentQuestion: null,
+    currentRoll: null,
+    answerResult: null,
+    resetId: currentResetId + 1,
+  });
+}

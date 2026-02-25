@@ -1,11 +1,25 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useGame, useGameDispatch } from "../../context/GameContext";
+import { useOnline } from "../../context/OnlineContext";
+import { resetRoom } from "../../firebase/roomService";
 import { TextureCard } from "../ui/TextureCard";
 import { TextureButton } from "../ui/TextureButton";
 
 export default function WinModal() {
   const state = useGame();
   const dispatch = useGameDispatch();
+  const { identity } = useOnline();
+
+  const handleRestart = () => {
+    if (state.gameMode === "online" && identity.roomCode) {
+      // Close modal immediately for this client; Firebase reset triggers
+      // RESET_GAME on all clients via useRoom's resetId detection
+      dispatch({ type: "SHOW_WIN_MODAL", show: false });
+      resetRoom(identity.roomCode);
+    } else {
+      dispatch({ type: "RESET_GAME" });
+    }
+  };
 
   const winner = state.players.find(
     (p) => p.position >= 38
@@ -31,7 +45,7 @@ export default function WinModal() {
               </h2>
               <TextureButton
                 variant="primary"
-                onClick={() => dispatch({ type: "RESET_GAME" })}
+                onClick={handleRestart}
               >
                 Restart Game
               </TextureButton>

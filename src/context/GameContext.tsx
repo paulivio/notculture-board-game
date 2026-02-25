@@ -29,6 +29,7 @@ const initialState: GameState = {
   showQuestionModal: false,
   showEditor: false,
   showSettings: false,
+  answerResult: null,
 };
 
 function gameReducer(state: GameState, action: GameAction): GameState {
@@ -99,7 +100,11 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         activeQuestion: null,
         pendingMove: 0,
         showQuestionModal: false,
+        answerResult: null,
       };
+
+    case "SET_ANSWER_RESULT":
+      return { ...state, answerResult: action.result };
 
     case "MOVE_PLAYER": {
       return {
@@ -135,8 +140,30 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "TOGGLE_DEBUG":
       return { ...state, debugMode: !state.debugMode };
 
-    case "SET_GAME_MODE":
-      return { ...state, gameMode: action.mode };
+    case "SET_GAME_MODE": {
+      const modeReset = {
+        currentPlayerIndex: 0,
+        activeQuestion: null,
+        pendingMove: 0,
+        pendingCategory: null,
+        isTurnLocked: false,
+        usedQuestionIds: new Set<string>(),
+        showWinModal: false,
+        showQuestionModal: false,
+      };
+      if (action.mode === "online") {
+        return { ...state, ...modeReset, gameMode: action.mode, players: [] };
+      }
+      return {
+        ...state,
+        ...modeReset,
+        gameMode: action.mode,
+        players: [
+          { id: 1, name: "Player 1", position: 0 },
+          { id: 2, name: "Player 2", position: 0 },
+        ],
+      };
+    }
 
     case "RESET_GAME":
       return {
@@ -177,7 +204,15 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "SYNC_ONLINE_STATE":
       return {
         ...state,
-        players: action.players,
+        // Never let a sync move a player backwards — this protects mid-animation steps
+        // from being overwritten by stale Firebase values
+        players: action.players.map((incoming) => {
+          const local = state.players.find((p) => p.id === incoming.id);
+          if (local && incoming.position < local.position) {
+            return { ...incoming, position: local.position };
+          }
+          return incoming;
+        }),
         currentPlayerIndex: action.currentPlayerIndex,
       };
 

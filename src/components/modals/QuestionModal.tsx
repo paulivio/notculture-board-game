@@ -14,10 +14,17 @@ export default function QuestionModal() {
   const { handleAnswer, afterAnswer, handleSkip } = useGameLogicContext();
   const question = state.activeQuestion;
 
-  const [answered, setAnswered] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-  const [wasCorrect, setWasCorrect] = useState(false);
-  const [correctIdx, setCorrectIdx] = useState(0);
+  const [localAnswered, setLocalAnswered] = useState(false);
+  const [localSelectedIndex, setLocalSelectedIndex] = useState<number | null>(null);
+  const [localWasCorrect, setLocalWasCorrect] = useState(false);
+  const [localCorrectIdx, setLocalCorrectIdx] = useState(0);
+
+  // In online mode, drive feedback from synced Firebase state
+  const onlineResult = state.gameMode === "online" ? state.answerResult : null;
+  const answered = onlineResult ? true : localAnswered;
+  const selectedIndex = onlineResult ? onlineResult.selectedIndex : localSelectedIndex;
+  const wasCorrect = onlineResult ? onlineResult.wasCorrect : localWasCorrect;
+  const correctIdx = onlineResult ? onlineResult.correctIndex : localCorrectIdx;
 
   if (!question) return null;
 
@@ -31,10 +38,10 @@ export default function QuestionModal() {
     const result = handleAnswer(index);
     if (!result) return;
 
-    setAnswered(true);
-    setSelectedIndex(index);
-    setWasCorrect(result.correct);
-    setCorrectIdx(result.correctIndex);
+    setLocalAnswered(true);
+    setLocalSelectedIndex(index);
+    setLocalWasCorrect(result.correct);
+    setLocalCorrectIdx(result.correctIndex);
 
     setTimeout(() => {
       afterAnswer(result.correct);

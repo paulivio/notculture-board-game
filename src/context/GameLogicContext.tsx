@@ -7,6 +7,9 @@ interface GameLogicValue {
   afterAnswer: (correct: boolean) => void;
   handleSkip: () => void;
   diceState: DiceState;
+  triggerDiceAnimation: (roll: number, onComplete: () => void) => void;
+  processRoll: (roll: number) => void;
+  animateMovement: (playerId: number, startPos: number, steps: number, onComplete?: () => void) => void;
 }
 
 const GameLogicContext = createContext<GameLogicValue | null>(null);

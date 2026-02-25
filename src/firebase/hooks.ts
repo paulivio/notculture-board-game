@@ -1,15 +1,17 @@
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { ref, onValue } from "firebase/database";
 import { db } from "./config";
 import { useGame, useGameDispatch } from "../context/GameContext";
 import { useSound } from "../hooks/useSound";
+import { MAX_POSITION } from "../lib/constants";
 import type { RoomData, Player } from "../types/game";
 
 interface UseRoomOptions {
   roomCode: string | null;
   myPlayerId: string | null;
-  onDiceRoll?: (value: number, callback: () => void) => void;
+  onDiceRoll?: (value: number, callback: () => void, isActive: boolean) => void;
   onQuestionReady?: (questionId: string, rollValue: number) => void;
+  onPlayerMove?: (playerId: number, startPos: number, steps: number, onComplete: () => void) => void;
 }
 
 export function useRoom({
@@ -17,6 +19,7 @@ export function useRoom({
   myPlayerId,
   onDiceRoll,
   onQuestionReady,
+  onPlayerMove,
 }: UseRoomOptions) {
   const state = useGame();
   const dispatch = useGameDispatch();
@@ -25,6 +28,14 @@ export function useRoom({
   const lastProcessedRollId = useRef<number | null>(null);
   const previousPlayersRef = useRef<Player[]>([]);
   const isActivePlayerRef = useRef(false);
+  const lastResetId = useRef<number | null>(null);
+  // Track which player IDs are currently mid-animation on this client
+  const animatingPlayersRef = useRef(new Set<number>());
+  // Always-current snapshot of local state for use inside onValue callback
+  const stateRef = useRef(state);
+  useEffect(() => {
+    stateRef.current = state;
+  });
 
   useEffect(() => {
     if (!roomCode) return;
@@ -35,7 +46,6 @@ export function useRoom({
       const roomData: RoomData | null = snapshot.val();
       if (!roomData) return;
 
-      // Sync players
       const firebasePlayers = roomData.players || {};
       const playerOrder = roomData.playerOrder || [];
       const activeIndex = roomData.currentPlayerIndex || 0;
@@ -52,25 +62,71 @@ export function useRoom({
         }));
 
       const previousPlayers = previousPlayersRef.current;
+      const myLocalIndex = playerOrder.indexOf(myPlayerId ?? "");
+
+      // Build the array to dispatch. For non-local players that are animating or
+      // just started animating, use their current local position so SYNC_ONLINE_STATE
+      // never interrupts mid-animation movement.
+      const playersForSync = playersArray.map((player, idx) => {
+        const prev = previousPlayers.find((p) => p.id === player.id);
+
+        // Always let the local player's own position through untouched —
+        // the "don't go backwards" rule in the reducer handles that side.
+        if (idx === myLocalIndex || !prev) return player;
+
+        // Already animating this player — preserve the current local position
+        if (animatingPlayersRef.current.has(player.id)) {
+          const localPos = stateRef.current.players.find(
+            (p) => p.id === player.id
+          )?.position;
+          if (localPos !== undefined) {
+            return { ...player, position: localPos };
+          }
+        }
+
+        // Position advanced for a non-local player → start animation
+        if (player.position > prev.position && onPlayerMove) {
+          animatingPlayersRef.current.add(player.id);
+          onPlayerMove(
+            player.id,
+            prev.position,
+            player.position - prev.position,
+            () => animatingPlayersRef.current.delete(player.id)
+          );
+          // Show win modal immediately — don't wait for animation to finish
+          if (player.position >= MAX_POSITION) {
+            dispatch({ type: "SHOW_WIN_MODAL", show: true });
+          }
+          // Dispatch old position; animation will move it step-by-step
+          return { ...player, position: prev.position };
+        }
+
+        return player;
+      });
+
+      // Store actual Firebase values so each position change only triggers once
+      previousPlayersRef.current = playersArray;
+
+      // Detect game reset — dispatch RESET_GAME on all clients when resetId changes
+      const currentResetId = roomData.resetId || 0;
+      if (lastResetId.current !== null && currentResetId !== lastResetId.current) {
+        dispatch({ type: "RESET_GAME" });
+      }
+      lastResetId.current = currentResetId;
 
       dispatch({
         type: "SYNC_ONLINE_STATE",
-        players: playersArray,
+        players: playersForSync,
         currentPlayerIndex: activeIndex,
       });
-
-      previousPlayersRef.current = playersArray;
 
       // Handle dice roll
       if (roomData.currentRoll) {
         const { value, id } = roomData.currentRoll;
         if (id !== lastProcessedRollId.current) {
           lastProcessedRollId.current = id;
-
           if (onDiceRoll) {
-            onDiceRoll(value, () => {
-              // After animation, only active player processes the roll
-            });
+            onDiceRoll(value, () => {}, isActivePlayerRef.current);
           }
         }
       }
@@ -89,14 +145,19 @@ export function useRoom({
         dispatch({ type: "SHOW_QUESTION_MODAL", show: false });
       }
 
-      // Handle answer result for non-active players
-      if (roomData.answerResult && myPlayerId !== activePlayerKey) {
-        playSound(roomData.answerResult.wasCorrect ? "correct" : "wrong");
+      // Sync answer result to all players so the modal shows feedback everywhere
+      if (roomData.answerResult) {
+        dispatch({ type: "SET_ANSWER_RESULT", result: roomData.answerResult });
+        if (myPlayerId !== activePlayerKey) {
+          playSound(roomData.answerResult.wasCorrect ? "correct" : "wrong");
+        }
+      } else {
+        dispatch({ type: "SET_ANSWER_RESULT", result: null });
       }
     });
 
     return () => unsubscribe();
-  }, [roomCode, myPlayerId, dispatch, playSound, state.questionsLoaded, onDiceRoll, onQuestionReady]);
+  }, [roomCode, myPlayerId, dispatch, playSound, state.questionsLoaded, onDiceRoll, onQuestionReady, onPlayerMove]);
 
   return { isActivePlayer: isActivePlayerRef };
 }

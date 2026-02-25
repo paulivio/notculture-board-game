@@ -17,6 +17,12 @@ export type Category = "film" | "science" | "general" | "history";
 
 export type GameMode = "local" | "online";
 
+export interface AnswerResult {
+  selectedIndex: number;
+  correctIndex: number;
+  wasCorrect: boolean;
+}
+
 export interface GameState {
   questionsLoaded: boolean;
   questions: Question[];
@@ -35,6 +41,7 @@ export interface GameState {
   showQuestionModal: boolean;
   showEditor: boolean;
   showSettings: boolean;
+  answerResult: AnswerResult | null;
 }
 
 export interface OnlineIdentity {
@@ -55,6 +62,7 @@ export interface RoomData {
     wasCorrect: boolean;
   } | null;
   gameState: "waiting" | "playing";
+  resetId?: number;
 }
 
 export type GameAction =
@@ -83,4 +91,5 @@ export type GameAction =
       type: "SYNC_ONLINE_STATE";
       players: Player[];
       currentPlayerIndex: number;
-    };
+    }
+  | { type: "SET_ANSWER_RESULT"; result: AnswerResult | null };
