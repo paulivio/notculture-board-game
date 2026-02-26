@@ -6,6 +6,8 @@ interface GameLogicValue {
   handleAnswer: (selectedIndex: number) => { correct: boolean; correctIndex: number } | undefined;
   afterAnswer: (correct: boolean) => void;
   handleSkip: () => void;
+  handleCultureScore: (score: number) => void;
+  triggerTileAt: (position: number) => void;
   diceState: DiceState;
   triggerDiceAnimation: (roll: number, onComplete: () => void) => void;
   processRoll: (roll: number) => void;

@@ -39,9 +39,12 @@ export interface GameState {
   gameMode: GameMode;
   showWinModal: boolean;
   showQuestionModal: boolean;
+  showCultureModal: boolean;
   showEditor: boolean;
   showSettings: boolean;
   answerResult: AnswerResult | null;
+  cultureTimerStartedAt: number | null;
+  cultureScore: number | null;
 }
 
 export interface OnlineIdentity {
@@ -63,6 +66,7 @@ export interface RoomData {
   } | null;
   gameState: "waiting" | "playing";
   resetId?: number;
+  cultureEvent: { active: boolean; timerStartedAt?: number; score?: number } | null;
 }
 
 export type GameAction =
@@ -92,4 +96,7 @@ export type GameAction =
       players: Player[];
       currentPlayerIndex: number;
     }
-  | { type: "SET_ANSWER_RESULT"; result: AnswerResult | null };
+  | { type: "SET_ANSWER_RESULT"; result: AnswerResult | null }
+  | { type: "SHOW_CULTURE_MODAL"; show: boolean }
+  | { type: "SET_CULTURE_TIMER_START"; startedAt: number | null }
+  | { type: "SET_CULTURE_SCORE"; score: number | null };

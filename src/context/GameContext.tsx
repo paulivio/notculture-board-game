@@ -27,9 +27,12 @@ const initialState: GameState = {
   gameMode: "local",
   showWinModal: false,
   showQuestionModal: false,
+  showCultureModal: false,
   showEditor: false,
   showSettings: false,
   answerResult: null,
+  cultureTimerStartedAt: null,
+  cultureScore: null,
 };
 
 function gameReducer(state: GameState, action: GameAction): GameState {
@@ -150,6 +153,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         usedQuestionIds: new Set<string>(),
         showWinModal: false,
         showQuestionModal: false,
+        showCultureModal: false,
+        cultureTimerStartedAt: null as null,
+        cultureScore: null as null,
       };
       if (action.mode === "online") {
         return { ...state, ...modeReset, gameMode: action.mode, players: [] };
@@ -177,6 +183,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         usedQuestionIds: new Set(),
         showWinModal: false,
         showQuestionModal: false,
+        showCultureModal: false,
+        cultureTimerStartedAt: null,
+        cultureScore: null,
       };
 
     case "SET_QUESTIONS":
@@ -191,6 +200,23 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SHOW_QUESTION_MODAL":
       return { ...state, showQuestionModal: action.show };
+
+    case "SHOW_CULTURE_MODAL":
+      if (!action.show) {
+        return {
+          ...state,
+          showCultureModal: false,
+          cultureTimerStartedAt: null,
+          cultureScore: null,
+        };
+      }
+      return { ...state, showCultureModal: true };
+
+    case "SET_CULTURE_TIMER_START":
+      return { ...state, cultureTimerStartedAt: action.startedAt };
+
+    case "SET_CULTURE_SCORE":
+      return { ...state, cultureScore: action.score };
 
     case "SHOW_EDITOR":
       return { ...state, showEditor: action.show };

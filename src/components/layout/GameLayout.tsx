@@ -6,6 +6,7 @@ import Board from "../board/Board";
 import QuestionModal from "../modals/QuestionModal";
 import WinModal from "../modals/WinModal";
 import QuestionEditor from "../modals/QuestionEditor";
+import CultureModal from "../modals/CultureModal";
 import type { Question } from "../../types/game";
 
 import filmData from "../../data/film.json";
@@ -30,7 +31,7 @@ export default function GameLayout() {
 
   // Body scroll lock when modals open
   useEffect(() => {
-    if (state.showQuestionModal || state.showEditor || state.showWinModal) {
+    if (state.showQuestionModal || state.showEditor || state.showWinModal || state.showCultureModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -38,7 +39,7 @@ export default function GameLayout() {
     return () => {
       document.body.style.overflow = "";
     };
-  }, [state.showQuestionModal, state.showEditor, state.showWinModal]);
+  }, [state.showQuestionModal, state.showEditor, state.showWinModal, state.showCultureModal]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-between p-2.5 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
@@ -49,6 +50,7 @@ export default function GameLayout() {
       {state.showQuestionModal && state.activeQuestion && <QuestionModal />}
       {state.showWinModal && <WinModal />}
       {state.showEditor && <QuestionEditor />}
+      {state.showCultureModal && <CultureModal />}
     </div>
   );
 }
