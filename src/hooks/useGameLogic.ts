@@ -6,6 +6,7 @@ import { useSound } from "./useSound";
 import {
   SPIRAL_PATH,
   CATEGORIES,
+  CULTURE_POSITIONS,
   MAX_POSITION,
   MOVE_DURATION,
 } from "../lib/constants";
@@ -16,6 +17,7 @@ import {
   submitAnswer,
   updatePlayerPosition,
   advanceTurn,
+  activateCulture,
 } from "../firebase/roomService";
 
 export interface DiceState {
@@ -40,6 +42,8 @@ export function useGameLogic() {
   });
 
   const movingRef = useRef(false);
+  const stateRef = useRef(state);
+  stateRef.current = state;
 
   const animateMovement = useCallback(
     (playerId: number, startPos: number, steps: number, onComplete?: () => void) => {
@@ -81,6 +85,21 @@ export function useGameLogic() {
   const processRoll = useCallback(
     (roll: number) => {
       const currentPlayer = state.players[state.currentPlayerIndex];
+      const destination = Math.min(currentPlayer.position + roll, MAX_POSITION);
+
+      // Culture tile check — bypass question flow entirely
+      if (CULTURE_POSITIONS.has(destination)) {
+        animateMovement(currentPlayer.id, currentPlayer.position, roll, async () => {
+          if (state.gameMode === "online" && identity.roomCode && identity.playerId) {
+            await updatePlayerPosition(identity.roomCode, identity.playerId, destination);
+            await activateCulture(identity.roomCode);
+          } else {
+            dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
+          }
+        });
+        return;
+      }
+
       const pathIndex = currentPlayer.position;
 
       let category: Category;
@@ -102,7 +121,7 @@ export function useGameLogic() {
         }
       }
     },
-    [state.players, state.currentPlayerIndex, state.gameMode, identity.roomCode, getQuestion, dispatch]
+    [state.players, state.currentPlayerIndex, state.gameMode, identity, animateMovement, getQuestion, dispatch]
   );
 
   // Trigger dice animation with a server-provided value (used by online mode)
@@ -225,6 +244,56 @@ export function useGameLogic() {
     [state.players, state.currentPlayerIndex, state.pendingMove, state.gameMode, identity, dispatch, animateMovement]
   );
 
+  const handleCultureScore = useCallback(
+    (score: number) => {
+      dispatch({ type: "SHOW_CULTURE_MODAL", show: false });
+      const currentPlayer = stateRef.current.players[stateRef.current.currentPlayerIndex];
+      const culturePos = currentPlayer.position;
+
+      animateMovement(currentPlayer.id, culturePos, score, async () => {
+        const newPos = Math.min(culturePos + score, MAX_POSITION);
+        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
+          await updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
+          await advanceTurn(identity.roomCode);
+        }
+        dispatch({ type: "ADVANCE_TURN" });
+        dispatch({ type: "UNLOCK_TURN" });
+      });
+    },
+    [dispatch, animateMovement, identity]
+  );
+
+  // Debug-only: trigger the tile effect at an arbitrary position
+  const triggerTileAt = useCallback(
+    (position: number) => {
+      if (position === 0 || position >= MAX_POSITION) return;
+
+      dispatch({ type: "LOCK_TURN" });
+
+      if (CULTURE_POSITIONS.has(position)) {
+        if (state.gameMode === "online" && identity.roomCode) {
+          activateCulture(identity.roomCode);
+        } else {
+          dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
+        }
+        return;
+      }
+
+      const category = CATEGORIES[position % CATEGORIES.length];
+      dispatch({ type: "SET_PENDING_CATEGORY", category });
+
+      const roll = Math.floor(Math.random() * 6) + 1;
+      const question = getQuestion(category, roll);
+      if (question) {
+        dispatch({ type: "SET_ACTIVE_QUESTION", question, roll });
+        if (state.gameMode === "online" && identity.roomCode) {
+          setCurrentQuestion(identity.roomCode, question.id);
+        }
+      }
+    },
+    [state.gameMode, identity.roomCode, dispatch, getQuestion]
+  );
+
   const handleSkip = useCallback(() => {
     if (!state.debugMode) return;
     const currentPlayer = state.players[state.currentPlayerIndex];
@@ -252,6 +321,8 @@ export function useGameLogic() {
     handleAnswer,
     afterAnswer,
     handleSkip,
+    handleCultureScore,
+    triggerTileAt,
     diceState,
     animateMovement,
     processRoll,

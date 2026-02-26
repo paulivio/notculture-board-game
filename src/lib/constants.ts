@@ -45,6 +45,9 @@ export const CATEGORY_BG_COLORS: Record<Category, string> = {
   history: "bg-cat-history",
 };
 
+export const CULTURE_POSITIONS = new Set([10, 20, 30]);
+export const CULTURE_TIMER_SECONDS = 30;
+
 export const MOVE_DURATION = 500;
 
 export const GRID_SIZE = 7;

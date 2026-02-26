@@ -1,0 +1,162 @@
+[
+  {
+    "id": "culture-001",
+    "question": "Name the Top 10 highest-grossing films starring Christian Bale",
+    "answers": [
+      "The Dark Knight Rises",
+      "The Dark Knight",
+      "Thor: Love and Thunder",
+      "Batman Begins",
+      "American Hustle",
+      "Ford v Ferrari",
+      "The Big Short",
+      "The Fighter",
+      "Vice",
+      "Exodus: Gods and Kings"
+    ]
+  },
+  {
+    "id": "culture-002",
+    "question": "Name the Top 10 best-selling video game franchises of all time",
+    "answers": [
+      "Mario",
+      "Tetris",
+      "Call of Duty",
+      "FIFA / EA Sports FC",
+      "Pokémon",
+      "Grand Theft Auto",
+      "Need for Speed",
+      "The Sims",
+      "Madden NFL",
+      "Minecraft"
+    ]
+  },
+  {
+    "id": "culture-003",
+    "question": "Name the Top 10 most-streamed artists on Spotify of all time",
+    "answers": [
+      "Ed Sheeran",
+      "Drake",
+      "The Weeknd",
+      "Bad Bunny",
+      "Taylor Swift",
+      "Justin Bieber",
+      "Ariana Grande",
+      "Rihanna",
+      "Eminem",
+      "BTS"
+    ]
+  },
+  {
+    "id": "culture-004",
+    "question": "Name the Top 10 highest-grossing movie franchises of all time",
+    "answers": [
+      "Marvel Cinematic Universe",
+      "Star Wars",
+      "Harry Potter / Wizarding World",
+      "James Bond",
+      "The Lord of the Rings / The Hobbit",
+      "X-Men",
+      "Fast & Furious",
+      "Transformers",
+      "Batman",
+      "Spider-Man"
+    ]
+  },
+  {
+    "id": "culture-005",
+    "question": "Name the Top 10 most-watched TV shows on Netflix of all time",
+    "answers": [
+      "Squid Game",
+      "Wednesday",
+      "Stranger Things (Season 4)",
+      "The Night Agent",
+      "Ginny & Georgia (Season 2)",
+      "The Glory",
+      "Outer Banks (Season 3)",
+      "You (Season 4)",
+      "La Reina del Sur (Season 3)",
+      "Kaleidoscope"
+    ]
+  },
+  {
+    "id": "culture-006",
+    "question": "Name the Top 10 best-selling albums of all time",
+    "answers": [
+      "Thriller — Michael Jackson",
+      "Back in Black — AC/DC",
+      "The Dark Side of the Moon — Pink Floyd",
+      "Bat Out of Hell — Meat Loaf",
+      "Their Greatest Hits — Eagles",
+      "Rumours — Fleetwood Mac",
+      "Come On Over — Shania Twain",
+      "Led Zeppelin IV — Led Zeppelin",
+      "The Bodyguard — Soundtrack",
+      "Falling into You — Celine Dion"
+    ]
+  },
+  {
+    "id": "culture-007",
+    "question": "Name the Top 10 highest-paid athletes in the world in 2024",
+    "answers": [
+      "Cristiano Ronaldo",
+      "Jon Rahm",
+      "Lionel Messi",
+      "LeBron James",
+      "Lamar Jackson",
+      "Giannis Antetokounmpo",
+      "Canelo Álvarez",
+      "Stephen Curry",
+      "Anthony Joshua",
+      "Roger Federer"
+    ]
+  },
+  {
+    "id": "culture-008",
+    "question": "Name the Top 10 most-followed accounts on Instagram",
+    "answers": [
+      "Instagram",
+      "Cristiano Ronaldo",
+      "Lionel Messi",
+      "Selena Gomez",
+      "Kylie Jenner",
+      "Dwayne Johnson",
+      "Ariana Grande",
+      "Kim Kardashian",
+      "Beyoncé",
+      "Khloé Kardashian"
+    ]
+  },
+  {
+    "id": "culture-009",
+    "question": "Name the Top 10 highest-rated IMDb TV shows of all time",
+    "answers": [
+      "Breaking Bad",
+      "Planet Earth II",
+      "Band of Brothers",
+      "Chernobyl",
+      "Our Planet",
+      "Game of Thrones (Season 4)",
+      "The Wire",
+      "Avatar: The Last Airbender",
+      "The Sopranos",
+      "Sherlock"
+    ]
+  },
+  {
+    "id": "culture-010",
+    "question": "Name the Top 10 best-selling books of all time",
+    "answers": [
+      "Don Quixote",
+      "A Tale of Two Cities",
+      "The Lord of the Rings",
+      "The Little Prince",
+      "Harry Potter and the Philosopher's Stone",
+      "And Then There Were None",
+      "Dream of the Red Chamber",
+      "The Hobbit",
+      "She: A History of Adventure",
+      "The Lion, the Witch and the Wardrobe"
+    ]
+  }
+]

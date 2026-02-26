@@ -29,6 +29,7 @@ export function useRoom({
   const previousPlayersRef = useRef<Player[]>([]);
   const isActivePlayerRef = useRef(false);
   const lastResetId = useRef<number | null>(null);
+  const prevCultureEventRef = useRef<{ active: boolean; timerStartedAt?: number; score?: number } | null>(null);
   // Track which player IDs are currently mid-animation on this client
   const animatingPlayersRef = useRef(new Set<number>());
   // Always-current snapshot of local state for use inside onValue callback
@@ -154,6 +155,32 @@ export function useRoom({
       } else {
         dispatch({ type: "SET_ANSWER_RESULT", result: null });
       }
+
+      // Culture tile events
+      const cultureEvent = roomData.cultureEvent ?? null;
+      const prevCulture = prevCultureEventRef.current;
+
+      if (cultureEvent?.active && !prevCulture?.active) {
+        // Culture tile activated — show modal on all clients
+        dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
+      }
+
+      if (!cultureEvent?.active && prevCulture?.active) {
+        // Culture event cleared (turn advanced) — close modal on all clients
+        dispatch({ type: "SHOW_CULTURE_MODAL", show: false });
+      }
+
+      if (cultureEvent?.timerStartedAt && cultureEvent.timerStartedAt !== prevCulture?.timerStartedAt) {
+        // Judge started the timer — sync timestamp to all clients so everyone shows the countdown
+        dispatch({ type: "SET_CULTURE_TIMER_START", startedAt: cultureEvent.timerStartedAt });
+      }
+
+      if (cultureEvent?.score !== undefined && prevCulture?.score === undefined) {
+        // Score submitted — broadcast to all clients so everyone sees the result screen
+        dispatch({ type: "SET_CULTURE_SCORE", score: cultureEvent.score });
+      }
+
+      prevCultureEventRef.current = cultureEvent;
     });
 
     return () => unsubscribe();

@@ -1,15 +1,20 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGame, useGameDispatch } from "../../context/GameContext";
+import { useGameLogicContext } from "../../context/GameLogicContext";
 import { useOnline } from "../../context/OnlineContext";
 import { resetRoom } from "../../firebase/roomService";
 import { TextureButton } from "../ui/TextureButton";
+import { MAX_POSITION } from "../../lib/constants";
 
 export default function SettingsMenu() {
   const state = useGame();
   const dispatch = useGameDispatch();
+  const { triggerTileAt } = useGameLogicContext();
   const { identity } = useOnline();
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [teleportPlayerId, setTeleportPlayerId] = useState(1);
+  const [teleportPos, setTeleportPos] = useState(10);
 
   const handleRestart = () => {
     dispatch({ type: "SHOW_SETTINGS", show: false });
@@ -70,6 +75,74 @@ export default function SettingsMenu() {
             >
               Toggle Debug Mode
             </TextureButton>
+
+            {state.debugMode && (
+              <>
+                <hr className="border-white/10" />
+                <p className="px-1 text-xs font-bold text-fuchsia-400">
+                  Debug: Teleport
+                </p>
+                {state.players.length > 1 && (
+                  <select
+                    className="w-full rounded-lg border border-white/10 bg-surface px-2 py-1 text-sm text-white"
+                    value={teleportPlayerId}
+                    onChange={(e) => setTeleportPlayerId(Number(e.target.value))}
+                  >
+                    {state.players.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.name}
+                      </option>
+                    ))}
+                  </select>
+                )}
+                <div className="flex gap-1">
+                  <input
+                    type="number"
+                    min={0}
+                    max={MAX_POSITION}
+                    className="w-full rounded-lg border border-white/10 bg-surface px-2 py-1 text-sm text-white"
+                    value={teleportPos}
+                    onChange={(e) =>
+                      setTeleportPos(
+                        Math.max(0, Math.min(MAX_POSITION, Number(e.target.value)))
+                      )
+                    }
+                  />
+                  <TextureButton
+                    onClick={() => {
+                      const playerId =
+                        state.players.length === 1
+                          ? state.players[0].id
+                          : teleportPlayerId;
+                      // Find the player's index so we can set currentPlayerIndex
+                      const playerIndex = state.players.findIndex(
+                        (p) => p.id === playerId
+                      );
+                      dispatch({
+                        type: "SET_PLAYER_POSITION",
+                        playerId,
+                        position: teleportPos,
+                      });
+                      // Make this player the active player so tile logic targets them
+                      if (playerIndex !== -1) {
+                        dispatch({
+                          type: "SYNC_ONLINE_STATE",
+                          players: state.players.map((p) =>
+                            p.id === playerId ? { ...p, position: teleportPos } : p
+                          ),
+                          currentPlayerIndex: playerIndex,
+                        });
+                      }
+                      dispatch({ type: "SHOW_SETTINGS", show: false });
+                      triggerTileAt(teleportPos);
+                    }}
+                  >
+                    Go
+                  </TextureButton>
+                </div>
+              </>
+            )}
+
             <hr className="border-white/10" />
             <TextureButton
               className="w-full justify-start"

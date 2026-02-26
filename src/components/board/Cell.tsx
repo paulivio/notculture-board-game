@@ -9,6 +9,7 @@ interface CellProps {
   isOnPath: boolean;
   isStart: boolean;
   isFinish: boolean;
+  isCulture: boolean;
   category: string | null;
   connectClass: string;
   debugMode: boolean;
@@ -16,7 +17,7 @@ interface CellProps {
 
 const Cell = forwardRef<HTMLDivElement, CellProps>(
   (
-    { pathIndex, isOnPath, isStart, isFinish, category, debugMode },
+    { pathIndex, isOnPath, isStart, isFinish, isCulture, category, debugMode },
     ref
   ) => {
     if (!isOnPath) {
@@ -28,17 +29,23 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
       ? "bg-white text-black"
       : isFinish
         ? "bg-amber-400 text-black"
-        : category
-          ? CATEGORY_BG_COLORS[category as Category]
-          : "bg-white";
+        : isCulture
+          ? "bg-fuchsia-600 text-white"
+          : category
+            ? CATEGORY_BG_COLORS[category as Category]
+            : "bg-white";
 
     const label = isStart
       ? "START"
       : isFinish
         ? "FINISH"
-        : debugMode && pathIndex !== undefined
-          ? String(pathIndex)
-          : "";
+        : isCulture
+          ? debugMode && pathIndex !== undefined
+            ? String(pathIndex)
+            : "★"
+          : debugMode && pathIndex !== undefined
+            ? String(pathIndex)
+            : "";
 
     return (
       <div
@@ -48,7 +55,14 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
           bgColor
         )}
       >
-        {label}
+        {isCulture && !(debugMode && pathIndex !== undefined) ? (
+          <div className="flex flex-col items-center leading-none gap-0.5">
+            <span>★</span>
+            <span className="text-[0.65em]">Culture</span>
+          </div>
+        ) : (
+          label
+        )}
       </div>
     );
   }
