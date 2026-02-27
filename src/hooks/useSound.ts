@@ -46,17 +46,40 @@ export function useSound() {
         audioCtxRef.current = new Ctx();
       }
       const ctx = audioCtxRef.current;
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.type = "sine";
-      osc.frequency.value = 1000;
       const now = ctx.currentTime;
-      gain.gain.setValueAtTime(0.25, now);
-      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+      // Descending-pitch oscillator — the "thud" body of the peg strike
+      const osc = ctx.createOscillator();
+      const oscGain = ctx.createGain();
+      osc.connect(oscGain);
+      oscGain.connect(ctx.destination);
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(550, now);
+      osc.frequency.exponentialRampToValueAtTime(120, now + 0.04);
+      oscGain.gain.setValueAtTime(0.45, now);
+      oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
       osc.start(now);
-      osc.stop(now + 0.05);
+      osc.stop(now + 0.04);
+
+      // Short noise burst — the sharp "snap" of contact
+      const bufSize = Math.ceil(ctx.sampleRate * 0.018);
+      const buf = ctx.createBuffer(1, bufSize, ctx.sampleRate);
+      const data = buf.getChannelData(0);
+      for (let i = 0; i < bufSize; i++) data[i] = Math.random() * 2 - 1;
+      const noise = ctx.createBufferSource();
+      noise.buffer = buf;
+      const bpf = ctx.createBiquadFilter();
+      bpf.type = "bandpass";
+      bpf.frequency.value = 1800;
+      bpf.Q.value = 2;
+      const noiseGain = ctx.createGain();
+      noise.connect(bpf);
+      bpf.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noiseGain.gain.setValueAtTime(0.18, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.018);
+      noise.start(now);
+      noise.stop(now + 0.018);
     } catch {}
   }, []);
 

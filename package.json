@@ -21,9 +21,6 @@
   "homepage": "https://github.com/paulivio/notculture-board-game#readme",
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
-    "@react-three/drei": "^10.7.7",
-    "@react-three/fiber": "^9.5.0",
-    "@react-three/rapier": "^2.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^12.9.0",
