@@ -7,6 +7,7 @@ import { TextureCard } from "../ui/TextureCard";
 import { TextureButton } from "../ui/TextureButton";
 import { CULTURE_TIMER_SECONDS } from "../../lib/constants";
 import { startCultureTimer, submitCultureScore } from "../../firebase/roomService";
+import { useSound } from "../../hooks/useSound";
 import cultureData from "../../data/culture.json";
 
 interface CultureQuestion {
@@ -20,6 +21,7 @@ export default function CultureModal() {
   const dispatch = useGameDispatch();
   const { handleCultureScore } = useGameLogicContext();
   const { identity } = useOnline();
+  const { playTick } = useSound();
 
   // Local-mode phase tracking (online derives phase from state.cultureTimerStartedAt)
   const [localPhase, setLocalPhase] = useState<"waiting" | "timer">("waiting");
@@ -65,6 +67,7 @@ export default function CultureModal() {
     if (state.gameMode === "online" || localPhase !== "timer") return;
 
     const interval = setInterval(() => {
+      playTick();
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
@@ -75,7 +78,7 @@ export default function CultureModal() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [localPhase, state.gameMode]);
+  }, [localPhase, state.gameMode, playTick]);
 
   // Online-mode countdown — derived from the shared Firebase timestamp so all clients stay in sync
   useEffect(() => {
@@ -83,13 +86,15 @@ export default function CultureModal() {
 
     const update = () => {
       const elapsed = Math.floor((Date.now() - state.cultureTimerStartedAt!) / 1000);
-      setTimeLeft(Math.max(0, CULTURE_TIMER_SECONDS - elapsed));
+      const tl = Math.max(0, CULTURE_TIMER_SECONDS - elapsed);
+      if (tl > 0) playTick();
+      setTimeLeft(tl);
     };
 
     update();
     const id = setInterval(update, 1000);
     return () => clearInterval(id);
-  }, [state.cultureTimerStartedAt, state.gameMode]);
+  }, [state.cultureTimerStartedAt, state.gameMode, playTick]);
 
   // Reset checkboxes when a fresh timer starts (online)
   useEffect(() => {

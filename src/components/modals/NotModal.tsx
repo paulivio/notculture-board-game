@@ -7,11 +7,13 @@ import { TextureCard } from "../ui/TextureCard";
 import { TextureButton } from "../ui/TextureButton";
 import { NOT_TIMER_SECONDS } from "../../lib/constants";
 import { startNotTimer, submitNotScore } from "../../firebase/roomService";
+import { useSound } from "../../hooks/useSound";
 
 export default function NotModal() {
   const state = useGame();
   const { handleNotScore } = useGameLogicContext();
   const { identity } = useOnline();
+  const { playTick } = useSound();
 
   const [localPhase, setLocalPhase] = useState<"waiting" | "timer">("waiting");
   const [timeLeft, setTimeLeft] = useState(NOT_TIMER_SECONDS);
@@ -47,6 +49,7 @@ export default function NotModal() {
     if (state.gameMode === "online" || localPhase !== "timer") return;
 
     const interval = setInterval(() => {
+      playTick();
       setTimeLeft((prev) => {
         if (prev <= 1) {
           clearInterval(interval);
@@ -57,7 +60,7 @@ export default function NotModal() {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [localPhase, state.gameMode]);
+  }, [localPhase, state.gameMode, playTick]);
 
   // Online-mode countdown — derived from shared Firebase timestamp
   useEffect(() => {
@@ -65,13 +68,15 @@ export default function NotModal() {
 
     const update = () => {
       const elapsed = Math.floor((Date.now() - state.notTimerStartedAt!) / 1000);
-      setTimeLeft(Math.max(0, NOT_TIMER_SECONDS - elapsed));
+      const tl = Math.max(0, NOT_TIMER_SECONDS - elapsed);
+      if (tl > 0) playTick();
+      setTimeLeft(tl);
     };
 
     update();
     const id = setInterval(update, 1000);
     return () => clearInterval(id);
-  }, [state.notTimerStartedAt, state.gameMode]);
+  }, [state.notTimerStartedAt, state.gameMode, playTick]);
 
   // Reset checkboxes when a fresh timer starts (online)
   useEffect(() => {
