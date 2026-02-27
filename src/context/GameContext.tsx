@@ -271,7 +271,8 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };
 
-    case "SYNC_ONLINE_STATE":
+    case "SYNC_ONLINE_STATE": {
+      const playerIndexChanged = action.currentPlayerIndex !== state.currentPlayerIndex;
       return {
         ...state,
         // Never let a sync move a player backwards — this protects mid-animation steps
@@ -284,7 +285,11 @@ function gameReducer(state: GameState, action: GameAction): GameState {
           return incoming;
         }),
         currentPlayerIndex: action.currentPlayerIndex,
+        // Safety net: if Firebase says it's a new player's turn, always clear the lock.
+        // Guards against any code path that fails to dispatch UNLOCK_TURN.
+        isTurnLocked: playerIndexChanged ? false : state.isTurnLocked,
       };
+    }
 
     default:
       return state;

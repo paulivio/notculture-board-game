@@ -275,14 +275,16 @@ export function useGameLogic() {
       const currentPlayer = stateRef.current.players[stateRef.current.currentPlayerIndex];
       const culturePos = currentPlayer.position;
 
-      animateMovement(currentPlayer.id, culturePos, score, async () => {
+      animateMovement(currentPlayer.id, culturePos, score, () => {
         const newPos = Math.min(culturePos + score, MAX_POSITION);
-        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
-          await updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
-          await advanceTurn(identity.roomCode);
-        }
+        // Unlock immediately — don't wait on Firebase so a network hiccup never
+        // leaves the wheel stuck locked.
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
+        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
+          updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
+          advanceTurn(identity.roomCode);
+        }
       });
     },
     [dispatch, animateMovement, identity]
@@ -294,14 +296,14 @@ export function useGameLogic() {
       const currentPlayer = stateRef.current.players[stateRef.current.currentPlayerIndex];
       const notPos = currentPlayer.position;
 
-      animateMovement(currentPlayer.id, notPos, score, async () => {
+      animateMovement(currentPlayer.id, notPos, score, () => {
         const newPos = Math.min(notPos + score, MAX_POSITION);
-        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
-          await updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
-          await advanceTurn(identity.roomCode);
-        }
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
+        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
+          updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
+          advanceTurn(identity.roomCode);
+        }
       });
     },
     [dispatch, animateMovement, identity]
