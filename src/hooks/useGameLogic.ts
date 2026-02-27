@@ -159,7 +159,6 @@ export function useGameLogic() {
         onComplete();
         return;
       }
-      playSound("dice");
       setDiceState({
         rolling: true,
         finalValue: roll,
@@ -170,7 +169,7 @@ export function useGameLogic() {
         },
       });
     },
-    [state.debugMode, playSound]
+    [state.debugMode]
   );
 
   const handleDiceRoll = useCallback(() => {
@@ -193,7 +192,6 @@ export function useGameLogic() {
       return;
     }
 
-    playSound("dice");
     setDiceState({
       rolling: true,
       finalValue: roll,
@@ -203,7 +201,7 @@ export function useGameLogic() {
         processRoll(roll);
       },
     });
-  }, [state.isTurnLocked, state.gameMode, state.debugMode, identity, dispatch, playSound, processRoll]);
+  }, [state.isTurnLocked, state.gameMode, state.debugMode, identity, dispatch, processRoll]);
 
   const handleAnswer = useCallback(
     (selectedIndex: number) => {
