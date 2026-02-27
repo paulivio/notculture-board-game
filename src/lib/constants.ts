@@ -55,6 +55,9 @@ export const CATEGORY_BG_COLORS: Record<Category, string> = {
 export const CULTURE_POSITIONS = new Set([10, 20, 30, 40]);
 export const CULTURE_TIMER_SECONDS = 30;
 
+export const NOT_POSITIONS = new Set([5, 15, 25, 35, 45]);
+export const NOT_TIMER_SECONDS = 30;
+
 export const MOVE_DURATION = 500;
 
 export const GRID_SIZE = 8;

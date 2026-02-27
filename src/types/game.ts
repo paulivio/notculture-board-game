@@ -13,6 +13,11 @@ export interface Question {
   correctIndex: number;
 }
 
+export interface NotQuestion {
+  id: string;
+  answers: string[];
+}
+
 export type Category = "film" | "science" | "general" | "history";
 
 export type GameMode = "local" | "online";
@@ -40,11 +45,15 @@ export interface GameState {
   showWinModal: boolean;
   showQuestionModal: boolean;
   showCultureModal: boolean;
+  showNotModal: boolean;
   showEditor: boolean;
   showSettings: boolean;
   answerResult: AnswerResult | null;
   cultureTimerStartedAt: number | null;
   cultureScore: number | null;
+  notTimerStartedAt: number | null;
+  notScore: number | null;
+  currentNotCard: NotQuestion | null;
 }
 
 export interface OnlineIdentity {
@@ -67,6 +76,7 @@ export interface RoomData {
   gameState: "waiting" | "playing";
   resetId?: number;
   cultureEvent: { active: boolean; timerStartedAt?: number; score?: number } | null;
+  notEvent: { active: boolean; timerStartedAt?: number; score?: number; question?: { id: string; answers: string[] } } | null;
 }
 
 export type GameAction =
@@ -99,4 +109,8 @@ export type GameAction =
   | { type: "SET_ANSWER_RESULT"; result: AnswerResult | null }
   | { type: "SHOW_CULTURE_MODAL"; show: boolean }
   | { type: "SET_CULTURE_TIMER_START"; startedAt: number | null }
-  | { type: "SET_CULTURE_SCORE"; score: number | null };
+  | { type: "SET_CULTURE_SCORE"; score: number | null }
+  | { type: "SHOW_NOT_MODAL"; show: boolean }
+  | { type: "SET_NOT_TIMER_START"; startedAt: number | null }
+  | { type: "SET_NOT_SCORE"; score: number | null }
+  | { type: "SET_NOT_CARD"; card: NotQuestion | null };

@@ -28,11 +28,15 @@ const initialState: GameState = {
   showWinModal: false,
   showQuestionModal: false,
   showCultureModal: false,
+  showNotModal: false,
   showEditor: false,
   showSettings: false,
   answerResult: null,
   cultureTimerStartedAt: null,
   cultureScore: null,
+  notTimerStartedAt: null,
+  notScore: null,
+  currentNotCard: null,
 };
 
 function gameReducer(state: GameState, action: GameAction): GameState {
@@ -154,8 +158,12 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         showWinModal: false,
         showQuestionModal: false,
         showCultureModal: false,
+        showNotModal: false,
         cultureTimerStartedAt: null as null,
         cultureScore: null as null,
+        notTimerStartedAt: null as null,
+        notScore: null as null,
+        currentNotCard: null,
       };
       if (action.mode === "online") {
         return { ...state, ...modeReset, gameMode: action.mode, players: [] };
@@ -184,8 +192,12 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         showWinModal: false,
         showQuestionModal: false,
         showCultureModal: false,
+        showNotModal: false,
         cultureTimerStartedAt: null,
         cultureScore: null,
+        notTimerStartedAt: null,
+        notScore: null,
+        currentNotCard: null,
       };
 
     case "SET_QUESTIONS":
@@ -217,6 +229,27 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SET_CULTURE_SCORE":
       return { ...state, cultureScore: action.score };
+
+    case "SHOW_NOT_MODAL":
+      if (!action.show) {
+        return {
+          ...state,
+          showNotModal: false,
+          notTimerStartedAt: null,
+          notScore: null,
+          currentNotCard: null,
+        };
+      }
+      return { ...state, showNotModal: true };
+
+    case "SET_NOT_TIMER_START":
+      return { ...state, notTimerStartedAt: action.startedAt };
+
+    case "SET_NOT_SCORE":
+      return { ...state, notScore: action.score };
+
+    case "SET_NOT_CARD":
+      return { ...state, currentNotCard: action.card };
 
     case "SHOW_EDITOR":
       return { ...state, showEditor: action.show };

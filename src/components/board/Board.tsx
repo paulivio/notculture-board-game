@@ -3,7 +3,7 @@ import { useGame } from "../../context/GameContext";
 import Cell from "./Cell";
 import BoardCanvas from "./BoardCanvas";
 import PlayerToken from "./PlayerToken";
-import { TOTAL_CELLS, SPIRAL_PATH, CATEGORIES, CULTURE_POSITIONS, GRID_SIZE } from "../../lib/constants";
+import { TOTAL_CELLS, SPIRAL_PATH, CATEGORIES, CULTURE_POSITIONS, NOT_POSITIONS, GRID_SIZE } from "../../lib/constants";
 
 export default function Board() {
   const state = useGame();
@@ -45,9 +45,10 @@ export default function Board() {
         const isFinish = pathIndex === SPIRAL_PATH.length - 1;
 
         const isCulture = isOnPath && !isStart && !isFinish && CULTURE_POSITIONS.has(pathIndex!);
+        const isNot = isOnPath && !isStart && !isFinish && NOT_POSITIONS.has(pathIndex!);
 
         let category: string | null = null;
-        if (isOnPath && !isStart && !isFinish && !isCulture) {
+        if (isOnPath && !isStart && !isFinish && !isCulture && !isNot) {
           category = CATEGORIES[pathIndex % CATEGORIES.length];
         }
 
@@ -80,6 +81,7 @@ export default function Board() {
             isStart={isStart}
             isFinish={isFinish}
             isCulture={isCulture}
+            isNot={isNot}
             category={category}
             connectClass={connectClass}
             debugMode={state.debugMode}

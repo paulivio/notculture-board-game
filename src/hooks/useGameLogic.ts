@@ -7,10 +7,12 @@ import {
   SPIRAL_PATH,
   CATEGORIES,
   CULTURE_POSITIONS,
+  NOT_POSITIONS,
   MAX_POSITION,
   MOVE_DURATION,
 } from "../lib/constants";
 import type { Category } from "../types/game";
+import notData from "../data/not.json";
 import {
   rollDice,
   setCurrentQuestion,
@@ -18,6 +20,7 @@ import {
   updatePlayerPosition,
   advanceTurn,
   activateCulture,
+  activateNot,
 } from "../firebase/roomService";
 
 export interface DiceState {
@@ -44,6 +47,7 @@ export function useGameLogic() {
   const movingRef = useRef(false);
   const stateRef = useRef(state);
   stateRef.current = state;
+  const usedNotIds = useRef(new Set<string>());
 
   const animateMovement = useCallback(
     (playerId: number, startPos: number, steps: number, onComplete?: () => void) => {
@@ -95,6 +99,29 @@ export function useGameLogic() {
             await activateCulture(identity.roomCode);
           } else {
             dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
+          }
+        });
+        return;
+      }
+
+      // Not tile check — describe-and-guess mechanic
+      if (NOT_POSITIONS.has(destination)) {
+        const cards = notData as { id: string; answers: string[] }[];
+        let pool = cards.filter((c) => !usedNotIds.current.has(c.id));
+        if (pool.length === 0) {
+          usedNotIds.current.clear();
+          pool = cards;
+        }
+        const card = pool[Math.floor(Math.random() * pool.length)];
+        usedNotIds.current.add(card.id);
+
+        animateMovement(currentPlayer.id, currentPlayer.position, roll, async () => {
+          if (state.gameMode === "online" && identity.roomCode && identity.playerId) {
+            await updatePlayerPosition(identity.roomCode, identity.playerId, destination);
+            await activateNot(identity.roomCode, card);
+          } else {
+            dispatch({ type: "SET_NOT_CARD", card });
+            dispatch({ type: "SHOW_NOT_MODAL", show: true });
           }
         });
         return;
@@ -263,6 +290,25 @@ export function useGameLogic() {
     [dispatch, animateMovement, identity]
   );
 
+  const handleNotScore = useCallback(
+    (score: number) => {
+      dispatch({ type: "SHOW_NOT_MODAL", show: false });
+      const currentPlayer = stateRef.current.players[stateRef.current.currentPlayerIndex];
+      const notPos = currentPlayer.position;
+
+      animateMovement(currentPlayer.id, notPos, score, async () => {
+        const newPos = Math.min(notPos + score, MAX_POSITION);
+        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
+          await updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
+          await advanceTurn(identity.roomCode);
+        }
+        dispatch({ type: "ADVANCE_TURN" });
+        dispatch({ type: "UNLOCK_TURN" });
+      });
+    },
+    [dispatch, animateMovement, identity]
+  );
+
   // Debug-only: trigger the tile effect at an arbitrary position
   const triggerTileAt = useCallback(
     (position: number) => {
@@ -275,6 +321,24 @@ export function useGameLogic() {
           activateCulture(identity.roomCode);
         } else {
           dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
+        }
+        return;
+      }
+
+      if (NOT_POSITIONS.has(position)) {
+        const cards = notData as { id: string; answers: string[] }[];
+        let pool = cards.filter((c) => !usedNotIds.current.has(c.id));
+        if (pool.length === 0) {
+          usedNotIds.current.clear();
+          pool = cards;
+        }
+        const card = pool[Math.floor(Math.random() * pool.length)];
+        usedNotIds.current.add(card.id);
+        if (state.gameMode === "online" && identity.roomCode) {
+          activateNot(identity.roomCode, card);
+        } else {
+          dispatch({ type: "SET_NOT_CARD", card });
+          dispatch({ type: "SHOW_NOT_MODAL", show: true });
         }
         return;
       }
@@ -322,6 +386,7 @@ export function useGameLogic() {
     afterAnswer,
     handleSkip,
     handleCultureScore,
+    handleNotScore,
     triggerTileAt,
     diceState,
     animateMovement,

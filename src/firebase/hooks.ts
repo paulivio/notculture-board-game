@@ -30,6 +30,7 @@ export function useRoom({
   const isActivePlayerRef = useRef(false);
   const lastResetId = useRef<number | null>(null);
   const prevCultureEventRef = useRef<{ active: boolean; timerStartedAt?: number; score?: number } | null>(null);
+  const prevNotEventRef = useRef<{ active: boolean; timerStartedAt?: number; score?: number; question?: { id: string; answers: string[] } } | null>(null);
   // Track which player IDs are currently mid-animation on this client
   const animatingPlayersRef = useRef(new Set<number>());
   // Always-current snapshot of local state for use inside onValue callback
@@ -181,6 +182,33 @@ export function useRoom({
       }
 
       prevCultureEventRef.current = cultureEvent;
+
+      // Not tile events
+      const notEvent = roomData.notEvent ?? null;
+      const prevNot = prevNotEventRef.current;
+
+      if (notEvent?.active && !prevNot?.active) {
+        // Not tile activated — show modal and set card on all clients
+        if (notEvent.question) {
+          dispatch({ type: "SET_NOT_CARD", card: notEvent.question });
+        }
+        dispatch({ type: "SHOW_NOT_MODAL", show: true });
+      }
+
+      if (!notEvent?.active && prevNot?.active) {
+        // Not event cleared (turn advanced) — close modal on all clients
+        dispatch({ type: "SHOW_NOT_MODAL", show: false });
+      }
+
+      if (notEvent?.timerStartedAt && notEvent.timerStartedAt !== prevNot?.timerStartedAt) {
+        dispatch({ type: "SET_NOT_TIMER_START", startedAt: notEvent.timerStartedAt });
+      }
+
+      if (notEvent?.score !== undefined && prevNot?.score === undefined) {
+        dispatch({ type: "SET_NOT_SCORE", score: notEvent.score });
+      }
+
+      prevNotEventRef.current = notEvent;
     });
 
     return () => unsubscribe();

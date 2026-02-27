@@ -161,6 +161,7 @@ export async function advanceTurn(roomCode: string): Promise<void> {
     currentRoll: null,
     answerResult: null,
     cultureEvent: null,
+    notEvent: null,
   });
 }
 
@@ -176,6 +177,20 @@ export async function startCultureTimer(roomCode: string): Promise<void> {
 
 export async function submitCultureScore(roomCode: string, score: number): Promise<void> {
   await update(ref(db, `rooms/${roomCode}/cultureEvent`), { score });
+}
+
+export async function activateNot(roomCode: string, question: { id: string; answers: string[] }): Promise<void> {
+  await set(ref(db, `rooms/${roomCode}/notEvent`), { active: true, question });
+}
+
+export async function startNotTimer(roomCode: string): Promise<void> {
+  await update(ref(db, `rooms/${roomCode}/notEvent`), {
+    timerStartedAt: Date.now(),
+  });
+}
+
+export async function submitNotScore(roomCode: string, score: number): Promise<void> {
+  await update(ref(db, `rooms/${roomCode}/notEvent`), { score });
 }
 
 export async function clearTurnState(roomCode: string): Promise<void> {

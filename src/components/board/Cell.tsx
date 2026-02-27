@@ -10,6 +10,7 @@ interface CellProps {
   isStart: boolean;
   isFinish: boolean;
   isCulture: boolean;
+  isNot: boolean;
   category: string | null;
   connectClass: string;
   debugMode: boolean;
@@ -17,7 +18,7 @@ interface CellProps {
 
 const Cell = forwardRef<HTMLDivElement, CellProps>(
   (
-    { pathIndex, isOnPath, isStart, isFinish, isCulture, category, debugMode },
+    { pathIndex, isOnPath, isStart, isFinish, isCulture, isNot, category, debugMode },
     ref
   ) => {
     if (!isOnPath) {
@@ -31,9 +32,11 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
         ? "bg-amber-400 text-black"
         : isCulture
           ? "bg-fuchsia-600 text-white"
-          : category
-            ? CATEGORY_BG_COLORS[category as Category]
-            : "bg-white";
+          : isNot
+            ? "bg-orange-500 text-white"
+            : category
+              ? CATEGORY_BG_COLORS[category as Category]
+              : "bg-white";
 
     const label = isStart
       ? "START"
@@ -43,9 +46,13 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
           ? debugMode && pathIndex !== undefined
             ? String(pathIndex)
             : "★"
-          : debugMode && pathIndex !== undefined
-            ? String(pathIndex)
-            : "";
+          : isNot
+            ? debugMode && pathIndex !== undefined
+              ? String(pathIndex)
+              : "✦"
+            : debugMode && pathIndex !== undefined
+              ? String(pathIndex)
+              : "";
 
     return (
       <div
@@ -59,6 +66,11 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
           <div className="flex flex-col items-center leading-none gap-0.5 text-[clamp(13px,2.6vw,22px)]">
             <span>★</span>
             <span className="text-[0.75em]">Culture</span>
+          </div>
+        ) : isNot && !(debugMode && pathIndex !== undefined) ? (
+          <div className="flex flex-col items-center leading-none gap-0.5 text-[clamp(13px,2.6vw,22px)]">
+            <span>✦</span>
+            <span className="text-[0.75em]">Not</span>
           </div>
         ) : (
           label
