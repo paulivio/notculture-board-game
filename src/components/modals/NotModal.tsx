@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGame } from "../../context/GameContext";
 import { useGameLogicContext } from "../../context/GameLogicContext";
@@ -19,6 +19,8 @@ export default function NotModal() {
   const [timeLeft, setTimeLeft] = useState(NOT_TIMER_SECONDS);
   const [checked, setChecked] = useState<boolean[]>(new Array(6).fill(false));
   const [localScore, setLocalScore] = useState<number | null>(null);
+  const localIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const onlineIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const activePlayer = state.players[state.currentPlayerIndex];
   const card = state.currentNotCard;
@@ -48,18 +50,22 @@ export default function NotModal() {
   useEffect(() => {
     if (state.gameMode === "online" || localPhase !== "timer") return;
 
-    const interval = setInterval(() => {
+    localIntervalRef.current = setInterval(() => {
       playTick();
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          clearInterval(interval);
+          clearInterval(localIntervalRef.current!);
+          localIntervalRef.current = null;
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(localIntervalRef.current!);
+      localIntervalRef.current = null;
+    };
   }, [localPhase, state.gameMode, playTick]);
 
   // Online-mode countdown — derived from shared Firebase timestamp
@@ -74,8 +80,11 @@ export default function NotModal() {
     };
 
     update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
+    onlineIntervalRef.current = setInterval(update, 1000);
+    return () => {
+      clearInterval(onlineIntervalRef.current!);
+      onlineIntervalRef.current = null;
+    };
   }, [state.notTimerStartedAt, state.gameMode, playTick]);
 
   // Reset checkboxes when a fresh timer starts (online)
@@ -105,6 +114,14 @@ export default function NotModal() {
 
   const handleContinue = () => {
     handleNotScore(scoreResult!);
+  };
+
+  const handleFinish = () => {
+    clearInterval(localIntervalRef.current!);
+    localIntervalRef.current = null;
+    clearInterval(onlineIntervalRef.current!);
+    onlineIntervalRef.current = null;
+    setTimeLeft(0);
   };
 
   if (!activePlayer || !card) return null;
@@ -234,6 +251,12 @@ export default function NotModal() {
                     </span>
                   )}
                 </div>
+
+                {timeLeft > 0 && (
+                  <TextureButton className="w-full" onClick={handleFinish}>
+                    Finish Early
+                  </TextureButton>
+                )}
 
                 {/* Answer list */}
                 <ol className="flex flex-col gap-1">

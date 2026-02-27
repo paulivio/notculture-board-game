@@ -1,4 +1,5 @@
-import { useRef, useCallback } from "react";
+import { useRef, useCallback, useEffect } from "react";
+import { useSoundSettings } from "../context/SoundContext";
 
 type SoundName = "dice" | "move" | "correct" | "wrong";
 
@@ -12,6 +13,13 @@ const SOUND_PATHS: Record<SoundName, string> = {
   wrong: `${base}assets/sounds/wrong.mp3`,
 };
 
+const SOUND_GAIN: Record<SoundName, number> = {
+  dice: 1,
+  move: 1,
+  correct: 1,
+  wrong: 0.6,
+};
+
 function createAudio(src: string): HTMLAudioElement {
   const audio = new Audio(src);
   audio.preload = "auto";
@@ -20,8 +28,16 @@ function createAudio(src: string): HTMLAudioElement {
 }
 
 export function useSound() {
+  const { volume, muted } = useSoundSettings();
   const soundsRef = useRef<Record<SoundName, HTMLAudioElement> | null>(null);
   const audioCtxRef = useRef<AudioContext | null>(null);
+  const volumeRef = useRef(volume);
+  const mutedRef = useRef(muted);
+
+  useEffect(() => {
+    volumeRef.current = volume;
+    mutedRef.current = muted;
+  }, [volume, muted]);
 
   if (!soundsRef.current) {
     soundsRef.current = {
@@ -33,13 +49,16 @@ export function useSound() {
   }
 
   const playSound = useCallback((name: SoundName) => {
+    if (mutedRef.current) return;
     const sound = soundsRef.current?.[name];
     if (!sound) return;
     sound.currentTime = 0;
+    sound.volume = volumeRef.current * SOUND_GAIN[name];
     sound.play().catch(() => {});
   }, []);
 
   const playTick = useCallback(() => {
+    if (mutedRef.current) return;
     try {
       if (!audioCtxRef.current) {
         const Ctx = (window.AudioContext ?? (window as unknown as { webkitAudioContext: AudioContextClass }).webkitAudioContext);
@@ -47,6 +66,7 @@ export function useSound() {
       }
       const ctx = audioCtxRef.current;
       const now = ctx.currentTime;
+      const vol = volumeRef.current;
 
       // Descending-pitch oscillator — the "thud" body of the peg strike
       const osc = ctx.createOscillator();
@@ -56,7 +76,7 @@ export function useSound() {
       osc.type = "triangle";
       osc.frequency.setValueAtTime(550, now);
       osc.frequency.exponentialRampToValueAtTime(120, now + 0.04);
-      oscGain.gain.setValueAtTime(0.45, now);
+      oscGain.gain.setValueAtTime(0.45 * vol, now);
       oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
       osc.start(now);
       osc.stop(now + 0.04);
@@ -76,7 +96,7 @@ export function useSound() {
       noise.connect(bpf);
       bpf.connect(noiseGain);
       noiseGain.connect(ctx.destination);
-      noiseGain.gain.setValueAtTime(0.18, now);
+      noiseGain.gain.setValueAtTime(0.18 * vol, now);
       noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.018);
       noise.start(now);
       noise.stop(now + 0.018);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGame, useGameDispatch } from "../../context/GameContext";
 import { useGameLogicContext } from "../../context/GameLogicContext";
@@ -29,6 +29,8 @@ export default function CultureModal() {
   const [checked, setChecked] = useState<boolean[]>(new Array(10).fill(false));
   // Local-mode score result (online uses state.cultureScore)
   const [localScore, setLocalScore] = useState<number | null>(null);
+  const localIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const onlineIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const activePlayer = state.players[state.currentPlayerIndex];
 
@@ -66,18 +68,22 @@ export default function CultureModal() {
   useEffect(() => {
     if (state.gameMode === "online" || localPhase !== "timer") return;
 
-    const interval = setInterval(() => {
+    localIntervalRef.current = setInterval(() => {
       playTick();
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          clearInterval(interval);
+          clearInterval(localIntervalRef.current!);
+          localIntervalRef.current = null;
           return 0;
         }
         return prev - 1;
       });
     }, 1000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearInterval(localIntervalRef.current!);
+      localIntervalRef.current = null;
+    };
   }, [localPhase, state.gameMode, playTick]);
 
   // Online-mode countdown — derived from the shared Firebase timestamp so all clients stay in sync
@@ -92,8 +98,11 @@ export default function CultureModal() {
     };
 
     update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
+    onlineIntervalRef.current = setInterval(update, 1000);
+    return () => {
+      clearInterval(onlineIntervalRef.current!);
+      onlineIntervalRef.current = null;
+    };
   }, [state.cultureTimerStartedAt, state.gameMode, playTick]);
 
   // Reset checkboxes when a fresh timer starts (online)
@@ -125,6 +134,14 @@ export default function CultureModal() {
 
   const handleContinue = () => {
     handleCultureScore(scoreResult!);
+  };
+
+  const handleFinish = () => {
+    clearInterval(localIntervalRef.current!);
+    localIntervalRef.current = null;
+    clearInterval(onlineIntervalRef.current!);
+    onlineIntervalRef.current = null;
+    setTimeLeft(0);
   };
 
   if (!activePlayer || !question) return null;
@@ -246,6 +263,12 @@ export default function CultureModal() {
                     </span>
                   )}
                 </div>
+
+                {timeLeft > 0 && (
+                  <TextureButton className="w-full" onClick={handleFinish}>
+                    Finish Early
+                  </TextureButton>
+                )}
 
                 {/* Answer list */}
                 <ol className="flex flex-col gap-1">
