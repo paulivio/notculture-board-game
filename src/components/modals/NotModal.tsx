@@ -87,10 +87,14 @@ export default function NotModal() {
     };
   }, [state.notTimerStartedAt, state.gameMode, playTick]);
 
-  // Reset checkboxes when a fresh timer starts (online)
+  // Reset checkboxes when a genuinely fresh timer starts (online).
+  // A backdated finish-early signal has elapsed >> NOT_TIMER_SECONDS so we skip it.
   useEffect(() => {
     if (state.gameMode === "online" && state.notTimerStartedAt) {
-      setChecked(new Array(6).fill(false));
+      const elapsed = Date.now() - state.notTimerStartedAt;
+      if (elapsed < 5000) {
+        setChecked(new Array(6).fill(false));
+      }
     }
   }, [state.notTimerStartedAt, state.gameMode]);
 

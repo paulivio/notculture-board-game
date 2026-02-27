@@ -105,10 +105,14 @@ export default function CultureModal() {
     };
   }, [state.cultureTimerStartedAt, state.gameMode, playTick]);
 
-  // Reset checkboxes when a fresh timer starts (online)
+  // Reset checkboxes when a genuinely fresh timer starts (online).
+  // A backdated finish-early signal has elapsed >> CULTURE_TIMER_SECONDS so we skip it.
   useEffect(() => {
     if (state.gameMode === "online" && state.cultureTimerStartedAt) {
-      setChecked(new Array(10).fill(false));
+      const elapsed = Date.now() - state.cultureTimerStartedAt;
+      if (elapsed < 5000) {
+        setChecked(new Array(10).fill(false));
+      }
     }
   }, [state.cultureTimerStartedAt, state.gameMode]);
 
