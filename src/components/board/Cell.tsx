@@ -56,9 +56,9 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
         )}
       >
         {isCulture && !(debugMode && pathIndex !== undefined) ? (
-          <div className="flex flex-col items-center leading-none gap-0.5">
+          <div className="flex flex-col items-center leading-none gap-0.5 text-[clamp(13px,2.6vw,22px)]">
             <span>★</span>
-            <span className="text-[0.65em]">Culture</span>
+            <span className="text-[0.75em]">Culture</span>
           </div>
         ) : (
           label
