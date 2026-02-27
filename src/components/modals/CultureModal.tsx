@@ -6,7 +6,7 @@ import { useOnline } from "../../context/OnlineContext";
 import { TextureCard } from "../ui/TextureCard";
 import { TextureButton } from "../ui/TextureButton";
 import { CULTURE_TIMER_SECONDS } from "../../lib/constants";
-import { startCultureTimer, submitCultureScore } from "../../firebase/roomService";
+import { startCultureTimer, submitCultureScore, finishCultureTimerEarly } from "../../firebase/roomService";
 import { useSound } from "../../hooks/useSound";
 import cultureData from "../../data/culture.json";
 
@@ -148,6 +148,9 @@ export default function CultureModal() {
     clearInterval(onlineIntervalRef.current!);
     onlineIntervalRef.current = null;
     setTimeLeft(0);
+    if (state.gameMode === "online" && identity.roomCode) {
+      finishCultureTimerEarly(identity.roomCode);
+    }
   };
 
   if (!activePlayer || !question) return null;

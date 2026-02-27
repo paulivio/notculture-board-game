@@ -175,6 +175,12 @@ export async function startCultureTimer(roomCode: string): Promise<void> {
   });
 }
 
+export async function finishCultureTimerEarly(roomCode: string): Promise<void> {
+  await update(ref(db, `rooms/${roomCode}/cultureEvent`), {
+    timerStartedAt: Date.now() - 999_000,
+  });
+}
+
 export async function submitCultureScore(roomCode: string, score: number): Promise<void> {
   await update(ref(db, `rooms/${roomCode}/cultureEvent`), { score });
 }
@@ -186,6 +192,13 @@ export async function activateNot(roomCode: string, question: { id: string; answ
 export async function startNotTimer(roomCode: string): Promise<void> {
   await update(ref(db, `rooms/${roomCode}/notEvent`), {
     timerStartedAt: Date.now(),
+  });
+}
+
+export async function finishNotTimerEarly(roomCode: string): Promise<void> {
+  // Backdate timerStartedAt so all clients compute elapsed >> timer duration → timeLeft = 0
+  await update(ref(db, `rooms/${roomCode}/notEvent`), {
+    timerStartedAt: Date.now() - 999_000,
   });
 }
 

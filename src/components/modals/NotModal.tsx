@@ -6,7 +6,7 @@ import { useOnline } from "../../context/OnlineContext";
 import { TextureCard } from "../ui/TextureCard";
 import { TextureButton } from "../ui/TextureButton";
 import { NOT_TIMER_SECONDS } from "../../lib/constants";
-import { startNotTimer, submitNotScore } from "../../firebase/roomService";
+import { startNotTimer, submitNotScore, finishNotTimerEarly } from "../../firebase/roomService";
 import { useSound } from "../../hooks/useSound";
 
 export default function NotModal() {
@@ -128,6 +128,9 @@ export default function NotModal() {
     clearInterval(onlineIntervalRef.current!);
     onlineIntervalRef.current = null;
     setTimeLeft(0);
+    if (state.gameMode === "online" && identity.roomCode) {
+      finishNotTimerEarly(identity.roomCode);
+    }
   };
 
   if (!activePlayer || !card) return null;
