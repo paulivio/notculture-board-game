@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { useGame, useGameDispatch } from "../context/GameContext";
 import { useOnline } from "../context/OnlineContext";
 import { useQuestions } from "./useQuestions";
@@ -89,44 +89,6 @@ export function useGameLogic() {
   const processRoll = useCallback(
     (roll: number) => {
       const currentPlayer = state.players[state.currentPlayerIndex];
-      const destination = Math.min(currentPlayer.position + roll, MAX_POSITION);
-
-      // Culture tile check — bypass question flow entirely
-      if (CULTURE_POSITIONS.has(destination)) {
-        animateMovement(currentPlayer.id, currentPlayer.position, roll, async () => {
-          if (state.gameMode === "online" && identity.roomCode && identity.playerId) {
-            await updatePlayerPosition(identity.roomCode, identity.playerId, destination);
-            await activateCulture(identity.roomCode);
-          } else {
-            dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
-          }
-        });
-        return;
-      }
-
-      // Not tile check — describe-and-guess mechanic
-      if (NOT_POSITIONS.has(destination)) {
-        const cards = notData as { id: string; answers: string[] }[];
-        let pool = cards.filter((c) => !usedNotIds.current.has(c.id));
-        if (pool.length === 0) {
-          usedNotIds.current.clear();
-          pool = cards;
-        }
-        const card = pool[Math.floor(Math.random() * pool.length)];
-        usedNotIds.current.add(card.id);
-
-        animateMovement(currentPlayer.id, currentPlayer.position, roll, async () => {
-          if (state.gameMode === "online" && identity.roomCode && identity.playerId) {
-            await updatePlayerPosition(identity.roomCode, identity.playerId, destination);
-            await activateNot(identity.roomCode, card);
-          } else {
-            dispatch({ type: "SET_NOT_CARD", card });
-            dispatch({ type: "SHOW_NOT_MODAL", show: true });
-          }
-        });
-        return;
-      }
-
       const pathIndex = currentPlayer.position;
 
       let category: Category;
@@ -148,8 +110,61 @@ export function useGameLogic() {
         }
       }
     },
-    [state.players, state.currentPlayerIndex, state.gameMode, identity, animateMovement, getQuestion, dispatch]
+    [state.players, state.currentPlayerIndex, state.gameMode, identity, getQuestion, dispatch]
   );
+
+  // Auto-trigger Not/Culture modal when a player starts their turn already sitting on one
+  // of those tiles. Landing on a Not/Culture tile via a correct-answer move just advances
+  // the turn; the modal fires automatically at the start of the player's next turn here.
+  useEffect(() => {
+    if (state.isTurnLocked) return;
+    if (state.showCultureModal || state.showNotModal) return;
+
+    const currentPlayer = state.players[state.currentPlayerIndex];
+    if (!currentPlayer) return;
+    const pos = currentPlayer.position;
+    if (pos <= 0 || pos >= MAX_POSITION) return;
+    if (!CULTURE_POSITIONS.has(pos) && !NOT_POSITIONS.has(pos)) return;
+
+    if (state.gameMode === "online") {
+      // Only the active player's device writes to Firebase
+      if (!identity.playerName || currentPlayer.name !== identity.playerName || !identity.roomCode) return;
+      dispatch({ type: "LOCK_TURN" });
+      if (CULTURE_POSITIONS.has(pos)) {
+        activateCulture(identity.roomCode);
+      } else {
+        const cards = notData as { id: string; answers: string[] }[];
+        let pool = cards.filter((c) => !usedNotIds.current.has(c.id));
+        if (pool.length === 0) { usedNotIds.current.clear(); pool = cards; }
+        const card = pool[Math.floor(Math.random() * pool.length)];
+        usedNotIds.current.add(card.id);
+        activateNot(identity.roomCode, card);
+      }
+    } else {
+      dispatch({ type: "LOCK_TURN" });
+      if (CULTURE_POSITIONS.has(pos)) {
+        dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
+      } else {
+        const cards = notData as { id: string; answers: string[] }[];
+        let pool = cards.filter((c) => !usedNotIds.current.has(c.id));
+        if (pool.length === 0) { usedNotIds.current.clear(); pool = cards; }
+        const card = pool[Math.floor(Math.random() * pool.length)];
+        usedNotIds.current.add(card.id);
+        dispatch({ type: "SET_NOT_CARD", card });
+        dispatch({ type: "SHOW_NOT_MODAL", show: true });
+      }
+    }
+  }, [ // eslint-disable-line react-hooks/exhaustive-deps
+    state.currentPlayerIndex,
+    state.isTurnLocked,
+    state.showCultureModal,
+    state.showNotModal,
+    state.gameMode,
+    state.players,
+    identity.playerName,
+    identity.roomCode,
+    dispatch,
+  ]);
 
   // Trigger dice animation with a server-provided value (used by online mode)
   const triggerDiceAnimation = useCallback(
