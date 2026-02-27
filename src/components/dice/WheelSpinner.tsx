@@ -136,8 +136,8 @@ export default function WheelSpinner({
       >
         <svg
           viewBox="0 0 200 210"
-          width="120"
-          height="126"
+          width="180"
+          height="189"
           aria-label="Spin the wheel"
         >
           {/* Downward-pointing pointer above the wheel, apex touching the rim */}

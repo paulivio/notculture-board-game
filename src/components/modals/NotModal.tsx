@@ -13,7 +13,7 @@ export default function NotModal() {
   const state = useGame();
   const { handleNotScore } = useGameLogicContext();
   const { identity } = useOnline();
-  const { playTick } = useSound();
+  const { playTick, playSound } = useSound();
 
   const [localPhase, setLocalPhase] = useState<"waiting" | "timer">("waiting");
   const [timeLeft, setTimeLeft] = useState(NOT_TIMER_SECONDS);
@@ -93,6 +93,12 @@ export default function NotModal() {
       setChecked(new Array(6).fill(false));
     }
   }, [state.notTimerStartedAt, state.gameMode]);
+
+  // Play result sound when score is revealed
+  useEffect(() => {
+    if (scoreResult === null) return;
+    playSound(scoreResult > 0 ? "correct" : "wrong");
+  }, [scoreResult]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleStartTimer = () => {
     if (state.gameMode === "online" && identity.roomCode) {

@@ -21,7 +21,7 @@ export default function CultureModal() {
   const dispatch = useGameDispatch();
   const { handleCultureScore } = useGameLogicContext();
   const { identity } = useOnline();
-  const { playTick } = useSound();
+  const { playTick, playSound } = useSound();
 
   // Local-mode phase tracking (online derives phase from state.cultureTimerStartedAt)
   const [localPhase, setLocalPhase] = useState<"waiting" | "timer">("waiting");
@@ -111,6 +111,12 @@ export default function CultureModal() {
       setChecked(new Array(10).fill(false));
     }
   }, [state.cultureTimerStartedAt, state.gameMode]);
+
+  // Play result sound when score is revealed
+  useEffect(() => {
+    if (scoreResult === null) return;
+    playSound(scoreResult > 0 ? "correct" : "wrong");
+  }, [scoreResult]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleStartTimer = () => {
     if (state.gameMode === "online" && identity.roomCode) {
