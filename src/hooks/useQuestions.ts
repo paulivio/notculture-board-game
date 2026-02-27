@@ -29,8 +29,7 @@ export function useQuestions() {
         pool = matching;
       }
 
-      const randomIndex = Math.floor(Math.random() * pool.length);
-      const selected = pool[randomIndex];
+      const selected = pool[0];
       dispatch({ type: "MARK_QUESTION_USED", questionId: selected.id });
       return selected;
     },

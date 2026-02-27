@@ -39,6 +39,15 @@ const initialState: GameState = {
   currentNotCard: null,
 };
 
+function shuffleArray<T>(array: T[]): T[] {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
 function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case "ADD_PLAYER": {
@@ -149,6 +158,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SET_GAME_MODE": {
       const modeReset = {
+        questions: shuffleArray([...state.questions]),
         currentPlayerIndex: 0,
         activeQuestion: null,
         pendingMove: 0,
@@ -182,6 +192,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "RESET_GAME":
       return {
         ...state,
+        questions: shuffleArray([...state.questions]),
         players: state.players.map((p) => ({ ...p, position: 0 })),
         currentPlayerIndex: 0,
         activeQuestion: null,
@@ -203,7 +214,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "SET_QUESTIONS":
       return {
         ...state,
-        questions: action.questions,
+        questions: shuffleArray(action.questions),
         questionsLoaded: true,
       };
 
