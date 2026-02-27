@@ -3,7 +3,7 @@ import { useGame } from "../../context/GameContext";
 import Cell from "./Cell";
 import BoardCanvas from "./BoardCanvas";
 import PlayerToken from "./PlayerToken";
-import { TOTAL_CELLS, SPIRAL_PATH, CATEGORIES, CULTURE_POSITIONS } from "../../lib/constants";
+import { TOTAL_CELLS, SPIRAL_PATH, CATEGORIES, CULTURE_POSITIONS, GRID_SIZE } from "../../lib/constants";
 
 export default function Board() {
   const state = useGame();
@@ -27,16 +27,15 @@ export default function Board() {
   return (
     <div
       ref={boardRef}
-      className="relative grid grid-cols-7 grid-rows-7 gap-[clamp(4px,1.2vw,10px)] rounded-xl bg-board-bg p-2 w-[min(92vw,92vh)] aspect-square lg:flex-1 lg:max-h-[80vh] lg:max-w-[80vh] lg:w-auto"
+      className="relative grid grid-cols-8 grid-rows-8 gap-[clamp(4px,1.2vw,10px)] rounded-xl bg-board-bg p-2 w-[min(92vw,92vh)] aspect-square lg:flex-1 lg:max-h-[80vh] lg:max-w-[80vh] lg:w-auto"
+      style={{
+        backgroundImage: `url('${import.meta.env.BASE_URL}assets/logo.png')`,
+        backgroundSize: "44%",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
     >
       <BoardCanvas boardRef={boardRef} cellRefs={cellRefs} />
-
-      {/* Logo */}
-      <img
-        src={`${import.meta.env.BASE_URL}assets/logo.png`}
-        alt="NotCulture"
-        className="pointer-events-none absolute left-1/2 top-1/2 z-[3] h-auto w-[43%] -translate-x-1/2 -translate-y-1/2"
-      />
 
       {/* Cells */}
       {Array.from({ length: TOTAL_CELLS }, (_, gridIndex) => {
@@ -56,10 +55,10 @@ export default function Board() {
         let connectClass = "";
         if (isOnPath && pathIndex < SPIRAL_PATH.length - 1) {
           const nextGridIndex = SPIRAL_PATH[pathIndex + 1];
-          const curRow = Math.floor(gridIndex / 7);
-          const curCol = gridIndex % 7;
-          const nextRow = Math.floor(nextGridIndex / 7);
-          const nextCol = nextGridIndex % 7;
+          const curRow = Math.floor(gridIndex / GRID_SIZE);
+          const curCol = gridIndex % GRID_SIZE;
+          const nextRow = Math.floor(nextGridIndex / GRID_SIZE);
+          const nextCol = nextGridIndex % GRID_SIZE;
 
           if (nextRow === curRow && nextCol === curCol + 1)
             connectClass = "connect-right";
