@@ -1,10 +1,15 @@
- [
+[
   {
     "id": "general-001",
     "category": "general",
     "difficulty": 1,
     "question": "Which company was founded by Bill Gates and Paul Allen in 1975?",
-    "answers": ["Apple", "Microsoft", "IBM", "Intel"],
+    "answers": [
+      "Apple",
+      "Microsoft",
+      "IBM",
+      "Intel"
+    ],
     "correctIndex": 1
   },
   {
@@ -25,7 +30,12 @@
     "category": "general",
     "difficulty": 2,
     "question": "Which sport is played at Wimbledon?",
-    "answers": ["Cricket", "Tennis", "Rugby", "Golf"],
+    "answers": [
+      "Cricket",
+      "Tennis",
+      "Rugby",
+      "Golf"
+    ],
     "correctIndex": 1
   },
   {
@@ -33,7 +43,12 @@
     "category": "general",
     "difficulty": 2,
     "question": "What is the currency used in Switzerland?",
-    "answers": ["Euro", "Swiss Franc", "Krone", "Forint"],
+    "answers": [
+      "Euro",
+      "Swiss Franc",
+      "Krone",
+      "Forint"
+    ],
     "correctIndex": 1
   },
   {
@@ -41,7 +56,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Which company owns the social media platform Instagram?",
-    "answers": ["Google", "Meta", "Twitter", "Snap"],
+    "answers": [
+      "Google",
+      "Meta",
+      "Twitter",
+      "Snap"
+    ],
     "correctIndex": 1
   },
   {
@@ -49,7 +69,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Which country hosted the first modern Olympic Games in 1896?",
-    "answers": ["France", "Greece", "Italy", "United Kingdom"],
+    "answers": [
+      "France",
+      "Greece",
+      "Italy",
+      "United Kingdom"
+    ],
     "correctIndex": 1
   },
   {
@@ -57,7 +82,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "What is the official language of Argentina?",
-    "answers": ["Portuguese", "Spanish", "Italian", "French"],
+    "answers": [
+      "Portuguese",
+      "Spanish",
+      "Italian",
+      "French"
+    ],
     "correctIndex": 1
   },
   {
@@ -65,7 +95,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which company manufactures the electric vehicle brand Polestar?",
-    "answers": ["Tesla", "Volvo", "Toyota", "BMW"],
+    "answers": [
+      "Tesla",
+      "Volvo",
+      "Toyota",
+      "BMW"
+    ],
     "correctIndex": 1
   },
   {
@@ -73,7 +108,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which organisation regulates professional golf's Ryder Cup?",
-    "answers": ["FIFA", "PGA of America", "ATP", "ICC"],
+    "answers": [
+      "FIFA",
+      "PGA of America",
+      "ATP",
+      "ICC"
+    ],
     "correctIndex": 1
   },
   {
@@ -81,7 +121,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which UK supermarket chain was founded by Jack Cohen?",
-    "answers": ["Sainsbury's", "Tesco", "Asda", "Morrisons"],
+    "answers": [
+      "Sainsbury's",
+      "Tesco",
+      "Asda",
+      "Morrisons"
+    ],
     "correctIndex": 1
   },
   {
@@ -89,7 +134,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Which company owns the luxury fashion brand Balenciaga?",
-    "answers": ["LVMH", "Kering", "Richemont", "Prada Group"],
+    "answers": [
+      "LVMH",
+      "Kering",
+      "Richemont",
+      "Prada Group"
+    ],
     "correctIndex": 1
   },
   {
@@ -110,7 +160,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Which country has won the most Rugby World Cups?",
-    "answers": ["England", "New Zealand", "Australia", "South Africa"],
+    "answers": [
+      "England",
+      "New Zealand",
+      "Australia",
+      "South Africa"
+    ],
     "correctIndex": 3
   },
   {
@@ -118,7 +173,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Which streaming service was launched first?",
-    "answers": ["Netflix", "Amazon Prime Video", "Disney+", "Apple TV+"],
+    "answers": [
+      "Netflix",
+      "Amazon Prime Video",
+      "Disney+",
+      "Apple TV+"
+    ],
     "correctIndex": 0
   },
   {
@@ -126,23 +186,25 @@
     "category": "general",
     "difficulty": 6,
     "question": "Which country is the only one to have competed in every FIFA World Cup tournament?",
-    "answers": ["Germany", "Argentina", "Brazil", "Italy"],
+    "answers": [
+      "Germany",
+      "Argentina",
+      "Brazil",
+      "Italy"
+    ],
     "correctIndex": 2
-  },
-  {
-    "id": "general-016",
-    "category": "general",
-    "difficulty": 6,
-    "question": "Which year did the World Wide Web become publicly available?",
-    "answers": ["1989", "1991", "1993", "1995"],
-    "correctIndex": 1
   },
   {
     "id": "general-017",
     "category": "general",
     "difficulty": 6,
     "question": "Which company was the first to reach a market valuation of $1 trillion?",
-    "answers": ["Microsoft", "Amazon", "Apple", "Google"],
+    "answers": [
+      "Microsoft",
+      "Amazon",
+      "Apple",
+      "Google"
+    ],
     "correctIndex": 2
   },
   {
@@ -150,7 +212,12 @@
     "category": "general",
     "difficulty": 2,
     "question": "What does 'WWW' stand for?",
-    "answers": ["World Wide Web", "World Wireless Web", "Wide World Web", "Web World Wide"],
+    "answers": [
+      "World Wide Web",
+      "World Wireless Web",
+      "Wide World Web",
+      "Web World Wide"
+    ],
     "correctIndex": 0
   },
   {
@@ -158,7 +225,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Which country’s national airline is called Qantas?",
-    "answers": ["New Zealand", "Australia", "Canada", "Singapore"],
+    "answers": [
+      "New Zealand",
+      "Australia",
+      "Canada",
+      "Singapore"
+    ],
     "correctIndex": 1
   },
   {
@@ -166,16 +238,25 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which luxury watch brand produces the 'Submariner' model?",
-    "answers": ["Omega", "Rolex", "Tag Heuer", "Breitling"],
+    "answers": [
+      "Omega",
+      "Rolex",
+      "Tag Heuer",
+      "Breitling"
+    ],
     "correctIndex": 1
   },
-
   {
     "id": "general-021",
     "category": "general",
     "difficulty": 1,
     "question": "Which company produces the sportswear brand Air Jordan?",
-    "answers": ["Adidas", "Nike", "Puma", "Under Armour"],
+    "answers": [
+      "Adidas",
+      "Nike",
+      "Puma",
+      "Under Armour"
+    ],
     "correctIndex": 1
   },
   {
@@ -196,7 +277,12 @@
     "category": "general",
     "difficulty": 2,
     "question": "Which country hosts the Formula 1 race at Silverstone?",
-    "answers": ["Germany", "United Kingdom", "Italy", "France"],
+    "answers": [
+      "Germany",
+      "United Kingdom",
+      "Italy",
+      "France"
+    ],
     "correctIndex": 1
   },
   {
@@ -204,7 +290,12 @@
     "category": "general",
     "difficulty": 2,
     "question": "Which global fast-food chain uses the slogan 'I'm Lovin' It'?",
-    "answers": ["Burger King", "KFC", "McDonald's", "Subway"],
+    "answers": [
+      "Burger King",
+      "KFC",
+      "McDonald's",
+      "Subway"
+    ],
     "correctIndex": 2
   },
   {
@@ -212,7 +303,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Which company owns YouTube?",
-    "answers": ["Meta", "Apple", "Alphabet", "Amazon"],
+    "answers": [
+      "Meta",
+      "Apple",
+      "Alphabet",
+      "Amazon"
+    ],
     "correctIndex": 2
   },
   {
@@ -220,7 +316,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Which city hosts the annual World Economic Forum?",
-    "answers": ["Geneva", "Zurich", "Davos", "Basel"],
+    "answers": [
+      "Geneva",
+      "Zurich",
+      "Davos",
+      "Basel"
+    ],
     "correctIndex": 2
   },
   {
@@ -228,7 +329,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Which country won the UEFA European Championship in 2020 (played in 2021)?",
-    "answers": ["England", "France", "Italy", "Portugal"],
+    "answers": [
+      "England",
+      "France",
+      "Italy",
+      "Portugal"
+    ],
     "correctIndex": 2
   },
   {
@@ -236,7 +342,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which British newspaper is owned by News UK?",
-    "answers": ["The Guardian", "The Times", "The Telegraph", "The Independent"],
+    "answers": [
+      "The Guardian",
+      "The Times",
+      "The Telegraph",
+      "The Independent"
+    ],
     "correctIndex": 1
   },
   {
@@ -244,7 +355,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which company manufactures the 'Kindle' e-reader?",
-    "answers": ["Apple", "Barnes & Noble", "Amazon", "Sony"],
+    "answers": [
+      "Apple",
+      "Barnes & Noble",
+      "Amazon",
+      "Sony"
+    ],
     "correctIndex": 2
   },
   {
@@ -252,7 +368,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which country is home to the luxury fashion house Hermès?",
-    "answers": ["Italy", "France", "Switzerland", "Spain"],
+    "answers": [
+      "Italy",
+      "France",
+      "Switzerland",
+      "Spain"
+    ],
     "correctIndex": 1
   },
   {
@@ -260,7 +381,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Which company was formerly known as Facebook, Inc. before rebranding in 2021?",
-    "answers": ["Meta Platforms", "Alphabet", "Snap Inc.", "X Corp"],
+    "answers": [
+      "Meta Platforms",
+      "Alphabet",
+      "Snap Inc.",
+      "X Corp"
+    ],
     "correctIndex": 0
   },
   {
@@ -268,7 +394,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Which sporting event awards the Claret Jug to its winner?",
-    "answers": ["US Open Golf", "The Masters", "The Open Championship", "PGA Championship"],
+    "answers": [
+      "US Open Golf",
+      "The Masters",
+      "The Open Championship",
+      "PGA Championship"
+    ],
     "correctIndex": 2
   },
   {
@@ -276,7 +407,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Which luxury conglomerate owns brands including Louis Vuitton and Moët & Chandon?",
-    "answers": ["Kering", "LVMH", "Richemont", "Chanel Group"],
+    "answers": [
+      "Kering",
+      "LVMH",
+      "Richemont",
+      "Chanel Group"
+    ],
     "correctIndex": 1
   },
   {
@@ -284,7 +420,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Which country has won the most Cricket World Cups (Men’s ODI)?",
-    "answers": ["Australia", "India", "West Indies", "England"],
+    "answers": [
+      "Australia",
+      "India",
+      "West Indies",
+      "England"
+    ],
     "correctIndex": 0
   },
   {
@@ -292,7 +433,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "Which year was the United Nations officially established?",
-    "answers": ["1943", "1945", "1947", "1950"],
+    "answers": [
+      "1943",
+      "1945",
+      "1947",
+      "1950"
+    ],
     "correctIndex": 1
   },
   {
@@ -300,7 +446,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "Which company originally created the Android operating system?",
-    "answers": ["Google", "Samsung", "Android Inc.", "Motorola"],
+    "answers": [
+      "Google",
+      "Samsung",
+      "Android Inc.",
+      "Motorola"
+    ],
     "correctIndex": 2
   },
   {
@@ -308,7 +459,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "Which country is the headquarters of the International Olympic Committee?",
-    "answers": ["France", "Switzerland", "Greece", "Belgium"],
+    "answers": [
+      "France",
+      "Switzerland",
+      "Greece",
+      "Belgium"
+    ],
     "correctIndex": 1
   },
   {
@@ -316,7 +472,12 @@
     "category": "general",
     "difficulty": 2,
     "question": "Which sport uses a shuttlecock?",
-    "answers": ["Tennis", "Squash", "Badminton", "Table Tennis"],
+    "answers": [
+      "Tennis",
+      "Squash",
+      "Badminton",
+      "Table Tennis"
+    ],
     "correctIndex": 2
   },
   {
@@ -324,7 +485,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Which country’s airline is called Emirates?",
-    "answers": ["Qatar", "United Arab Emirates", "Saudi Arabia", "Oman"],
+    "answers": [
+      "Qatar",
+      "United Arab Emirates",
+      "Saudi Arabia",
+      "Oman"
+    ],
     "correctIndex": 1
   },
   {
@@ -332,16 +498,25 @@
     "category": "general",
     "difficulty": 4,
     "question": "Which financial index tracks 100 major companies listed on the London Stock Exchange?",
-    "answers": ["FTSE 250", "Dow Jones", "FTSE 100", "CAC 40"],
+    "answers": [
+      "FTSE 250",
+      "Dow Jones",
+      "FTSE 100",
+      "CAC 40"
+    ],
     "correctIndex": 2
   },
- 
   {
     "id": "general-041",
     "category": "general",
     "difficulty": 3,
     "question": "In what year did Facebook first launch to the public?",
-    "answers": ["2002", "2004", "2006", "2008"],
+    "answers": [
+      "2002",
+      "2004",
+      "2006",
+      "2008"
+    ],
     "correctIndex": 1
   },
   {
@@ -349,7 +524,12 @@
     "category": "general",
     "difficulty": 3,
     "question": "Who is the current governing body of international football?",
-    "answers": ["UEFA", "FIFA", "IOC", "FA"],
+    "answers": [
+      "UEFA",
+      "FIFA",
+      "IOC",
+      "FA"
+    ],
     "correctIndex": 1
   },
   {
@@ -370,7 +550,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "Identify the company that owns the luxury car manufacturer Bentley.",
-    "answers": ["BMW", "Volkswagen Group", "Toyota", "Stellantis"],
+    "answers": [
+      "BMW",
+      "Volkswagen Group",
+      "Toyota",
+      "Stellantis"
+    ],
     "correctIndex": 1
   },
   {
@@ -378,7 +563,12 @@
     "category": "general",
     "difficulty": 4,
     "question": "How many permanent members sit on the United Nations Security Council?",
-    "answers": ["4", "5", "6", "7"],
+    "answers": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
     "correctIndex": 1
   },
   {
@@ -386,7 +576,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Complete the economic term: GDP measures the total value of all final ______ produced within a country.",
-    "answers": ["exports", "goods and services", "investments", "assets"],
+    "answers": [
+      "exports",
+      "goods and services",
+      "investments",
+      "assets"
+    ],
     "correctIndex": 1
   },
   {
@@ -394,7 +589,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "Name the founder of Amazon.",
-    "answers": ["Elon Musk", "Jeff Bezos", "Bill Gates", "Larry Page"],
+    "answers": [
+      "Elon Musk",
+      "Jeff Bezos",
+      "Bill Gates",
+      "Larry Page"
+    ],
     "correctIndex": 1
   },
   {
@@ -402,7 +602,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "In which year was the Euro introduced as an electronic currency (before physical notes)?",
-    "answers": ["1997", "1999", "2000", "2002"],
+    "answers": [
+      "1997",
+      "1999",
+      "2000",
+      "2002"
+    ],
     "correctIndex": 1
   },
   {
@@ -423,7 +628,12 @@
     "category": "general",
     "difficulty": 5,
     "question": "The brand Zara originated in which country?",
-    "answers": ["Italy", "Spain", "France", "Portugal"],
+    "answers": [
+      "Italy",
+      "Spain",
+      "France",
+      "Portugal"
+    ],
     "correctIndex": 1
   },
   {
@@ -431,7 +641,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "Identify the company that first surpassed a $2 trillion market valuation.",
-    "answers": ["Microsoft", "Apple", "Saudi Aramco", "Alphabet"],
+    "answers": [
+      "Microsoft",
+      "Apple",
+      "Saudi Aramco",
+      "Alphabet"
+    ],
     "correctIndex": 1
   },
   {
@@ -439,7 +654,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "In what year did the United Kingdom formally trigger Article 50 to leave the EU?",
-    "answers": ["2016", "2017", "2018", "2019"],
+    "answers": [
+      "2016",
+      "2017",
+      "2018",
+      "2019"
+    ],
     "correctIndex": 1
   },
   {
@@ -447,7 +667,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "How many time zones does Russia officially span?",
-    "answers": ["9", "10", "11", "12"],
+    "answers": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
     "correctIndex": 2
   },
   {
@@ -455,7 +680,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "Name the organisation that oversees global internet domain names and IP address allocation.",
-    "answers": ["ICANN", "ITU", "ISO", "IEEE"],
+    "answers": [
+      "ICANN",
+      "ITU",
+      "ISO",
+      "IEEE"
+    ],
     "correctIndex": 0
   },
   {
@@ -463,7 +693,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "The sovereign wealth fund known as the 'Government Pension Fund Global' belongs to which country?",
-    "answers": ["UAE", "Singapore", "Norway", "Qatar"],
+    "answers": [
+      "UAE",
+      "Singapore",
+      "Norway",
+      "Qatar"
+    ],
     "correctIndex": 2
   },
   {
@@ -471,7 +706,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "What is the official currency of the International Monetary Fund?",
-    "answers": ["US Dollar", "Special Drawing Rights", "Euro", "Swiss Franc"],
+    "answers": [
+      "US Dollar",
+      "Special Drawing Rights",
+      "Euro",
+      "Swiss Franc"
+    ],
     "correctIndex": 1
   },
   {
@@ -492,7 +732,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "Identify the headquarters city of the European Central Bank.",
-    "answers": ["Brussels", "Frankfurt", "Luxembourg", "Paris"],
+    "answers": [
+      "Brussels",
+      "Frankfurt",
+      "Luxembourg",
+      "Paris"
+    ],
     "correctIndex": 1
   },
   {
@@ -500,7 +745,12 @@
     "category": "general",
     "difficulty": 6,
     "question": "How many countries are currently members of the European Union?",
-    "answers": ["26", "27", "28", "29"],
+    "answers": [
+      "26",
+      "27",
+      "28",
+      "29"
+    ],
     "correctIndex": 1
   },
   {
@@ -508,7 +758,142 @@
     "category": "general",
     "difficulty": 6,
     "question": "The Fortune 500 list ranks companies based on what primary metric?",
-    "answers": ["Market capitalisation", "Profit margin", "Annual revenue", "Global brand value"],
+    "answers": [
+      "Market capitalisation",
+      "Profit margin",
+      "Annual revenue",
+      "Global brand value"
+    ],
     "correctIndex": 2
+  },
+  {
+    "id": "general-061",
+    "category": "general",
+    "difficulty": 1,
+    "question": "How many sides does a hexagon have?",
+    "answers": [
+      "5",
+      "7",
+      "8",
+      "6"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-062",
+    "category": "general",
+    "difficulty": 1,
+    "question": "What is the capital city of France?",
+    "answers": [
+      "Lyon",
+      "Marseille",
+      "Bordeaux",
+      "Paris"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-063",
+    "category": "general",
+    "difficulty": 1,
+    "question": "How many days are in a leap year?",
+    "answers": [
+      "365",
+      "364",
+      "367",
+      "366"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-064",
+    "category": "general",
+    "difficulty": 1,
+    "question": "How many continents are there on Earth?",
+    "answers": [
+      "5",
+      "6",
+      "8",
+      "7"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-065",
+    "category": "general",
+    "difficulty": 1,
+    "question": "What is the largest ocean on Earth?",
+    "answers": [
+      "Atlantic",
+      "Indian",
+      "Arctic",
+      "Pacific"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-066",
+    "category": "general",
+    "difficulty": 1,
+    "question": "How many hours are in a day?",
+    "answers": [
+      "12",
+      "48",
+      "36",
+      "24"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-067",
+    "category": "general",
+    "difficulty": 2,
+    "question": "In which country is the Great Barrier Reef located?",
+    "answers": [
+      "New Zealand",
+      "South Africa",
+      "Indonesia",
+      "Australia"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-068",
+    "category": "general",
+    "difficulty": 2,
+    "question": "What is the longest river in the world?",
+    "answers": [
+      "Amazon",
+      "Yangtze",
+      "Mississippi",
+      "Nile"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-069",
+    "category": "general",
+    "difficulty": 2,
+    "question": "How many strings does a standard guitar have?",
+    "answers": [
+      "4",
+      "5",
+      "7",
+      "6"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-070",
+    "category": "general",
+    "difficulty": 2,
+    "question": "What currency is used in Japan?",
+    "answers": [
+      "Yuan",
+      "Won",
+      "Baht",
+      "Yen"
+    ],
+    "correctIndex": 3
   }
 ]

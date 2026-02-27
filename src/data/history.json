@@ -1,11 +1,15 @@
 [
-
-{
+  {
     "id": "history-002",
     "category": "history",
     "difficulty": 2,
     "question": "Who was the first President of the United States?",
-    "answers": ["Thomas Jefferson", "George Washington", "Abraham Lincoln", "John Adams"],
+    "answers": [
+      "Thomas Jefferson",
+      "George Washington",
+      "Abraham Lincoln",
+      "John Adams"
+    ],
     "correctIndex": 1
   },
   {
@@ -13,7 +17,12 @@
     "category": "history",
     "difficulty": 3,
     "question": "In which year did World War II end?",
-    "answers": ["1943", "1944", "1945", "1946"],
+    "answers": [
+      "1943",
+      "1944",
+      "1945",
+      "1946"
+    ],
     "correctIndex": 2
   },
   {
@@ -21,7 +30,12 @@
     "category": "history",
     "difficulty": 4,
     "question": "Which empire built the Colosseum?",
-    "answers": ["Greek Empire", "Roman Empire", "Ottoman Empire", "British Empire"],
+    "answers": [
+      "Greek Empire",
+      "Roman Empire",
+      "Ottoman Empire",
+      "British Empire"
+    ],
     "correctIndex": 1
   },
   {
@@ -29,7 +43,12 @@
     "category": "history",
     "difficulty": 5,
     "question": "Who was the British Prime Minister during most of World War II?",
-    "answers": ["Neville Chamberlain", "Winston Churchill", "Margaret Thatcher", "Tony Blair"],
+    "answers": [
+      "Neville Chamberlain",
+      "Winston Churchill",
+      "Margaret Thatcher",
+      "Tony Blair"
+    ],
     "correctIndex": 1
   },
   {
@@ -37,57 +56,92 @@
     "category": "history",
     "difficulty": 6,
     "question": "The Renaissance began in which European country?",
-    "answers": ["France", "Germany", "Italy", "Spain"],
+    "answers": [
+      "France",
+      "Germany",
+      "Italy",
+      "Spain"
+    ],
     "correctIndex": 2
   },
   {
-  "id": "history-007",
-  "category": "history",
-  "difficulty": 1,
-  "question": "Who built the pyramids?",
-  "answers": ["Romans", "Greeks", "Egyptians", "Mayans"],
-  "correctIndex": 2
-},
-{
-  "id": "history-008",
-  "category": "history",
-  "difficulty": 2,
-  "question": "Which wall divided Berlin during the Cold War?",
-  "answers": ["Iron Wall", "Berlin Wall", "Cold Barrier", "German Divide"],
-  "correctIndex": 1
-},
-{
-  "id": "history-009",
-  "category": "history",
-  "difficulty": 3,
-  "question": "Who was known as the Maid of Orléans?",
-  "answers": ["Cleopatra", "Joan of Arc", "Marie Antoinette", "Queen Victoria"],
-  "correctIndex": 1
-},
-{
-  "id": "history-010",
-  "category": "history",
-  "difficulty": 4,
-  "question": "Which year did the Titanic sink?",
-  "answers": ["1905", "1912", "1918", "1921"],
-  "correctIndex": 1
-},
-{
-  "id": "history-011",
-  "category": "history",
-  "difficulty": 5,
-  "question": "Who was the first Roman Emperor?",
-  "answers": ["Julius Caesar", "Augustus", "Nero", "Tiberius"],
-  "correctIndex": 1
-},
-{
-  "id": "history-012",
-  "category": "history",
-  "difficulty": 6,
-  "question": "The Battle of Hastings took place in which year?",
-  "answers": ["1066", "1215", "1415", "1666"],
-  "correctIndex": 0
-},
+    "id": "history-007",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Who built the pyramids?",
+    "answers": [
+      "Romans",
+      "Greeks",
+      "Egyptians",
+      "Mayans"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-008",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Which wall divided Berlin during the Cold War?",
+    "answers": [
+      "Iron Wall",
+      "Berlin Wall",
+      "Cold Barrier",
+      "German Divide"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-009",
+    "category": "history",
+    "difficulty": 3,
+    "question": "Who was known as the Maid of Orléans?",
+    "answers": [
+      "Cleopatra",
+      "Joan of Arc",
+      "Marie Antoinette",
+      "Queen Victoria"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-010",
+    "category": "history",
+    "difficulty": 4,
+    "question": "Which year did the Titanic sink?",
+    "answers": [
+      "1905",
+      "1912",
+      "1918",
+      "1921"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-011",
+    "category": "history",
+    "difficulty": 5,
+    "question": "Who was the first Roman Emperor?",
+    "answers": [
+      "Julius Caesar",
+      "Augustus",
+      "Nero",
+      "Tiberius"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-012",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The Battle of Hastings took place in which year?",
+    "answers": [
+      "1066",
+      "1215",
+      "1415",
+      "1666"
+    ],
+    "correctIndex": 0
+  },
   {
     "id": "history-013",
     "difficulty": 1,
@@ -147,18 +201,6 @@
       "Wagner"
     ],
     "correctIndex": 1
-  },
-  {
-    "id": "history-018",
-    "difficulty": 2,
-    "question": "Which city was divided by a wall from 1961 to 1989?",
-    "answers": [
-      "Prague",
-      "Vienna",
-      "Berlin",
-      "Warsaw"
-    ],
-    "correctIndex": 2
   },
   {
     "id": "history-019",
@@ -316,7 +358,6 @@
     ],
     "correctIndex": 2
   },
-
   {
     "id": "history-032",
     "difficulty": 2,
@@ -412,18 +453,6 @@
       "Montesquieu"
     ],
     "correctIndex": 2
-  },
-  {
-    "id": "history-040",
-    "difficulty": 3,
-    "question": "Which British prime minister led the UK for most of the Second World War?",
-    "answers": [
-      "Neville Chamberlain",
-      "Winston Churchill",
-      "Clement Attlee",
-      "Anthony Eden"
-    ],
-    "correctIndex": 1
   },
   {
     "id": "history-041",
@@ -532,18 +561,6 @@
       "Crimean War"
     ],
     "correctIndex": 0
-  },
-  {
-    "id": "history-050",
-    "difficulty": 4,
-    "question": "Which Spanish artist is known for co-founding Cubism?",
-    "answers": [
-      "Joan Miró",
-      "Francisco Goya",
-      "Pablo Picasso",
-      "El Greco"
-    ],
-    "correctIndex": 2
   },
   {
     "id": "history-051",
@@ -688,5 +705,161 @@
       "Constructivism"
     ],
     "correctIndex": 1
+  },
+  {
+    "id": "history-063",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Who was the first President of the United States?",
+    "answers": [
+      "Thomas Jefferson",
+      "Abraham Lincoln",
+      "Benjamin Franklin",
+      "George Washington"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-064",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Which city did the Titanic depart from on its maiden voyage?",
+    "answers": [
+      "Liverpool",
+      "Bristol",
+      "London",
+      "Southampton"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-065",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Who is credited with inventing the telephone?",
+    "answers": [
+      "Thomas Edison",
+      "Nikola Tesla",
+      "Guglielmo Marconi",
+      "Alexander Graham Bell"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-066",
+    "category": "history",
+    "difficulty": 1,
+    "question": "In which year did the First World War begin?",
+    "answers": [
+      "1912",
+      "1916",
+      "1918",
+      "1914"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-067",
+    "category": "history",
+    "difficulty": 1,
+    "question": "What was the name of the ship Charles Darwin sailed on during his famous voyage?",
+    "answers": [
+      "HMS Victory",
+      "The Endeavour",
+      "The Mary Rose",
+      "The Beagle"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-068",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Which ancient wonder of the world is located in Egypt?",
+    "answers": [
+      "Colossus of Rhodes",
+      "Hanging Gardens",
+      "Temple of Artemis",
+      "Great Pyramid of Giza"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-069",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Which empire was ruled by Julius Caesar?",
+    "answers": [
+      "Greek",
+      "Ottoman",
+      "Byzantine",
+      "Roman"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-070",
+    "category": "history",
+    "difficulty": 2,
+    "question": "What was the name of the first artificial satellite launched into space?",
+    "answers": [
+      "Apollo",
+      "Vostok",
+      "Explorer",
+      "Sputnik"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-071",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Who led the Cuban Revolution?",
+    "answers": [
+      "Che Guevara",
+      "Raul Castro",
+      "Fulgencio Batista",
+      "Fidel Castro"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-072",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Which country was the first to grant women the right to vote?",
+    "answers": [
+      "Australia",
+      "United Kingdom",
+      "United States",
+      "New Zealand"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-073",
+    "category": "history",
+    "difficulty": 2,
+    "question": "In which year did the Russian Revolution take place?",
+    "answers": [
+      "1905",
+      "1921",
+      "1924",
+      "1917"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-074",
+    "category": "history",
+    "difficulty": 3,
+    "question": "Which battle in 1815 marked the final defeat of Napoleon Bonaparte?",
+    "answers": [
+      "Battle of Trafalgar",
+      "Battle of the Nile",
+      "Battle of Austerlitz",
+      "Battle of Waterloo"
+    ],
+    "correctIndex": 3
   }
 ]

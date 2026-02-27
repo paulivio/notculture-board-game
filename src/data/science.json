@@ -1,11 +1,15 @@
- [
- 
- {
+[
+  {
     "id": "science-002",
     "category": "science",
     "difficulty": 2,
     "question": "What gas do plants absorb from the atmosphere?",
-    "answers": ["Oxygen", "Nitrogen", "Carbon Dioxide", "Hydrogen"],
+    "answers": [
+      "Oxygen",
+      "Nitrogen",
+      "Carbon Dioxide",
+      "Hydrogen"
+    ],
     "correctIndex": 2
   },
   {
@@ -13,7 +17,12 @@
     "category": "science",
     "difficulty": 3,
     "question": "What is the chemical symbol for gold?",
-    "answers": ["Ag", "Au", "Gd", "Go"],
+    "answers": [
+      "Ag",
+      "Au",
+      "Gd",
+      "Go"
+    ],
     "correctIndex": 1
   },
   {
@@ -21,7 +30,12 @@
     "category": "science",
     "difficulty": 4,
     "question": "Which scientist developed the theory of general relativity?",
-    "answers": ["Isaac Newton", "Albert Einstein", "Galileo Galilei", "Nikola Tesla"],
+    "answers": [
+      "Isaac Newton",
+      "Albert Einstein",
+      "Galileo Galilei",
+      "Nikola Tesla"
+    ],
     "correctIndex": 1
   },
   {
@@ -29,7 +43,12 @@
     "category": "science",
     "difficulty": 5,
     "question": "What is the powerhouse of the cell?",
-    "answers": ["Nucleus", "Ribosome", "Mitochondria", "Chloroplast"],
+    "answers": [
+      "Nucleus",
+      "Ribosome",
+      "Mitochondria",
+      "Chloroplast"
+    ],
     "correctIndex": 2
   },
   {
@@ -37,58 +56,93 @@
     "category": "science",
     "difficulty": 6,
     "question": "What particle carries a negative electric charge?",
-    "answers": ["Proton", "Neutron", "Electron", "Photon"],
+    "answers": [
+      "Proton",
+      "Neutron",
+      "Electron",
+      "Photon"
+    ],
     "correctIndex": 2
   },
-{
-  "id": "science-007",
-  "category": "science",
-  "difficulty": 1,
-  "question": "What do bees produce?",
-  "answers": ["Milk", "Honey", "Silk", "Wax"],
-  "correctIndex": 1
-},
-{
-  "id": "science-008",
-  "category": "science",
-  "difficulty": 2,
-  "question": "What is H2O commonly known as?",
-  "answers": ["Salt", "Water", "Oxygen", "Hydrogen"],
-  "correctIndex": 1
-},
-{
-  "id": "science-009",
-  "category": "science",
-  "difficulty": 3,
-  "question": "What part of the body pumps blood?",
-  "answers": ["Lungs", "Brain", "Heart", "Liver"],
-  "correctIndex": 2
-},
-{
-  "id": "science-010",
-  "category": "science",
-  "difficulty": 4,
-  "question": "What is the speed of light approximately?",
-  "answers": ["300,000 km/s", "150,000 km/s", "1,000 km/s", "30,000 km/s"],
-  "correctIndex": 0
-},
-{
-  "id": "science-011",
-  "category": "science",
-  "difficulty": 5,
-  "question": "Which element has atomic number 1?",
-  "answers": ["Helium", "Hydrogen", "Oxygen", "Carbon"],
-  "correctIndex": 1
-},
-{
-  "id": "science-012",
-  "category": "science",
-  "difficulty": 6,
-  "question": "What is the name of the largest moon of Saturn?",
-  "answers": ["Europa", "Titan", "Ganymede", "Callisto"],
-  "correctIndex": 1
-},
- {
+  {
+    "id": "science-007",
+    "category": "science",
+    "difficulty": 1,
+    "question": "What do bees produce?",
+    "answers": [
+      "Milk",
+      "Honey",
+      "Silk",
+      "Wax"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "science-008",
+    "category": "science",
+    "difficulty": 2,
+    "question": "What is H2O commonly known as?",
+    "answers": [
+      "Salt",
+      "Water",
+      "Oxygen",
+      "Hydrogen"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "science-009",
+    "category": "science",
+    "difficulty": 3,
+    "question": "What part of the body pumps blood?",
+    "answers": [
+      "Lungs",
+      "Brain",
+      "Heart",
+      "Liver"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "science-010",
+    "category": "science",
+    "difficulty": 4,
+    "question": "What is the speed of light approximately?",
+    "answers": [
+      "300,000 km/s",
+      "150,000 km/s",
+      "1,000 km/s",
+      "30,000 km/s"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "science-011",
+    "category": "science",
+    "difficulty": 5,
+    "question": "Which element has atomic number 1?",
+    "answers": [
+      "Helium",
+      "Hydrogen",
+      "Oxygen",
+      "Carbon"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "science-012",
+    "category": "science",
+    "difficulty": 6,
+    "question": "What is the name of the largest moon of Saturn?",
+    "answers": [
+      "Europa",
+      "Titan",
+      "Ganymede",
+      "Callisto"
+    ],
+    "correctIndex": 1
+  },
+  {
     "id": "science-013",
     "difficulty": 1,
     "question": "What planet is known as the Red Planet?",
@@ -257,18 +311,6 @@
     "correctIndex": 1
   },
   {
-    "id": "science-027",
-    "difficulty": 2,
-    "question": "Which organ is responsible for pumping blood around the body?",
-    "answers": [
-      "Lungs",
-      "Brain",
-      "Heart",
-      "Kidney"
-    ],
-    "correctIndex": 2
-  },
-  {
     "id": "science-028",
     "difficulty": 4,
     "question": "What is the boiling point of water at sea level in degrees Celsius?",
@@ -292,13 +334,17 @@
     ],
     "correctIndex": 1
   },
-
   {
     "id": "science-101",
     "category": "science",
     "difficulty": 1,
     "question": "Name the planet that is closest to the Sun.",
-    "answers": ["Venus", "Mercury", "Mars", "Earth"],
+    "answers": [
+      "Venus",
+      "Mercury",
+      "Mars",
+      "Earth"
+    ],
     "correctIndex": 1
   },
   {
@@ -306,23 +352,25 @@
     "category": "science",
     "difficulty": 1,
     "question": "How many bones are there in the adult human body?",
-    "answers": ["198", "206", "212", "220"],
+    "answers": [
+      "198",
+      "206",
+      "212",
+      "220"
+    ],
     "correctIndex": 1
-  },
-  {
-    "id": "science-103",
-    "category": "science",
-    "difficulty": 2,
-    "question": "Identify the gas most abundant in Earth’s atmosphere.",
-    "answers": ["Oxygen", "Carbon Dioxide", "Nitrogen", "Argon"],
-    "correctIndex": 2
   },
   {
     "id": "science-104",
     "category": "science",
     "difficulty": 2,
     "question": "Complete the term for the study of earthquakes: ______ology.",
-    "answers": ["Seismology", "Volcanology", "Meteorology", "Geology"],
+    "answers": [
+      "Seismology",
+      "Volcanology",
+      "Meteorology",
+      "Geology"
+    ],
     "correctIndex": 0
   },
   {
@@ -330,23 +378,25 @@
     "category": "science",
     "difficulty": 3,
     "question": "In what year did the first human land on the Moon?",
-    "answers": ["1967", "1968", "1969", "1971"],
+    "answers": [
+      "1967",
+      "1968",
+      "1969",
+      "1971"
+    ],
     "correctIndex": 2
-  },
-  {
-    "id": "science-106",
-    "category": "science",
-    "difficulty": 3,
-    "question": "Name the scientist who developed the theory of general relativity.",
-    "answers": ["Isaac Newton", "Albert Einstein", "Niels Bohr", "Max Planck"],
-    "correctIndex": 1
   },
   {
     "id": "science-107",
     "category": "science",
     "difficulty": 3,
     "question": "Identify the organ responsible for filtering blood in the human body.",
-    "answers": ["Liver", "Heart", "Kidneys", "Pancreas"],
+    "answers": [
+      "Liver",
+      "Heart",
+      "Kidneys",
+      "Pancreas"
+    ],
     "correctIndex": 2
   },
   {
@@ -354,23 +404,25 @@
     "category": "science",
     "difficulty": 4,
     "question": "How many elements are currently recognised on the periodic table?",
-    "answers": ["112", "114", "118", "120"],
+    "answers": [
+      "112",
+      "114",
+      "118",
+      "120"
+    ],
     "correctIndex": 2
-  },
-  {
-    "id": "science-109",
-    "category": "science",
-    "difficulty": 4,
-    "question": "Name the largest moon of Saturn.",
-    "answers": ["Europa", "Titan", "Ganymede", "Callisto"],
-    "correctIndex": 1
   },
   {
     "id": "science-110",
     "category": "science",
     "difficulty": 4,
     "question": "In computing, RAM stands for Random Access ______.",
-    "answers": ["Module", "Machine", "Memory", "Matrix"],
+    "answers": [
+      "Module",
+      "Machine",
+      "Memory",
+      "Matrix"
+    ],
     "correctIndex": 2
   },
   {
@@ -378,7 +430,12 @@
     "category": "science",
     "difficulty": 5,
     "question": "Identify the branch of biology that studies fungi.",
-    "answers": ["Botany", "Zoology", "Mycology", "Ecology"],
+    "answers": [
+      "Botany",
+      "Zoology",
+      "Mycology",
+      "Ecology"
+    ],
     "correctIndex": 2
   },
   {
@@ -386,7 +443,12 @@
     "category": "science",
     "difficulty": 5,
     "question": "Name the subatomic particle with a negative electric charge.",
-    "answers": ["Proton", "Neutron", "Electron", "Photon"],
+    "answers": [
+      "Proton",
+      "Neutron",
+      "Electron",
+      "Photon"
+    ],
     "correctIndex": 2
   },
   {
@@ -394,7 +456,12 @@
     "category": "science",
     "difficulty": 5,
     "question": "In what year was the World Wide Web first made publicly available?",
-    "answers": ["1989", "1991", "1993", "1995"],
+    "answers": [
+      "1989",
+      "1991",
+      "1993",
+      "1995"
+    ],
     "correctIndex": 1
   },
   {
@@ -402,7 +469,12 @@
     "category": "science",
     "difficulty": 5,
     "question": "Complete the law: For every action, there is an equal and opposite ______.",
-    "answers": ["force", "motion", "reaction", "impact"],
+    "answers": [
+      "force",
+      "motion",
+      "reaction",
+      "impact"
+    ],
     "correctIndex": 2
   },
   {
@@ -410,7 +482,12 @@
     "category": "science",
     "difficulty": 6,
     "question": "Identify the scientist who proposed the uncertainty principle.",
-    "answers": ["Werner Heisenberg", "Erwin Schrödinger", "Paul Dirac", "Richard Feynman"],
+    "answers": [
+      "Werner Heisenberg",
+      "Erwin Schrödinger",
+      "Paul Dirac",
+      "Richard Feynman"
+    ],
     "correctIndex": 0
   },
   {
@@ -418,7 +495,12 @@
     "category": "science",
     "difficulty": 6,
     "question": "Name the constant approximately equal to 6.626 × 10⁻³⁴ J·s.",
-    "answers": ["Avogadro constant", "Planck constant", "Boltzmann constant", "Rydberg constant"],
+    "answers": [
+      "Avogadro constant",
+      "Planck constant",
+      "Boltzmann constant",
+      "Rydberg constant"
+    ],
     "correctIndex": 1
   },
   {
@@ -426,7 +508,12 @@
     "category": "science",
     "difficulty": 6,
     "question": "In astrophysics, the Schwarzschild radius is associated with which cosmic object?",
-    "answers": ["Neutron star", "Black hole", "Quasar", "White dwarf"],
+    "answers": [
+      "Neutron star",
+      "Black hole",
+      "Quasar",
+      "White dwarf"
+    ],
     "correctIndex": 1
   },
   {
@@ -434,7 +521,12 @@
     "category": "science",
     "difficulty": 6,
     "question": "How many chromosomes are typically found in a human somatic cell?",
-    "answers": ["44", "46", "48", "52"],
+    "answers": [
+      "44",
+      "46",
+      "48",
+      "52"
+    ],
     "correctIndex": 1
   },
   {
@@ -442,7 +534,12 @@
     "category": "science",
     "difficulty": 4,
     "question": "Identify the metal that is liquid at room temperature.",
-    "answers": ["Gallium", "Mercury", "Cesium", "Bromine"],
+    "answers": [
+      "Gallium",
+      "Mercury",
+      "Cesium",
+      "Bromine"
+    ],
     "correctIndex": 1
   },
   {
@@ -450,28 +547,25 @@
     "category": "science",
     "difficulty": 3,
     "question": "Name the largest mammal on Earth.",
-    "answers": ["African Elephant", "Blue Whale", "Giraffe", "Orca"],
-    "correctIndex": 1
-  },
-  {
-    "id": "science-121",
-    "category": "science",
-    "difficulty": 5,
-    "question": "In genetics, what does DNA stand for?",
     "answers": [
-      "Deoxyribonucleic Acid",
-      "Dual Nitrogen Acid",
-      "Dynamic Nucleic Arrangement",
-      "Deoxynitric Acid"
+      "African Elephant",
+      "Blue Whale",
+      "Giraffe",
+      "Orca"
     ],
-    "correctIndex": 0
+    "correctIndex": 1
   },
   {
     "id": "science-122",
     "category": "science",
     "difficulty": 6,
     "question": "Name the particle responsible for mediating the strong nuclear force.",
-    "answers": ["Photon", "Gluon", "Graviton", "Neutrino"],
+    "answers": [
+      "Photon",
+      "Gluon",
+      "Graviton",
+      "Neutrino"
+    ],
     "correctIndex": 1
   },
   {
@@ -479,7 +573,12 @@
     "category": "science",
     "difficulty": 4,
     "question": "In which decade was the first iPhone released?",
-    "answers": ["1990s", "2000s", "2010s", "2020s"],
+    "answers": [
+      "1990s",
+      "2000s",
+      "2010s",
+      "2020s"
+    ],
     "correctIndex": 1
   },
   {
@@ -487,7 +586,12 @@
     "category": "science",
     "difficulty": 5,
     "question": "Identify the scientist credited with discovering penicillin.",
-    "answers": ["Louis Pasteur", "Alexander Fleming", "Robert Koch", "Jonas Salk"],
+    "answers": [
+      "Louis Pasteur",
+      "Alexander Fleming",
+      "Robert Koch",
+      "Jonas Salk"
+    ],
     "correctIndex": 1
   },
   {
@@ -508,7 +612,12 @@
     "category": "science",
     "difficulty": 3,
     "question": "Identify the organelle known as the powerhouse of the cell.",
-    "answers": ["Nucleus", "Mitochondrion", "Ribosome", "Golgi apparatus"],
+    "answers": [
+      "Nucleus",
+      "Mitochondrion",
+      "Ribosome",
+      "Golgi apparatus"
+    ],
     "correctIndex": 1
   },
   {
@@ -529,7 +638,12 @@
     "category": "science",
     "difficulty": 6,
     "question": "Name the galaxy that is on a collision course with the Milky Way.",
-    "answers": ["Triangulum Galaxy", "Whirlpool Galaxy", "Andromeda Galaxy", "Sombrero Galaxy"],
+    "answers": [
+      "Triangulum Galaxy",
+      "Whirlpool Galaxy",
+      "Andromeda Galaxy",
+      "Sombrero Galaxy"
+    ],
     "correctIndex": 2
   },
   {
@@ -537,7 +651,12 @@
     "category": "science",
     "difficulty": 4,
     "question": "How many hearts does an octopus have?",
-    "answers": ["One", "Two", "Three", "Four"],
+    "answers": [
+      "One",
+      "Two",
+      "Three",
+      "Four"
+    ],
     "correctIndex": 2
   },
   {
@@ -545,8 +664,129 @@
     "category": "science",
     "difficulty": 5,
     "question": "Identify the scientist who formulated the three laws of planetary motion.",
-    "answers": ["Galileo Galilei", "Johannes Kepler", "Tycho Brahe", "Nicolaus Copernicus"],
+    "answers": [
+      "Galileo Galilei",
+      "Johannes Kepler",
+      "Tycho Brahe",
+      "Nicolaus Copernicus"
+    ],
     "correctIndex": 1
+  },
+  {
+    "id": "science-131",
+    "category": "science",
+    "difficulty": 1,
+    "question": "How many planets are in our solar system?",
+    "answers": [
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "science-132",
+    "category": "science",
+    "difficulty": 1,
+    "question": "What force pulls objects towards the Earth?",
+    "answers": [
+      "Friction",
+      "Magnetism",
+      "Momentum",
+      "Gravity"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "science-133",
+    "category": "science",
+    "difficulty": 1,
+    "question": "How many legs does a spider have?",
+    "answers": [
+      "6",
+      "10",
+      "12",
+      "8"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "science-134",
+    "category": "science",
+    "difficulty": 1,
+    "question": "What is the chemical formula for water?",
+    "answers": [
+      "WO",
+      "H2",
+      "HO",
+      "H2O"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "science-135",
+    "category": "science",
+    "difficulty": 2,
+    "question": "What is the chemical symbol for gold?",
+    "answers": [
+      "Go",
+      "Gd",
+      "Ag",
+      "Au"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "science-136",
+    "category": "science",
+    "difficulty": 2,
+    "question": "What is the powerhouse of the cell?",
+    "answers": [
+      "Nucleus",
+      "Ribosome",
+      "Golgi apparatus",
+      "Mitochondria"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "science-137",
+    "category": "science",
+    "difficulty": 2,
+    "question": "What gas do plants absorb from the air during photosynthesis?",
+    "answers": [
+      "Oxygen",
+      "Hydrogen",
+      "Nitrogen",
+      "Carbon dioxide"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "science-138",
+    "category": "science",
+    "difficulty": 2,
+    "question": "Approximately how fast does light travel in kilometres per second?",
+    "answers": [
+      "150,000",
+      "450,000",
+      "600,000",
+      "300,000"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "science-139",
+    "category": "science",
+    "difficulty": 3,
+    "question": "What is the atomic number of carbon?",
+    "answers": [
+      "4",
+      "8",
+      "12",
+      "6"
+    ],
+    "correctIndex": 3
   }
-   
 ]
