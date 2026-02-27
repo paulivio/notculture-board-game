@@ -707,19 +707,6 @@
     "correctIndex": 1
   },
   {
-    "id": "history-063",
-    "category": "history",
-    "difficulty": 1,
-    "question": "Who was the first President of the United States?",
-    "answers": [
-      "Thomas Jefferson",
-      "Abraham Lincoln",
-      "Benjamin Franklin",
-      "George Washington"
-    ],
-    "correctIndex": 3
-  },
-  {
     "id": "history-064",
     "category": "history",
     "difficulty": 1,
@@ -788,11 +775,11 @@
     "id": "history-069",
     "category": "history",
     "difficulty": 2,
-    "question": "Which empire was ruled by Julius Caesar?",
+    "question": "Julius Caesar rose to prominence in which ancient civilisation?",
     "answers": [
       "Greek",
       "Ottoman",
-      "Byzantine",
+      "Persian",
       "Roman"
     ],
     "correctIndex": 3
@@ -846,19 +833,6 @@
       "1921",
       "1924",
       "1917"
-    ],
-    "correctIndex": 3
-  },
-  {
-    "id": "history-074",
-    "category": "history",
-    "difficulty": 3,
-    "question": "Which battle in 1815 marked the final defeat of Napoleon Bonaparte?",
-    "answers": [
-      "Battle of Trafalgar",
-      "Battle of the Nile",
-      "Battle of Austerlitz",
-      "Battle of Waterloo"
     ],
     "correctIndex": 3
   }

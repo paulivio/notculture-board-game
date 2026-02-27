@@ -22,18 +22,18 @@
       "Mario",
       "Tetris",
       "Call of Duty",
-      "FIFA / EA Sports FC",
       "Pokémon",
+      "FIFA / EA Sports FC",
       "Grand Theft Auto",
-      "Need for Speed",
+      "Minecraft",
       "The Sims",
       "Madden NFL",
-      "Minecraft"
+      "Need for Speed"
     ]
   },
   {
     "id": "culture-003",
-    "question": "Name the Top 10 most-streamed artists on Spotify of all time",
+    "question": "Name the Top 10 most-streamed artists on Spotify of all time (as of 2023)",
     "answers": [
       "Ed Sheeran",
       "Drake",
@@ -65,18 +65,18 @@
   },
   {
     "id": "culture-005",
-    "question": "Name the Top 10 most-watched TV shows on Netflix of all time",
+    "question": "Name the Top 10 most-watched TV shows on Netflix of all time (as of 2025)",
     "answers": [
-      "Squid Game",
+      "Squid Game (Season 1)",
       "Wednesday",
       "Stranger Things (Season 4)",
       "The Night Agent",
       "Ginny & Georgia (Season 2)",
       "The Glory",
       "Outer Banks (Season 3)",
+      "Squid Game (Season 2)",
       "You (Season 4)",
-      "La Reina del Sur (Season 3)",
-      "Kaleidoscope"
+      "Bridgerton (Season 3)"
     ]
   },
   {
@@ -107,13 +107,13 @@
       "Giannis Antetokounmpo",
       "Canelo Álvarez",
       "Stephen Curry",
-      "Anthony Joshua",
-      "Roger Federer"
+      "Roger Federer",
+      "Novak Djokovic"
     ]
   },
   {
     "id": "culture-008",
-    "question": "Name the Top 10 most-followed accounts on Instagram",
+    "question": "Name the Top 10 most-followed accounts on Instagram (as of 2023)",
     "answers": [
       "Instagram",
       "Cristiano Ronaldo",
@@ -129,7 +129,7 @@
   },
   {
     "id": "culture-009",
-    "question": "Name the Top 10 highest-rated IMDb TV shows of all time",
+    "question": "Name the Top 10 highest-rated IMDb TV shows of all time (as of 2023)",
     "answers": [
       "Breaking Bad",
       "Planet Earth II",
@@ -157,6 +157,326 @@
       "The Hobbit",
       "She: A History of Adventure",
       "The Lion, the Witch and the Wardrobe"
+    ]
+  },
+  {
+    "id": "culture-011",
+    "question": "Name the Top 10 highest-grossing films of all time",
+    "answers": [
+      "Avatar (2009)",
+      "Avengers: Endgame",
+      "Avatar: The Way of Water",
+      "Titanic",
+      "Star Wars: The Force Awakens",
+      "Avengers: Infinity War",
+      "Spider-Man: No Way Home",
+      "Inside Out 2",
+      "Jurassic World",
+      "The Lion King (2019)"
+    ]
+  },
+  {
+    "id": "culture-012",
+    "question": "Name the Top 10 most-streamed songs on Spotify of all time (as of 2023)",
+    "answers": [
+      "Blinding Lights — The Weeknd",
+      "Shape of You — Ed Sheeran",
+      "Someone You Loved — Lewis Capaldi",
+      "Dance Monkey — Tones and I",
+      "Sunflower — Post Malone & Swae Lee",
+      "One Dance — Drake",
+      "Stay — The Kid LAROI & Justin Bieber",
+      "Believer — Imagine Dragons",
+      "Rockstar — Post Malone ft. 21 Savage",
+      "Closer — The Chainsmokers ft. Halsey"
+    ]
+  },
+  {
+    "id": "culture-013",
+    "question": "Name the Top 10 most-visited countries in the world",
+    "answers": [
+      "France",
+      "Spain",
+      "United States",
+      "Turkey",
+      "Italy",
+      "Mexico",
+      "United Kingdom",
+      "Germany",
+      "Greece",
+      "Austria"
+    ]
+  },
+  {
+    "id": "culture-014",
+    "question": "Name the Top 10 largest countries in the world by area",
+    "answers": [
+      "Russia",
+      "Canada",
+      "United States",
+      "China",
+      "Brazil",
+      "Australia",
+      "India",
+      "Argentina",
+      "Kazakhstan",
+      "Algeria"
+    ]
+  },
+  {
+    "id": "culture-015",
+    "question": "Name the Top 10 highest-rated films on IMDb of all time",
+    "answers": [
+      "The Shawshank Redemption",
+      "The Godfather",
+      "The Dark Knight",
+      "The Godfather Part II",
+      "12 Angry Men",
+      "Schindler's List",
+      "The Lord of the Rings: The Return of the King",
+      "Pulp Fiction",
+      "The Lord of the Rings: The Two Towers",
+      "The Good, the Bad and the Ugly"
+    ]
+  },
+  {
+    "id": "culture-016",
+    "question": "Name the Top 10 best-selling music artists of all time",
+    "answers": [
+      "The Beatles",
+      "Elvis Presley",
+      "Michael Jackson",
+      "Madonna",
+      "Elton John",
+      "Led Zeppelin",
+      "Pink Floyd",
+      "Celine Dion",
+      "AC/DC",
+      "Whitney Houston"
+    ]
+  },
+  {
+    "id": "culture-017",
+    "question": "Name the Top 10 most-watched YouTube videos of all time (as of 2023)",
+    "answers": [
+      "Baby Shark Dance — Pinkfong",
+      "Despacito — Luis Fonsi",
+      "Johny Johny Yes Papa — LooLoo Kids",
+      "Shape of You — Ed Sheeran",
+      "See You Again — Wiz Khalifa",
+      "Phonics Song with Two Ants — ChuChu TV",
+      "Uptown Funk — Mark Ronson",
+      "Gangnam Style — PSY",
+      "Bath Song — Cocomelon",
+      "Learning Colors — Miroshka TV"
+    ]
+  },
+  {
+    "id": "culture-018",
+    "question": "Name the Top 10 richest people in the world (Forbes, 2024)",
+    "answers": [
+      "Elon Musk",
+      "Jeff Bezos",
+      "Mark Zuckerberg",
+      "Larry Ellison",
+      "Bill Gates",
+      "Warren Buffett",
+      "Larry Page",
+      "Sergey Brin",
+      "Steve Ballmer",
+      "Jensen Huang"
+    ]
+  },
+  {
+    "id": "culture-019",
+    "question": "Name the Top 10 most populous cities in the world",
+    "answers": [
+      "Tokyo",
+      "Delhi",
+      "Shanghai",
+      "Dhaka",
+      "São Paulo",
+      "Mexico City",
+      "Cairo",
+      "Beijing",
+      "Mumbai",
+      "Kinshasa"
+    ]
+  },
+  {
+    "id": "culture-020",
+    "question": "Name the Top 10 most popular sports in the world by fan following",
+    "answers": [
+      "Football / Soccer",
+      "Cricket",
+      "Basketball",
+      "Field Hockey",
+      "Tennis",
+      "Volleyball",
+      "Table Tennis",
+      "Baseball",
+      "Rugby",
+      "Golf"
+    ]
+  },
+  {
+    "id": "culture-021",
+    "question": "Name the Top 10 highest-grossing animated films of all time",
+    "answers": [
+      "Inside Out 2",
+      "The Lion King (2019)",
+      "Frozen II",
+      "The Super Mario Bros. Movie",
+      "Incredibles 2",
+      "Minions",
+      "Toy Story 4",
+      "Toy Story 3",
+      "Finding Dory",
+      "Zootopia"
+    ]
+  },
+  {
+    "id": "culture-022",
+    "question": "Name the 10 most recent Oscar Best Picture winners",
+    "answers": [
+      "Anora (2025)",
+      "Oppenheimer (2024)",
+      "Everything Everywhere All at Once (2023)",
+      "CODA (2022)",
+      "Nomadland (2021)",
+      "Parasite (2020)",
+      "Green Book (2019)",
+      "The Shape of Water (2018)",
+      "Moonlight (2017)",
+      "Spotlight (2016)"
+    ]
+  },
+  {
+    "id": "culture-023",
+    "question": "Name the Top 10 best-selling video games of all time",
+    "answers": [
+      "Minecraft",
+      "Grand Theft Auto V",
+      "Tetris (Mobile)",
+      "Wii Sports",
+      "PUBG: Battlegrounds",
+      "Mario Kart 8 Deluxe",
+      "Red Dead Redemption 2",
+      "Terraria",
+      "Super Mario Bros (NES)",
+      "Animal Crossing: New Horizons"
+    ]
+  },
+  {
+    "id": "culture-024",
+    "question": "Name the Top 10 most popular dog breeds in the US (AKC 2023)",
+    "answers": [
+      "French Bulldog",
+      "Labrador Retriever",
+      "Golden Retriever",
+      "German Shepherd",
+      "Bulldog",
+      "Poodle",
+      "Beagle",
+      "Rottweiler",
+      "German Shorthaired Pointer",
+      "Dachshund"
+    ]
+  },
+  {
+    "id": "culture-025",
+    "question": "Name the Top 10 most-downloaded apps of all time",
+    "answers": [
+      "Facebook",
+      "WhatsApp",
+      "Instagram",
+      "Messenger",
+      "TikTok",
+      "YouTube",
+      "Snapchat",
+      "Telegram",
+      "Twitter / X",
+      "Spotify"
+    ]
+  },
+  {
+    "id": "culture-026",
+    "question": "Name the Top 10 countries with the most Olympic gold medals of all time",
+    "answers": [
+      "United States",
+      "Soviet Union",
+      "Great Britain",
+      "China",
+      "Germany",
+      "France",
+      "Australia",
+      "Italy",
+      "Hungary",
+      "Sweden"
+    ]
+  },
+  {
+    "id": "culture-027",
+    "question": "Name the Top 10 highest-earning musicians of 2023",
+    "answers": [
+      "Taylor Swift",
+      "Bad Bunny",
+      "Morgan Wallen",
+      "Drake",
+      "Elton John",
+      "Ed Sheeran",
+      "The Weeknd",
+      "Beyoncé",
+      "Coldplay",
+      "Bruce Springsteen"
+    ]
+  },
+  {
+    "id": "culture-028",
+    "question": "Name the Top 10 most-watched Netflix original films of all time",
+    "answers": [
+      "Glass Onion: A Knives Out Mystery",
+      "Red Notice",
+      "Don't Look Up",
+      "Bird Box",
+      "The Gray Man",
+      "Extraction",
+      "Army of the Dead",
+      "Murder Mystery",
+      "Extraction 2",
+      "The Mother"
+    ]
+  },
+  {
+    "id": "culture-029",
+    "question": "Name the Top 10 highest-paid actors in Hollywood (2023)",
+    "answers": [
+      "Tom Cruise",
+      "Adam Sandler",
+      "Leonardo DiCaprio",
+      "Dwayne Johnson",
+      "Mark Wahlberg",
+      "Ryan Reynolds",
+      "Vin Diesel",
+      "Brad Pitt",
+      "Ben Affleck",
+      "Will Smith"
+    ]
+  },
+  {
+    "id": "culture-030",
+    "question": "Name the Top 10 countries with the most FIFA World Cup appearances",
+    "answers": [
+      "Brazil",
+      "Germany",
+      "Italy",
+      "Argentina",
+      "Mexico",
+      "Spain",
+      "France",
+      "England",
+      "Uruguay",
+      "Sweden"
     ]
   }
 ]

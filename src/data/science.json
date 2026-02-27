@@ -301,12 +301,12 @@
   {
     "id": "science-026",
     "difficulty": 5,
-    "question": "Which scientist is known as the father of modern physics?",
+    "question": "Which scientist developed both the special and general theories of relativity?",
     "answers": [
-      "Isaac Newton",
-      "Albert Einstein",
       "Niels Bohr",
-      "James Clerk Maxwell"
+      "Albert Einstein",
+      "Max Planck",
+      "Werner Heisenberg"
     ],
     "correctIndex": 1
   },
@@ -435,19 +435,6 @@
       "Zoology",
       "Mycology",
       "Ecology"
-    ],
-    "correctIndex": 2
-  },
-  {
-    "id": "science-112",
-    "category": "science",
-    "difficulty": 5,
-    "question": "Name the subatomic particle with a negative electric charge.",
-    "answers": [
-      "Proton",
-      "Neutron",
-      "Electron",
-      "Photon"
     ],
     "correctIndex": 2
   },
@@ -699,19 +686,6 @@
     "correctIndex": 3
   },
   {
-    "id": "science-133",
-    "category": "science",
-    "difficulty": 1,
-    "question": "How many legs does a spider have?",
-    "answers": [
-      "6",
-      "10",
-      "12",
-      "8"
-    ],
-    "correctIndex": 3
-  },
-  {
     "id": "science-134",
     "category": "science",
     "difficulty": 1,
@@ -721,32 +695,6 @@
       "H2",
       "HO",
       "H2O"
-    ],
-    "correctIndex": 3
-  },
-  {
-    "id": "science-135",
-    "category": "science",
-    "difficulty": 2,
-    "question": "What is the chemical symbol for gold?",
-    "answers": [
-      "Go",
-      "Gd",
-      "Ag",
-      "Au"
-    ],
-    "correctIndex": 3
-  },
-  {
-    "id": "science-136",
-    "category": "science",
-    "difficulty": 2,
-    "question": "What is the powerhouse of the cell?",
-    "answers": [
-      "Nucleus",
-      "Ribosome",
-      "Golgi apparatus",
-      "Mitochondria"
     ],
     "correctIndex": 3
   },

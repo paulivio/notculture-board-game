@@ -94,12 +94,12 @@
     "id": "general-008",
     "category": "general",
     "difficulty": 4,
-    "question": "Which company manufactures the electric vehicle brand Polestar?",
+    "question": "Polestar electric vehicles were originally a performance brand under which car manufacturer?",
     "answers": [
-      "Tesla",
+      "BMW",
       "Volvo",
-      "Toyota",
-      "BMW"
+      "Mercedes-Benz",
+      "Audi"
     ],
     "correctIndex": 1
   },
