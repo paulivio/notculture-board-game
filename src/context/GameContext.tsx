@@ -31,6 +31,7 @@ const initialState: GameState = {
   showNotModal: false,
   showEditor: false,
   showSettings: false,
+  showWelcome: true,
   answerResult: null,
   cultureTimerStartedAt: null,
   cultureScore: null,
@@ -267,6 +268,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SHOW_SETTINGS":
       return { ...state, showSettings: action.show };
+
+    case "DISMISS_WELCOME":
+      return { ...state, showWelcome: false };
 
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };

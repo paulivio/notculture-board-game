@@ -10,7 +10,6 @@ export default function TopPanel() {
 
   return (
     <div className="flex flex-col items-center gap-1.5">
-      <h1 className="text-xl font-bold lg:text-2xl">NotCulture Board Game</h1>
       <PlayerBar />
 
       <div className="my-3">

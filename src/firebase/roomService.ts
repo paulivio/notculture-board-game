@@ -1,4 +1,6 @@
 import { ref, set, update, get } from "firebase/database";
+
+const ROOM_TTL_MS = 60 * 60 * 1000; // 1 hour
 import { db } from "./config";
 
 function generateRoomCode(): string {
@@ -12,6 +14,7 @@ export async function createRoom(
   const playerId = Date.now().toString();
 
   await set(ref(db, `rooms/${roomCode}`), {
+    createdAt: Date.now(),
     players: {
       [playerId]: {
         id: playerId,
@@ -41,6 +44,13 @@ export async function joinRoom(
   if (!snapshot.exists()) return null;
 
   const roomData = snapshot.val();
+
+  // Delete and reject rooms older than 1 hour
+  if (roomData.createdAt && Date.now() - roomData.createdAt > ROOM_TTL_MS) {
+    await set(roomRef, null);
+    return null;
+  }
+
   const playerId = existingPlayerId ?? Date.now().toString();
 
   const existingPlayers = roomData.players || {};

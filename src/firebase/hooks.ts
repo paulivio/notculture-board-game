@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
-import { ref, onValue } from "firebase/database";
+import { ref, onValue, set } from "firebase/database";
 import { db } from "./config";
+
+const ROOM_TTL_MS = 60 * 60 * 1000; // 1 hour
 import { useGame, useGameDispatch } from "../context/GameContext";
 import { useSound } from "../hooks/useSound";
 import { MAX_POSITION } from "../lib/constants";
@@ -44,9 +46,16 @@ export function useRoom({
 
     const roomRef = ref(db, `rooms/${roomCode}`);
 
-    const unsubscribe = onValue(roomRef, (snapshot) => {
+    const unsubscribe = onValue(roomRef, async (snapshot) => {
       const roomData: RoomData | null = snapshot.val();
       if (!roomData) return;
+
+      // Auto-delete rooms older than 1 hour and bail out
+      if (roomData.createdAt && Date.now() - roomData.createdAt > ROOM_TTL_MS) {
+        await set(roomRef, null);
+        dispatch({ type: "RESET_GAME" });
+        return;
+      }
 
       const firebasePlayers = roomData.players || {};
       const playerOrder = roomData.playerOrder || [];
