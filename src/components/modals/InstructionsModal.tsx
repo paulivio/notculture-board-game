@@ -31,7 +31,14 @@ export default function InstructionsModal() {
         >
           <TextureCard className="flex max-h-[85vh] flex-col overflow-hidden p-0">
             {/* Header */}
-            <div className="flex flex-col items-center gap-2 px-6 pt-5 pb-3">
+            <div className="relative flex flex-col items-center gap-2 px-6 pt-5 pb-3">
+              <button
+                onClick={handleStart}
+                className="absolute top-0 right-0 p-1.5 text-white/50 hover:text-white transition-colors"
+                aria-label="Close"
+              >
+                ✕
+              </button>
               <img
                 src="/assets/logo.png"
                 alt="NotCulture"
@@ -77,11 +84,12 @@ export default function InstructionsModal() {
                     </Section>
 
                     <Section title="Setup">
-                      <p className="text-sm text-white/80">
-                        Add 2–4 players using the <strong className="text-white">+ Player</strong> and{" "}
-                        <strong className="text-white">− Player</strong> buttons, then click{" "}
-                        <strong className="text-white">Start Game</strong>.
-                      </p>
+                      <ul className="space-y-1.5 text-sm text-white/80">
+                        <li>Add 2–4 players using the <strong className="text-white">+ Player</strong> and{" "}
+                        <strong className="text-white">− Player</strong> buttons.</li>
+                        <li><strong className="text-white">Tap a player's name</strong> to rename them.</li>
+                        <li><strong className="text-white">Tap the colour dot</strong> next to a name to pick a token colour.</li>
+                      </ul>
                     </Section>
 
                     <Section title="Each Turn">
