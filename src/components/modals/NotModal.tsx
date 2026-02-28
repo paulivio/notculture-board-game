@@ -15,7 +15,7 @@ export default function NotModal() {
   const { identity } = useOnline();
   const { playTick, playSound } = useSound();
 
-  const [localPhase, setLocalPhase] = useState<"waiting" | "timer">("waiting");
+  const [localPhase, setLocalPhase] = useState<"handoff" | "waiting" | "timer">("handoff");
   const [timeLeft, setTimeLeft] = useState(NOT_TIMER_SECONDS);
   const [checked, setChecked] = useState<boolean[]>(new Array(6).fill(false));
   const [localScore, setLocalScore] = useState<number | null>(null);
@@ -213,6 +213,19 @@ export default function NotModal() {
                     )}
                   </>
                 )}
+              </div>
+            ) : state.gameMode !== "online" && localPhase === "handoff" ? (
+              /* ── Local mode: handoff screen ── */
+              <div className="flex flex-col items-center gap-4">
+                <p className="text-center text-sm opacity-80">
+                  <strong>{activePlayer.name}</strong>, get ready to guess!
+                </p>
+                <p className="text-center text-sm opacity-80">
+                  Hand the device to another player to begin describing.
+                </p>
+                <TextureButton onClick={() => setLocalPhase("waiting")}>
+                  Continue
+                </TextureButton>
               </div>
             ) : phase === "waiting" ? (
               /* ── Inactive players / local — waiting phase ── */

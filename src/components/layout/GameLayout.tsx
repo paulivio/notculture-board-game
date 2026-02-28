@@ -44,7 +44,7 @@ export default function GameLayout() {
   }, [state.showQuestionModal, state.showEditor, state.showWinModal, state.showCultureModal, state.showNotModal, state.showWelcome]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-between p-2.5 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
+    <div className="flex min-h-screen flex-col items-center justify-start gap-1 p-2.5 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
       <TopPanel />
       <Board />
       <BottomPanel />

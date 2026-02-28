@@ -10,14 +10,15 @@ interface WheelSpinnerProps {
   locked: boolean;
 }
 
-// Segment colours for values 1–6
+// Segment colours for values 1–6 — one unique colour per segment
+// film=#800080, science=#4682b4, general=#008000, history=#ffa500, culture=#c026d3, not=#f97316
 const SEGMENT_COLORS: Record<number, string> = {
-  1: "#ef4444",
-  2: "#3b82f6",
-  3: "#eab308",
-  4: "#800080",
-  5: "#008000",
-  6: "#ffa500",
+  1: "#800080",
+  2: "#4682b4",
+  3: "#008000",
+  4: "#ffa500",
+  5: "#c026d3",
+  6: "#f97316",
 };
 
 const CX = 100;
@@ -131,13 +132,13 @@ export default function WheelSpinner({
   return (
     <div className="flex flex-col items-center select-none">
       <div
-        className={`relative ${isClickable ? "cursor-pointer" : locked ? "opacity-50 cursor-not-allowed" : "cursor-default"}`}
+        className={`relative w-[120px] lg:w-[180px] ${isClickable ? "cursor-pointer" : locked ? "opacity-50 cursor-not-allowed" : "cursor-default"}`}
         onClick={isClickable ? onClick : undefined}
       >
         <svg
           viewBox="0 0 200 210"
-          width="180"
-          height="189"
+          width="100%"
+          height="auto"
           aria-label="Spin the wheel"
         >
           {/* Downward-pointing pointer above the wheel, apex touching the rim */}
