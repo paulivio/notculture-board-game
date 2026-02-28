@@ -2,6 +2,7 @@ export interface Player {
   id: number;
   name: string;
   position: number;
+  color: string;
 }
 
 export interface Question {
@@ -96,6 +97,7 @@ export type GameAction =
   | { type: "MARK_QUESTION_USED"; questionId: string }
   | { type: "CLEAR_USED_QUESTIONS"; questionIds: string[] }
   | { type: "TOGGLE_DEBUG" }
+  | { type: "SET_PLAYER_COLOR"; playerId: number; color: string }
   | { type: "SET_GAME_MODE"; mode: GameMode }
   | { type: "RESET_GAME" }
   | { type: "SET_QUESTIONS"; questions: Question[] }

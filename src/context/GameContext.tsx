@@ -6,14 +6,14 @@ import {
   type ReactNode,
 } from "react";
 import type { GameState, GameAction } from "../types/game";
-import { MAX_POSITION } from "../lib/constants";
+import { MAX_POSITION, PLAYER_COLORS } from "../lib/constants";
 
 const initialState: GameState = {
   questionsLoaded: false,
   questions: [],
   players: [
-    { id: 1, name: "Player 1", position: 0 },
-    { id: 2, name: "Player 2", position: 0 },
+    { id: 1, name: "Player 1", position: 0, color: PLAYER_COLORS[1] },
+    { id: 2, name: "Player 2", position: 0, color: PLAYER_COLORS[2] },
   ],
   localPlayers: [],
   maxPlayers: 4,
@@ -59,7 +59,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         players: [
           ...state.players,
-          { id: newId, name: `Player ${newId}`, position: 0 },
+          { id: newId, name: `Player ${newId}`, position: 0, color: PLAYER_COLORS[newId] },
         ],
       };
     }
@@ -155,6 +155,14 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...state, usedQuestionIds: cleared };
     }
 
+    case "SET_PLAYER_COLOR":
+      return {
+        ...state,
+        players: state.players.map((p) =>
+          p.id === action.playerId ? { ...p, color: action.color } : p
+        ),
+      };
+
     case "TOGGLE_DEBUG":
       return { ...state, debugMode: !state.debugMode };
 
@@ -189,8 +197,8 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       }
       // Switching to local: restore saved players, or fall back to current/defaults
       const defaultPlayers = [
-        { id: 1, name: "Player 1", position: 0 },
-        { id: 2, name: "Player 2", position: 0 },
+        { id: 1, name: "Player 1", position: 0, color: PLAYER_COLORS[1] },
+        { id: 2, name: "Player 2", position: 0, color: PLAYER_COLORS[2] },
       ];
       const restoredPlayers =
         state.localPlayers.length > 0

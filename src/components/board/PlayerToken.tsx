@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect, type RefObject } from "react";
 import { motion } from "framer-motion";
-import { SPIRAL_PATH, PLAYER_COLORS } from "../../lib/constants";
+import { SPIRAL_PATH } from "../../lib/constants";
 import type { Player } from "../../types/game";
 
 interface PlayerTokenProps {
@@ -79,7 +79,7 @@ export default function PlayerToken({
       style={{
         width: pos.size,
         height: pos.size,
-        backgroundColor: PLAYER_COLORS[player.id] ?? "#888",
+        backgroundColor: player.color ?? "#888",
       }}
       animate={{
         left: pos.x - pos.size / 2,

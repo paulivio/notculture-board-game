@@ -5,7 +5,7 @@ import { db } from "./config";
 const ROOM_TTL_MS = 60 * 60 * 1000; // 1 hour
 import { useGame, useGameDispatch } from "../context/GameContext";
 import { useSound } from "../hooks/useSound";
-import { MAX_POSITION } from "../lib/constants";
+import { MAX_POSITION, PLAYER_COLORS } from "../lib/constants";
 import type { RoomData, Player } from "../types/game";
 
 interface UseRoomOptions {
@@ -70,6 +70,7 @@ export function useRoom({
           id: index + 1,
           name: firebasePlayers[key].name,
           position: firebasePlayers[key].position,
+          color: PLAYER_COLORS[index + 1],
         }));
 
       const previousPlayers = previousPlayersRef.current;

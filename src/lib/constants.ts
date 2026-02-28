@@ -31,6 +31,21 @@ export const PLAYER_COLORS: Record<number, string> = {
   4: "#f715e8",
 };
 
+export const PLAYER_COLOR_OPTIONS: string[] = [
+  "#ef4444", // red
+  "#f97316", // orange
+  "#eab308", // yellow
+  "#22c55e", // green
+  "#06b6d4", // cyan
+  "#3b82f6", // blue
+  "#8b5cf6", // violet
+  "#ec4899", // pink
+  "#f43f5e", // rose
+  "#14b8a6", // teal
+  "#a855f7", // purple
+  "#84cc16", // lime
+];
+
 export const CATEGORY_COLORS: Record<Category, string> = {
   film: "#800080",
   science: "#4682b4",
