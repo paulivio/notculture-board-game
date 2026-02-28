@@ -32,6 +32,7 @@ export interface GameState {
   questionsLoaded: boolean;
   questions: Question[];
   players: Player[];
+  localPlayers: Player[];
   maxPlayers: number;
   minPlayers: number;
   currentPlayerIndex: number;

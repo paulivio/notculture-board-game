@@ -15,6 +15,7 @@ const initialState: GameState = {
     { id: 1, name: "Player 1", position: 0 },
     { id: 2, name: "Player 2", position: 0 },
   ],
+  localPlayers: [],
   maxPlayers: 4,
   minPlayers: 1,
   currentPlayerIndex: 0,
@@ -158,14 +159,14 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       return { ...state, debugMode: !state.debugMode };
 
     case "SET_GAME_MODE": {
-      const modeReset = {
-        questions: shuffleArray([...state.questions]),
-        currentPlayerIndex: 0,
+      // Only clear mid-turn/modal state — never reset board positions or question progress.
+      // Local game is preserved across mode switches; reset comes from the manual reset button only.
+      const modeSwitchClear = {
         activeQuestion: null,
         pendingMove: 0,
         pendingCategory: null,
         isTurnLocked: false,
-        usedQuestionIds: new Set<string>(),
+        answerResult: null,
         showWinModal: false,
         showQuestionModal: false,
         showCultureModal: false,
@@ -177,16 +178,33 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         currentNotCard: null,
       };
       if (action.mode === "online") {
-        return { ...state, ...modeReset, gameMode: action.mode, players: [] };
+        // Save local players so they can be restored when switching back
+        return {
+          ...state,
+          ...modeSwitchClear,
+          gameMode: "online",
+          localPlayers: state.players,
+          players: [],
+        };
       }
+      // Switching to local: restore saved players, or fall back to current/defaults
+      const defaultPlayers = [
+        { id: 1, name: "Player 1", position: 0 },
+        { id: 2, name: "Player 2", position: 0 },
+      ];
+      const restoredPlayers =
+        state.localPlayers.length > 0
+          ? state.localPlayers
+          : state.players.length > 0
+            ? state.players
+            : defaultPlayers;
       return {
         ...state,
-        ...modeReset,
-        gameMode: action.mode,
-        players: [
-          { id: 1, name: "Player 1", position: 0 },
-          { id: 2, name: "Player 2", position: 0 },
-        ],
+        ...modeSwitchClear,
+        gameMode: "local",
+        players: restoredPlayers,
+        localPlayers: [],
+        currentPlayerIndex: Math.min(state.currentPlayerIndex, restoredPlayers.length - 1),
       };
     }
 
@@ -195,6 +213,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         questions: shuffleArray([...state.questions]),
         players: state.players.map((p) => ({ ...p, position: 0 })),
+        localPlayers: [],
         currentPlayerIndex: 0,
         activeQuestion: null,
         pendingMove: 0,
