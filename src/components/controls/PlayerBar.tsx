@@ -46,7 +46,7 @@ export default function PlayerBar() {
   }
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 my-1.5">
+    <div className="relative z-10 flex flex-wrap justify-center gap-2 my-1.5">
       {state.players.map((player) => (
         <div
           key={player.id}
