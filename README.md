@@ -30,18 +30,30 @@ npm run preview  # Preview production build locally
 - **Local** — 1-4 players on the same device, use +/- buttons to add or remove players
 - **Online** — Create a room and share the code, or join an existing room. Turns sync across all connected browsers in real-time
 
+### Special Tiles
+
+- **Not tiles** (positions 5, 15, 25, 35, 45) — when a player starts their turn on a Not tile, the Not modal opens automatically. Inactive players describe items; the active player guesses. Each correct guess moves the player forward one space (up to 6).
+- **Culture tiles** — same describe-and-guess mechanic with a different card set.
+
 ### Settings (gear icon)
 
 - **Add / Edit Questions** — add custom questions, browse by category, delete, or export as JSON
-- **Toggle Debug Mode** — shows cell numbers, skips dice animation, adds a skip button on questions
+- **Toggle Debug Mode** — shows cell numbers, skips dice animation, adds a skip button on questions (password-protected)
+- **Sound Settings** — toggle sound effects on/off
 - **Restart Game** — resets all players to start
+
+## Online Rooms
+
+- Rooms expire automatically after **1 hour** — stale rooms are cleaned up on join and in the real-time listener
+- A full-screen **welcome/instructions modal** is shown on every page load with Gameplay and Online tabs
+- Disconnect and rejoin a room using the same browser — your identity is persisted via localStorage
 
 ## Tech Stack
 
 - **React 19** with TypeScript
 - **Vite 7** — dev server and bundler
 - **Tailwind CSS v4** — utility-first styling with custom theme colors
-- **Framer Motion** — 3D dice animation, player token springs, modal transitions
+- **Framer Motion** — wheel spinner animation, player token springs, modal transitions
 - **Firebase Realtime Database** — online multiplayer room sync
 - **Cult UI** — TextureButton and TextureCard components (via class-variance-authority + Radix)
 
@@ -75,8 +87,9 @@ src/
     ui/                             # TextureButton, TextureCard
     layout/                         # GameLayout, TopPanel, BottomPanel
     board/                          # Board (7×7 grid), Cell, PlayerToken, BoardCanvas
-    dice/                           # DiceRoller (3D cube with Framer Motion)
-    modals/                         # QuestionModal, WinModal, QuestionEditor
+    dice/                           # WheelSpinner (SVG spin-the-wheel, Framer Motion)
+    modals/                         # QuestionModal, WinModal, QuestionEditor, NotModal,
+                                    #   CultureModal, InstructionsModal
     controls/                       # ModeSelector, LocalControls, OnlineControls,
                                     #   SettingsMenu, PlayerBar
 
@@ -85,6 +98,8 @@ src/
     science.json                    # 130 Science & Technology questions
     general.json                    # 60 General Knowledge questions
     history.json                    # 62 History & Arts questions
+    not.json                        # 30 Not tile cards (6 answers each)
+    culture.json                    # Culture tile cards
 
 public/
   assets/dice/                      # Dice face images (dice-1.png to dice-6.png)
@@ -106,3 +121,5 @@ Questions have difficulty levels 1-6. The dice roll determines which difficulty 
 ## Board Layout
 
 39 tiles in a spiral path on a 7×7 grid. Categories cycle by position (`pathIndex % 4`). The center of the board shows the game logo. Player tokens animate between cells with spring physics.
+
+Special Not/Culture tiles sit at fixed positions (5, 15, 25, 35, 45). Landing on one via a correct answer passes the turn normally; the modal triggers at the **start** of the next turn when the player is already sitting on the tile.
