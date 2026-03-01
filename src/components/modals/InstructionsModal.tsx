@@ -110,7 +110,7 @@ export default function InstructionsModal() {
                     <Section title="Special Tiles">
                       <ul className="space-y-2">
                         <li className="text-sm text-white/80">
-                          <strong className="text-white">Not tile</strong> (positions 5, 15, 25, 35) — Inactive players describe words or phrases; the active player guesses. Score up to 6 points and move that many spaces.
+                          <strong className="text-white">Not tile</strong> — Inactive players describe words or phrases; the active player guesses. Score up to 6 points and move that many spaces.
                         </li>
                         <li className="text-sm text-white/80">
                           <strong className="text-white">Culture tile</strong> — A performance challenge: sing, act, or draw. Other players judge the result.
@@ -130,20 +130,31 @@ export default function InstructionsModal() {
                     <Section title="Creating a Room">
                       <p className="text-sm text-white/80">
                         Click <strong className="text-white">Online Game</strong>, enter your name, then click{" "}
-                        <strong className="text-white">Create Room</strong>. Share the 6-character room code with your friends.
+                        <strong className="text-white">Create Room</strong>. Share the 6-character room code with your friends. Enable{" "}
+                        <strong className="text-white">Team Mode</strong> before creating if you want team play.
                       </p>
                     </Section>
 
                     <Section title="Joining a Room">
                       <p className="text-sm text-white/80">
-                        Click <strong className="text-white">Online Game</strong>, enter your name and the room code, then click <strong className="text-white">Join</strong>.
+                        Enter your name and the room code, then click <strong className="text-white">Join</strong>. In Team Mode you'll see a lobby — join an existing team or create a new one.
                       </p>
                     </Section>
 
-                    <Section title="Playing Online">
+                    <Section title="Standard Multiplayer">
                       <p className="text-sm text-white/80">
-                        The room creator starts the game. Everyone sees the board and questions in real time. Only the active player rolls and answers; all clients see the result simultaneously.
+                        Up to 4 players, one per token. Everyone sees the board and questions in real time. Only the active player rolls and answers; all clients see the result simultaneously.
                       </p>
+                    </Section>
+
+                    <Section title="Team Mode">
+                      <ul className="space-y-1.5 text-sm text-white/80">
+                        <li>Up to <strong className="text-white">4 teams of 2 players</strong> — teams share a single board token.</li>
+                        <li>Either teammate can roll the wheel on your team's turn.</li>
+                        <li>Answering responsibility <strong className="text-white">alternates</strong> between teammates each turn.</li>
+                        <li><strong className="text-white">Not tile:</strong> one teammate describes, the other guesses.</li>
+                        <li><strong className="text-white">Culture tile:</strong> one teammate performs, the other judges and submits the score.</li>
+                      </ul>
                     </Section>
 
                     <Section title="Room Expiry">
