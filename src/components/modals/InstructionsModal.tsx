@@ -40,7 +40,7 @@ export default function InstructionsModal() {
                 ✕
               </button>
               <img
-                src="/assets/logo.png"
+                src="/assets/logo.svg"
                 alt="NotCulture"
                 className="h-14 w-auto object-contain"
               />

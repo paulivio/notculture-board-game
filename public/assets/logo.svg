@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <clipPath id="outer">
+      <rect width="512" height="512" rx="76" ry="76"/>
+    </clipPath>
+    <!-- Vignette to soften inner edges -->
+    <radialGradient id="vignette" cx="50%" cy="50%" r="71%">
+      <stop offset="0%" stop-color="black" stop-opacity="0"/>
+      <stop offset="100%" stop-color="black" stop-opacity="0.18"/>
+    </radialGradient>
+  </defs>
+
+  <g clip-path="url(#outer)">
+    <!-- Four category quadrants -->
+    <rect x="0"   y="0"   width="256" height="256" fill="#800080"/><!-- Film   -->
+    <rect x="256" y="0"   width="256" height="256" fill="#4682b4"/><!-- Science-->
+    <rect x="0"   y="256" width="256" height="256" fill="#008000"/><!-- General-->
+    <rect x="256" y="256" width="256" height="256" fill="#ffa500"/><!-- History-->
+
+    <!-- Dark centre band -->
+    <rect x="0" y="152" width="512" height="208" fill="#242424"/>
+
+    <!-- Text -->
+    <text
+      x="256" y="237"
+      font-family="Impact, 'Arial Black', 'Helvetica Neue', sans-serif"
+      font-size="94"
+      fill="white"
+      text-anchor="middle"
+      letter-spacing="3"
+    >NOT</text>
+    <text
+      x="256" y="330"
+      font-family="Impact, 'Arial Black', 'Helvetica Neue', sans-serif"
+      font-size="94"
+      fill="white"
+      text-anchor="middle"
+      letter-spacing="1"
+    >CULTURE</text>
+
+    <!-- Subtle vignette overlay to soften edges -->
+    <rect x="0" y="0" width="512" height="512" fill="url(#vignette)"/>
+  </g>
+</svg>
