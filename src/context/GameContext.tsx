@@ -39,6 +39,11 @@ const initialState: GameState = {
   notTimerStartedAt: null,
   notScore: null,
   currentNotCard: null,
+  isTeamMode: false,
+  currentAnswererId: null,
+  currentDescriberId: null,
+  activeTeamId: null,
+  cultureQuestionIndex: null,
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -237,6 +242,8 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         notTimerStartedAt: null,
         notScore: null,
         currentNotCard: null,
+        currentAnswererId: null,
+        currentDescriberId: null,
       };
 
     case "SET_QUESTIONS":
@@ -259,6 +266,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
           showCultureModal: false,
           cultureTimerStartedAt: null,
           cultureScore: null,
+          cultureQuestionIndex: null,
         };
       }
       return { ...state, showCultureModal: true };
@@ -298,6 +306,18 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "DISMISS_WELCOME":
       return { ...state, showWelcome: false };
+
+    case "SET_TEAM_MODE":
+      return { ...state, isTeamMode: action.value };
+
+    case "SET_ANSWERER_IDS":
+      return { ...state, currentAnswererId: action.answererId, currentDescriberId: action.describerId };
+
+    case "SET_ACTIVE_TEAM":
+      return { ...state, activeTeamId: action.teamId };
+
+    case "SET_CULTURE_QUESTION_INDEX":
+      return { ...state, cultureQuestionIndex: action.index };
 
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };

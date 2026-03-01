@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGame } from "../../context/GameContext";
 import { useGameLogicContext } from "../../context/GameLogicContext";
+import { useOnline } from "../../context/OnlineContext";
 import { TextureCard } from "../ui/TextureCard";
 import { TextureButton } from "../ui/TextureButton";
 import {
@@ -12,7 +13,15 @@ import {
 export default function QuestionModal() {
   const state = useGame();
   const { handleAnswer, afterAnswer, handleSkip } = useGameLogicContext();
+  const { identity } = useOnline();
   const question = state.activeQuestion;
+
+  // In team mode online, only the designated answerer can submit
+  const isAnswerer =
+    state.isTeamMode && state.gameMode === "online"
+      ? state.currentAnswererId === identity.playerId
+      : true;
+  const canSubmit = isAnswerer;
 
   const [localAnswered, setLocalAnswered] = useState(false);
   const [localSelectedIndex, setLocalSelectedIndex] = useState<number | null>(null);
@@ -33,7 +42,7 @@ export default function QuestionModal() {
     "\u2606".repeat(6 - question.difficulty);
 
   const onAnswer = (index: number) => {
-    if (answered) return;
+    if (answered || !canSubmit) return;
 
     const result = handleAnswer(index);
     if (!result) return;
@@ -90,12 +99,18 @@ export default function QuestionModal() {
                   key={index}
                   className={getButtonClass(index)}
                   onClick={() => onAnswer(index)}
-                  disabled={answered}
+                  disabled={answered || !canSubmit}
                 >
                   {answer}
                 </TextureButton>
               ))}
             </div>
+
+            {!canSubmit && !answered && (
+              <p className="mt-2 text-center text-xs opacity-50">
+                {state.isTeamMode ? "Waiting for your teammate to answer…" : ""}
+              </p>
+            )}
 
             {answered && (
               <p

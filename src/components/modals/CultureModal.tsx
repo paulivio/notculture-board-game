@@ -39,11 +39,52 @@ export default function CultureModal() {
     identity.playerName !== null &&
     activePlayer?.name === identity.playerName;
 
+  // Team mode role derivation.
+  // For Culture tiles: BOTH active team members perform together; opposing teams judge.
+  const isAnswerer =
+    state.isTeamMode && state.gameMode === "online"
+      ? state.currentAnswererId === identity.playerId
+      : false;
+
+  // isOnActiveTeam: player belongs to the currently active team.
+  // Using teamId comparison is more robust than matching currentDescriberId (which can be null).
+  const isOnActiveTeam =
+    state.isTeamMode &&
+    state.gameMode === "online" &&
+    identity.teamId !== null &&
+    identity.teamId === state.activeTeamId;
+
+  // Performer view: active team members in team mode; active player otherwise
+  const isPerformer =
+    state.isTeamMode && state.gameMode === "online" ? isOnActiveTeam : isOnlineActive;
+
+  // Who can submit score: opposing teams in team mode; non-active player (judge) otherwise or local
+  const canSubmitScore =
+    state.isTeamMode && state.gameMode === "online"
+      ? !isOnActiveTeam
+      : !isOnlineActive || state.gameMode === "local";
+
+  // Who can start the timer: opposing teams in team mode; non-active player (judge) otherwise
+  const canStartTimer =
+    state.isTeamMode && state.gameMode === "online"
+      ? !isOnActiveTeam
+      : !isOnlineActive || state.gameMode === "local";
+
+  // Who can click Continue on result screen: answerer only (triggers movement); active player/local otherwise
+  const canContinue =
+    state.isTeamMode && state.gameMode === "online"
+      ? isAnswerer
+      : isOnlineActive || state.gameMode === "local";
+
   const questions = cultureData as CultureQuestion[];
-  const seed =
+  const localSeed =
     state.currentPlayerIndex +
     (state.players[state.currentPlayerIndex]?.position ?? 0);
-  const question = questions[seed % questions.length];
+  const questionIndex =
+    state.gameMode === "online" && state.cultureQuestionIndex !== null
+      ? state.cultureQuestionIndex
+      : localSeed % questions.length;
+  const question = questions[questionIndex];
 
   // Derive phase: online clients use the Firebase-synced timestamp; local uses local state
   const phase =
@@ -61,8 +102,10 @@ export default function CultureModal() {
     state.gameMode === "online" ? state.cultureScore : localScore;
   const showResult = scoreResult !== null;
 
-  const toggleAnswer = (i: number) =>
+  const toggleAnswer = (i: number) => {
+    if (!canSubmitScore) return;
     setChecked((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
+  };
 
   // Local-mode countdown
   useEffect(() => {
@@ -123,8 +166,8 @@ export default function CultureModal() {
   }, [scoreResult]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleStartTimer = () => {
+    if (!canStartTimer) return;
     if (state.gameMode === "online" && identity.roomCode) {
-      // Write timestamp to Firebase — hooks.ts will dispatch SET_CULTURE_TIMER_START to all clients
       startCultureTimer(identity.roomCode);
     } else {
       setTimeLeft(CULTURE_TIMER_SECONDS);
@@ -134,8 +177,8 @@ export default function CultureModal() {
   };
 
   const handleSubmit = () => {
+    if (!canSubmitScore) return;
     if (state.gameMode === "online" && identity.roomCode) {
-      // hooks.ts will dispatch SET_CULTURE_SCORE to all clients so everyone sees the result
       submitCultureScore(identity.roomCode, score);
     } else {
       setLocalScore(score);
@@ -147,6 +190,7 @@ export default function CultureModal() {
   };
 
   const handleFinish = () => {
+    if (!canStartTimer) return;
     clearInterval(localIntervalRef.current!);
     localIntervalRef.current = null;
     clearInterval(onlineIntervalRef.current!);
@@ -193,18 +237,20 @@ export default function CultureModal() {
                     ? `Moving forward ${scoreResult} space${scoreResult === 1 ? "" : "s"}…`
                     : "No spaces gained."}
                 </p>
-                {/* Only the active player (online) or the local player can trigger movement */}
-                {(isOnlineActive || state.gameMode === "local") && (
+                {/* Only the performer (online) or the local player can trigger movement */}
+                {canContinue && (
                   <TextureButton variant="primary" onClick={handleContinue}>
                     Continue
                   </TextureButton>
                 )}
               </div>
-            ) : isOnlineActive ? (
-              /* ── Active player view (online only): question + synced countdown ── */
+            ) : isPerformer ? (
+              /* ── Performer view: active team members (both) see the task; opposing teams judge ── */
               <div className="flex flex-col items-center gap-4">
                 <p className="text-center text-sm opacity-80">
-                  You've landed on a Culture tile — start reciting!
+                  {state.isTeamMode
+                    ? "Your team has landed on a Culture tile — start reciting!"
+                    : "You've landed on a Culture tile — start reciting!"}
                 </p>
                 <p className="text-center text-sm font-semibold">
                   {question.question}
@@ -234,27 +280,31 @@ export default function CultureModal() {
                 )}
               </div>
             ) : phase === "waiting" ? (
-              /* ── Judge / local — waiting phase ── */
+              /* ── Judge / opposing teams — waiting phase ── */
               <div className="flex flex-col items-center gap-4">
                 <p className="text-center text-sm opacity-80">
                   <strong>{activePlayer.name}</strong> is performing.
                   <br />
-                  Start the timer when they're ready.
+                  {canStartTimer
+                    ? "Start the timer when they're ready."
+                    : "Waiting for a judge to start the timer…"}
                 </p>
                 <p className="w-full rounded-lg bg-fuchsia-950/50 p-3 text-center text-sm font-semibold text-fuchsia-200">
                   {question.question}
                 </p>
-                <TextureButton onClick={handleStartTimer}>
-                  Start Timer
-                </TextureButton>
+                {canStartTimer && (
+                  <TextureButton onClick={handleStartTimer}>
+                    Start Timer
+                  </TextureButton>
+                )}
               </div>
             ) : (
-              /* ── Judge / local — timer phase: answers + countdown + submit ── */
+              /* ── Judge (opposing teams / local) — timer phase: answers + countdown + submit ── */
               <div className="flex flex-col gap-3">
                 <p className="text-center text-xs opacity-60">
-                  Tick answers as{" "}
-                  <strong className="opacity-100">{activePlayer.name}</strong>{" "}
-                  names them
+                  {canSubmitScore
+                    ? `Tick answers as ${activePlayer.name} names them`
+                    : `${activePlayer.name} is performing`}
                 </p>
 
                 <p className="rounded-lg bg-fuchsia-950/50 p-2 text-center text-xs font-semibold text-fuchsia-200">
@@ -277,7 +327,7 @@ export default function CultureModal() {
                   )}
                 </div>
 
-                {timeLeft > 0 && (
+                {timeLeft > 0 && canStartTimer && (
                   <TextureButton className="w-full" onClick={handleFinish}>
                     Finish Early
                   </TextureButton>
@@ -289,11 +339,12 @@ export default function CultureModal() {
                     <li key={i}>
                       <button
                         onClick={() => toggleAnswer(i)}
+                        disabled={!canSubmitScore}
                         className={`flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm transition-colors ${
                           checked[i]
                             ? "bg-fuchsia-600 text-white"
                             : "bg-white/5 text-white/80 hover:bg-white/10"
-                        }`}
+                        } ${!canSubmitScore ? "cursor-not-allowed opacity-50" : ""}`}
                       >
                         <span className="w-5 shrink-0 text-center font-bold">
                           {checked[i] ? "✓" : String(i + 1)}
@@ -304,11 +355,14 @@ export default function CultureModal() {
                   ))}
                 </ol>
 
-                {/* Submit — only once timer has ended */}
-                {timerDone && (
+                {/* Submit — only once timer has ended; gated by role */}
+                {timerDone && canSubmitScore && (
                   <TextureButton variant="primary" onClick={handleSubmit}>
                     Submit Score: {score} / 10
                   </TextureButton>
+                )}
+                {timerDone && !canSubmitScore && (
+                  <p className="text-center text-xs opacity-50">Waiting for score to be submitted…</p>
                 )}
               </div>
             )}

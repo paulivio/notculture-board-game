@@ -30,6 +30,36 @@ export default function NotModal() {
     identity.playerName !== null &&
     activePlayer?.name === identity.playerName;
 
+  // Team mode roles
+  const isAnswerer =
+    state.isTeamMode && state.gameMode === "online"
+      ? state.currentAnswererId === identity.playerId
+      : false;
+
+  // isOnActiveTeam: player belongs to the currently active team.
+  // Using teamId comparison is more robust than matching currentDescriberId (which can be null).
+  const isOnActiveTeam =
+    state.isTeamMode &&
+    state.gameMode === "online" &&
+    identity.teamId !== null &&
+    identity.teamId === state.activeTeamId;
+
+  // Guesser in team mode = answerer; in non-team online = active player
+  const isGuesser =
+    state.isTeamMode && state.gameMode === "online" ? isAnswerer : isOnlineActive;
+
+  // Who can start timer / see card: non-answerer of the active team; non-active players otherwise
+  const canDescribe =
+    state.isTeamMode && state.gameMode === "online"
+      ? isOnActiveTeam && !isAnswerer
+      : !isOnlineActive || state.gameMode === "local";
+
+  // Who can click Continue: answerer (guesser) in team mode; active player/local otherwise
+  const canContinue =
+    state.isTeamMode && state.gameMode === "online"
+      ? isAnswerer
+      : isOnlineActive || state.gameMode === "local";
+
   const phase =
     state.gameMode === "online"
       ? state.notTimerStartedAt
@@ -105,6 +135,7 @@ export default function NotModal() {
   }, [scoreResult]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleStartTimer = () => {
+    if (!canDescribe) return;
     if (state.gameMode === "online" && identity.roomCode) {
       startNotTimer(identity.roomCode);
     } else {
@@ -115,6 +146,7 @@ export default function NotModal() {
   };
 
   const handleSubmit = () => {
+    if (!canDescribe) return;
     if (state.gameMode === "online" && identity.roomCode) {
       submitNotScore(identity.roomCode, score);
     } else {
@@ -127,6 +159,7 @@ export default function NotModal() {
   };
 
   const handleFinish = () => {
+    if (!canDescribe) return;
     clearInterval(localIntervalRef.current!);
     localIntervalRef.current = null;
     clearInterval(onlineIntervalRef.current!);
@@ -173,19 +206,21 @@ export default function NotModal() {
                     ? `Moving forward ${scoreResult} space${scoreResult === 1 ? "" : "s"}…`
                     : "No spaces gained."}
                 </p>
-                {(isOnlineActive || state.gameMode === "local") && (
+                {canContinue && (
                   <TextureButton variant="primary" onClick={handleContinue}>
                     Continue
                   </TextureButton>
                 )}
               </div>
-            ) : isOnlineActive ? (
-              /* ── Active player (online): guess view ── */
+            ) : isGuesser ? (
+              /* ── Guesser view: answerer in team mode / active player in non-team ── */
               <div className="flex flex-col items-center gap-4">
                 {phase === "waiting" ? (
                   <>
                     <p className="text-center text-sm opacity-80">
-                      Your teammates are about to describe 6 things — get ready to guess!
+                      {state.isTeamMode
+                        ? "Your teammate is about to describe 6 things — get ready to guess!"
+                        : "Your teammates are about to describe 6 things — get ready to guess!"}
                     </p>
                     <p className="text-center text-xs opacity-60">
                       Waiting for the timer to start…
@@ -227,8 +262,8 @@ export default function NotModal() {
                   Continue
                 </TextureButton>
               </div>
-            ) : phase === "waiting" ? (
-              /* ── Inactive players / local — waiting phase ── */
+            ) : canDescribe && phase === "waiting" ? (
+              /* ── Describer / judge — waiting phase ── */
               <div className="flex flex-col items-center gap-4">
                 <p className="text-center text-sm opacity-80">
                   Describe these 6 things to{" "}
@@ -253,8 +288,8 @@ export default function NotModal() {
                   Start Timer
                 </TextureButton>
               </div>
-            ) : (
-              /* ── Inactive players / local — timer phase ── */
+            ) : canDescribe ? (
+              /* ── Describer / judge — timer phase ── */
               <div className="flex flex-col gap-3">
                 <p className="text-center text-xs opacity-60">
                   Tick answers as{" "}
@@ -311,6 +346,17 @@ export default function NotModal() {
                     Submit Score: {score} / 6
                   </TextureButton>
                 )}
+              </div>
+            ) : (
+              /* ── Opposing team spectator view: timer countdown only ── */
+              <div className="flex flex-col items-center gap-4">
+                <p className="text-center text-sm opacity-60">
+                  {phase === "waiting"
+                    ? "Waiting for the active team to start…"
+                    : timeLeft > 0
+                    ? `${timeLeft}s remaining`
+                    : "Time's up!"}
+                </p>
               </div>
             )}
           </TextureCard>

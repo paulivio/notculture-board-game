@@ -57,17 +57,30 @@ export interface GameState {
   notTimerStartedAt: number | null;
   notScore: number | null;
   currentNotCard: NotQuestion | null;
+  isTeamMode: boolean;
+  currentAnswererId: string | null;
+  currentDescriberId: string | null;
+  activeTeamId: string | null;
+  cultureQuestionIndex: number | null;
 }
 
 export interface OnlineIdentity {
   roomCode: string;
   playerId: string;
   playerName: string;
+  teamId: string | null;
+}
+
+export interface TeamData {
+  name: string;
+  playerIds: string[];
+  position: number;
+  answerIndex: number;
 }
 
 export interface RoomData {
   createdAt?: number;
-  players: Record<string, { id: string; name: string; position: number }>;
+  players: Record<string, { id: string; name: string; position?: number }>;
   playerOrder: string[];
   currentPlayerIndex: number;
   currentRoll: { value: number; id: number } | null;
@@ -79,8 +92,14 @@ export interface RoomData {
   } | null;
   gameState: "waiting" | "playing";
   resetId?: number;
-  cultureEvent: { active: boolean; timerStartedAt?: number; score?: number } | null;
+  cultureEvent: { active: boolean; timerStartedAt?: number; score?: number; questionIndex?: number } | null;
   notEvent: { active: boolean; timerStartedAt?: number; score?: number; question?: { id: string; answers: string[] } } | null;
+  isTeamMode?: boolean;
+  teams?: Record<string, TeamData>;
+  teamOrder?: string[];
+  currentTeamIndex?: number;
+  currentAnswererId?: string | null;
+  currentDescriberId?: string | null;
 }
 
 export type GameAction =
@@ -119,4 +138,8 @@ export type GameAction =
   | { type: "SET_NOT_TIMER_START"; startedAt: number | null }
   | { type: "SET_NOT_SCORE"; score: number | null }
   | { type: "SET_NOT_CARD"; card: NotQuestion | null }
-  | { type: "DISMISS_WELCOME" };
+  | { type: "DISMISS_WELCOME" }
+  | { type: "SET_TEAM_MODE"; value: boolean }
+  | { type: "SET_ANSWERER_IDS"; answererId: string | null; describerId: string | null }
+  | { type: "SET_ACTIVE_TEAM"; teamId: string | null }
+  | { type: "SET_CULTURE_QUESTION_INDEX"; index: number | null };

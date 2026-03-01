@@ -4,6 +4,8 @@ interface OnlineIdentity {
   roomCode: string | null;
   playerId: string | null;
   playerName: string | null;
+  teamId: string | null;
+  teamName: string | null;
 }
 
 interface OnlineContextValue {
@@ -15,6 +17,8 @@ const defaultIdentity: OnlineIdentity = {
   roomCode: null,
   playerId: null,
   playerName: null,
+  teamId: null,
+  teamName: null,
 };
 
 const OnlineContext = createContext<OnlineContextValue>({

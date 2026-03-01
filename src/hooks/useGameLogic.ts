@@ -13,12 +13,16 @@ import {
 } from "../lib/constants";
 import type { Category } from "../types/game";
 import notData from "../data/not.json";
+import cultureData from "../data/culture.json";
 import {
   rollDice,
+  rollDiceTeam,
   setCurrentQuestion,
   submitAnswer,
   updatePlayerPosition,
+  updateTeamPosition,
   advanceTurn,
+  advanceTeamTurn,
   activateCulture,
   activateNot,
 } from "../firebase/roomService";
@@ -127,11 +131,19 @@ export function useGameLogic() {
     if (!CULTURE_POSITIONS.has(pos) && !NOT_POSITIONS.has(pos)) return;
 
     if (state.gameMode === "online") {
-      // Only the active player's device writes to Firebase
-      if (!identity.playerName || currentPlayer.name !== identity.playerName || !identity.roomCode) return;
+      // Only the designated answerer writes to Firebase (prevents double-trigger in team mode)
+      if (!identity.roomCode) return;
+      if (state.isTeamMode) {
+        if (!identity.playerId || identity.playerId !== state.currentAnswererId) return;
+      } else {
+        if (!identity.playerName || currentPlayer.name !== identity.playerName) return;
+      }
       dispatch({ type: "LOCK_TURN" });
       if (CULTURE_POSITIONS.has(pos)) {
-        activateCulture(identity.roomCode);
+        const cultures = cultureData as { id: string; question: string; answers: string[] }[];
+        const seed = state.currentPlayerIndex + pos;
+        const questionIndex = seed % cultures.length;
+        activateCulture(identity.roomCode, questionIndex);
       } else {
         const cards = notData as { id: string; answers: string[] }[];
         let pool = cards.filter((c) => !usedNotIds.current.has(c.id));
@@ -160,8 +172,11 @@ export function useGameLogic() {
     state.showCultureModal,
     state.showNotModal,
     state.gameMode,
+    state.isTeamMode,
+    state.currentAnswererId,
     state.players,
     identity.playerName,
+    identity.playerId,
     identity.roomCode,
     dispatch,
   ]);
@@ -192,7 +207,13 @@ export function useGameLogic() {
 
     // Online mode: write roll to Firebase; useRoom listener handles animation + logic
     if (state.gameMode === "online" && identity.roomCode && identity.playerId) {
-      rollDice(identity.roomCode, identity.playerId);
+      if (state.isTeamMode) {
+        // Only active team members can roll; server validates
+        if (state.activeTeamId && identity.teamId !== state.activeTeamId) return;
+        rollDiceTeam(identity.roomCode, identity.playerId);
+      } else {
+        rollDice(identity.roomCode, identity.playerId);
+      }
       return;
     }
 
@@ -216,7 +237,7 @@ export function useGameLogic() {
         processRoll(roll);
       },
     });
-  }, [state.isTurnLocked, state.gameMode, state.debugMode, identity, dispatch, processRoll]);
+  }, [state.isTurnLocked, state.gameMode, state.debugMode, state.isTeamMode, state.activeTeamId, identity, dispatch, processRoll]);
 
   const handleAnswer = useCallback(
     (selectedIndex: number) => {
@@ -226,18 +247,22 @@ export function useGameLogic() {
       playSound(correct ? "correct" : "wrong");
 
       // In online mode, write answer result to Firebase
+      // In team mode, only the designated answerer may submit
       if (state.gameMode === "online" && identity.roomCode) {
-        submitAnswer(
-          identity.roomCode,
-          selectedIndex,
-          state.activeQuestion.correctIndex,
-          correct
-        );
+        const canSubmit = !state.isTeamMode || identity.playerId === state.currentAnswererId;
+        if (canSubmit) {
+          submitAnswer(
+            identity.roomCode,
+            selectedIndex,
+            state.activeQuestion.correctIndex,
+            correct
+          );
+        }
       }
 
       return { correct, correctIndex: state.activeQuestion.correctIndex };
     },
-    [state.activeQuestion, state.gameMode, identity.roomCode, playSound]
+    [state.activeQuestion, state.gameMode, state.isTeamMode, state.currentAnswererId, identity, playSound]
   );
 
   const afterAnswer = useCallback(
@@ -258,13 +283,25 @@ export function useGameLogic() {
           );
           // Advance turn first — this clears currentQuestion in Firebase,
           // which closes the modal on all clients before movement starts
-          advanceTurn(identity.roomCode);
-          animateMovement(currentPlayer.id, currentPlayer.position, state.pendingMove);
-          setTimeout(() => {
-            updatePlayerPosition(identity.roomCode!, identity.playerId!, newPosition);
-          }, state.pendingMove * MOVE_DURATION + 100);
+          if (state.isTeamMode && identity.teamId) {
+            advanceTeamTurn(identity.roomCode);
+            animateMovement(currentPlayer.id, currentPlayer.position, state.pendingMove);
+            setTimeout(() => {
+              updateTeamPosition(identity.roomCode!, identity.teamId!, newPosition);
+            }, state.pendingMove * MOVE_DURATION + 100);
+          } else {
+            advanceTurn(identity.roomCode);
+            animateMovement(currentPlayer.id, currentPlayer.position, state.pendingMove);
+            setTimeout(() => {
+              updatePlayerPosition(identity.roomCode!, identity.playerId!, newPosition);
+            }, state.pendingMove * MOVE_DURATION + 100);
+          }
         } else {
-          advanceTurn(identity.roomCode);
+          if (state.isTeamMode) {
+            advanceTeamTurn(identity.roomCode);
+          } else {
+            advanceTurn(identity.roomCode);
+          }
         }
         return;
       }
@@ -281,7 +318,7 @@ export function useGameLogic() {
         dispatch({ type: "UNLOCK_TURN" });
       }
     },
-    [state.players, state.currentPlayerIndex, state.pendingMove, state.gameMode, identity, dispatch, animateMovement]
+    [state.players, state.currentPlayerIndex, state.pendingMove, state.gameMode, state.isTeamMode, identity, dispatch, animateMovement]
   );
 
   const handleCultureScore = useCallback(
@@ -296,9 +333,14 @@ export function useGameLogic() {
         // leaves the wheel stuck locked.
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
-        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
-          updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
-          advanceTurn(identity.roomCode);
+        if (stateRef.current.gameMode === "online" && identity.roomCode) {
+          if (stateRef.current.isTeamMode && identity.teamId) {
+            updateTeamPosition(identity.roomCode, identity.teamId, newPos);
+            advanceTeamTurn(identity.roomCode);
+          } else if (identity.playerId) {
+            updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
+            advanceTurn(identity.roomCode);
+          }
         }
       });
     },
@@ -315,9 +357,14 @@ export function useGameLogic() {
         const newPos = Math.min(notPos + score, MAX_POSITION);
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
-        if (stateRef.current.gameMode === "online" && identity.roomCode && identity.playerId) {
-          updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
-          advanceTurn(identity.roomCode);
+        if (stateRef.current.gameMode === "online" && identity.roomCode) {
+          if (stateRef.current.isTeamMode && identity.teamId) {
+            updateTeamPosition(identity.roomCode, identity.teamId, newPos);
+            advanceTeamTurn(identity.roomCode);
+          } else if (identity.playerId) {
+            updatePlayerPosition(identity.roomCode, identity.playerId, newPos);
+            advanceTurn(identity.roomCode);
+          }
         }
       });
     },
@@ -333,7 +380,10 @@ export function useGameLogic() {
 
       if (CULTURE_POSITIONS.has(position)) {
         if (state.gameMode === "online" && identity.roomCode) {
-          activateCulture(identity.roomCode);
+          const cultures = cultureData as { id: string; question: string; answers: string[] }[];
+          const seed = state.currentPlayerIndex + position;
+          const questionIndex = seed % cultures.length;
+          activateCulture(identity.roomCode, questionIndex);
         } else {
           dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
         }

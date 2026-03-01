@@ -71,12 +71,13 @@ export default function PlayerBar() {
           {colorPickerId === player.id && (
             <div
               ref={pickerRef}
-              className="absolute top-full left-0 mt-1 z-50 grid grid-cols-4 gap-1 rounded-lg bg-surface p-2 shadow-xl"
+              className="absolute top-full left-1/2 -translate-x-1/2 mt-1 z-50 grid gap-1.5 rounded-lg bg-surface p-2 shadow-xl"
+              style={{ gridTemplateColumns: "repeat(6, 1.5rem)" }}
             >
               {PLAYER_COLOR_OPTIONS.map((color) => (
                 <button
                   key={color}
-                  className="h-5 w-5 rounded-full transition-transform hover:scale-110"
+                  className="h-6 w-6 rounded-full transition-transform hover:scale-110"
                   style={{
                     backgroundColor: color,
                     outline:
