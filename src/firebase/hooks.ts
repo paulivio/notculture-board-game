@@ -42,6 +42,15 @@ export function useRoom({
     stateRef.current = state;
   });
 
+  // Clear animation tracking whenever the room disconnects so stale state
+  // doesn't carry over into a new session.
+  useEffect(() => {
+    if (!roomCode) {
+      animatingPlayersRef.current.clear();
+      previousPlayersRef.current = [];
+    }
+  }, [roomCode]);
+
   useEffect(() => {
     if (!roomCode) return;
 

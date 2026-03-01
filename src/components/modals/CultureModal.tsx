@@ -133,11 +133,17 @@ export default function CultureModal() {
   useEffect(() => {
     if (state.gameMode !== "online" || !state.cultureTimerStartedAt) return;
 
+    const start = state.cultureTimerStartedAt;
     const update = () => {
-      const elapsed = Math.floor((Date.now() - state.cultureTimerStartedAt!) / 1000);
+      const elapsed = Math.floor((Date.now() - start) / 1000);
       const tl = Math.max(0, CULTURE_TIMER_SECONDS - elapsed);
       if (tl > 0) playTick();
       setTimeLeft(tl);
+      // Stop polling once the timer has expired — no need to keep ticking at 0
+      if (tl === 0) {
+        clearInterval(onlineIntervalRef.current!);
+        onlineIntervalRef.current = null;
+      }
     };
 
     update();

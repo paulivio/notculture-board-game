@@ -18,6 +18,14 @@ export default function PlayerToken({
 }: PlayerTokenProps) {
   const [pos, setPos] = useState({ x: 0, y: 0, size: 0 });
 
+  // Compute stable scalars outside the effect. allPlayers is always a new array
+  // reference after every Firebase SYNC_ONLINE_STATE dispatch, so putting it in
+  // useLayoutEffect deps causes the effect to re-run on every sync → setPos →
+  // re-render → infinite loop. Using primitive numbers breaks that cycle.
+  const playersAtPos = allPlayers.filter((p) => p.position === player.position);
+  const myIndex = playersAtPos.findIndex((p) => p.id === player.id);
+  const totalAtPos = playersAtPos.length;
+
   useLayoutEffect(() => {
     function calculate() {
       const board = boardRef.current;
@@ -36,27 +44,24 @@ export default function PlayerToken({
       const centerX = cellRect.left - boardRect.left + cellRect.width / 2;
       const centerY = cellRect.top - boardRect.top + cellRect.height / 2;
 
-      // Multi-player offset
-      const playersHere = allPlayers.filter(
-        (p) => p.position === player.position
-      );
-      const index = playersHere.findIndex((p) => p.id === player.id);
-      const total = playersHere.length;
-
       let offsetX = 0;
       let offsetY = 0;
 
-      if (total > 1) {
+      if (totalAtPos > 1) {
         const radius = tokenSize * 0.6;
-        const angle = (2 * Math.PI * index) / total;
+        const angle = (2 * Math.PI * myIndex) / totalAtPos;
         offsetX = Math.cos(angle) * radius;
         offsetY = Math.sin(angle) * radius;
       }
 
-      setPos({
-        x: centerX + offsetX,
-        y: centerY + offsetY,
-        size: tokenSize,
+      // Functional update: only create new state when values actually changed.
+      setPos((prev) => {
+        const newX = centerX + offsetX;
+        const newY = centerY + offsetY;
+        if (prev.x === newX && prev.y === newY && prev.size === tokenSize) {
+          return prev; // No change — skip the re-render
+        }
+        return { x: newX, y: newY, size: tokenSize };
       });
     }
 
@@ -69,7 +74,7 @@ export default function PlayerToken({
     observer.observe(board);
 
     return () => observer.disconnect();
-  }, [player.position, player.id, allPlayers, boardRef, cellRefs]);
+  }, [player.position, player.id, myIndex, totalAtPos, boardRef, cellRefs]);
 
   if (pos.size === 0) return null;
 

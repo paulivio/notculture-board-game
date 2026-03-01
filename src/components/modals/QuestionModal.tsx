@@ -16,11 +16,15 @@ export default function QuestionModal() {
   const { identity } = useOnline();
   const question = state.activeQuestion;
 
-  // In team mode online, only the designated answerer can submit
+  // In online mode, only the active player can submit answers.
+  // Team mode: check the designated answerer ID synced from Firebase.
+  // Regular mode: match by player name (consistent with how the auto-trigger works).
   const isAnswerer =
-    state.isTeamMode && state.gameMode === "online"
+    state.gameMode !== "online"
+      ? true
+      : state.isTeamMode
       ? state.currentAnswererId === identity.playerId
-      : true;
+      : state.players[state.currentPlayerIndex]?.name === identity.playerName;
   const canSubmit = isAnswerer;
 
   const [localAnswered, setLocalAnswered] = useState(false);
@@ -108,7 +112,7 @@ export default function QuestionModal() {
 
             {!canSubmit && !answered && (
               <p className="mt-2 text-center text-xs opacity-50">
-                {state.isTeamMode ? "Waiting for your teammate to answer…" : ""}
+                Waiting for {state.players[state.currentPlayerIndex]?.name ?? "the other player"} to answer…
               </p>
             )}
 

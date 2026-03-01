@@ -75,5 +75,11 @@ export const NOT_TIMER_SECONDS = 30;
 
 export const MOVE_DURATION = 500;
 
+export const LS_ROOM_CODE = "notculture_roomCode";
+export const LS_PLAYER_ID = "notculture_playerId";
+export const LS_PLAYER_NAME = "notculture_playerName";
+export const LS_TEAM_ID = "notculture_teamId";
+export const LS_TEAM_NAME = "notculture_teamName";
+
 export const GRID_SIZE = 8;
 export const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;

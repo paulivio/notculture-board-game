@@ -51,7 +51,10 @@ export function useGameLogic() {
   const movingRef = useRef(false);
   const stateRef = useRef(state);
   stateRef.current = state;
+  const identityRef = useRef(identity);
+  identityRef.current = identity;
   const usedNotIds = useRef(new Set<string>());
+  const turnLockTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const animateMovement = useCallback(
     (playerId: number, startPos: number, steps: number, onComplete?: () => void) => {
@@ -92,7 +95,13 @@ export function useGameLogic() {
 
   const processRoll = useCallback(
     (roll: number) => {
-      const currentPlayer = state.players[state.currentPlayerIndex];
+      // Use refs so this callback is stable across renders — changing state.players
+      // or state.gameMode refs on every Firebase sync was causing useRoom to
+      // re-subscribe in an infinite loop.
+      const s = stateRef.current;
+      const id = identityRef.current;
+      const currentPlayer = s.players[s.currentPlayerIndex];
+      if (!currentPlayer) return; // Guard: players array may be empty during online sync
       const pathIndex = currentPlayer.position;
 
       let category: Category;
@@ -109,13 +118,31 @@ export function useGameLogic() {
         dispatch({ type: "SET_ACTIVE_QUESTION", question, roll });
 
         // In online mode, write question ID to Firebase so other players see it
-        if (state.gameMode === "online" && identity.roomCode) {
-          setCurrentQuestion(identity.roomCode, question.id);
+        if (s.gameMode === "online" && id.roomCode) {
+          setCurrentQuestion(id.roomCode, question.id);
         }
       }
     },
-    [state.players, state.currentPlayerIndex, state.gameMode, identity, getQuestion, dispatch]
+    [getQuestion, dispatch]
   );
+
+  // Safety valve: if the turn is locked in online mode but no modal is visible after 10s,
+  // the Firebase write likely failed silently — auto-unlock so the game can continue.
+  useEffect(() => {
+    if (!stateRef.current.isTurnLocked || stateRef.current.gameMode !== "online") return;
+    if (stateRef.current.showCultureModal || stateRef.current.showNotModal || stateRef.current.showQuestionModal) return;
+
+    turnLockTimeoutRef.current = setTimeout(() => {
+      dispatch({ type: "UNLOCK_TURN" });
+    }, 10_000);
+
+    return () => {
+      if (turnLockTimeoutRef.current !== null) {
+        clearTimeout(turnLockTimeoutRef.current);
+        turnLockTimeoutRef.current = null;
+      }
+    };
+  }, [state.isTurnLocked, state.gameMode, state.showCultureModal, state.showNotModal, state.showQuestionModal, dispatch]);
 
   // Auto-trigger Not/Culture modal when a player starts their turn already sitting on one
   // of those tiles. Landing on a Not/Culture tile via a correct-answer move just advances
@@ -256,7 +283,9 @@ export function useGameLogic() {
             selectedIndex,
             state.activeQuestion.correctIndex,
             correct
-          );
+          ).catch((err) => {
+            console.error("[submitAnswer] Firebase write failed:", err);
+          });
         }
       }
 
@@ -267,40 +296,55 @@ export function useGameLogic() {
 
   const afterAnswer = useCallback(
     (correct: boolean) => {
-      const currentPlayer = state.players[state.currentPlayerIndex];
+      // Use stateRef.current so this callback always reads the latest state,
+      // even if React re-rendered between the answer click and this firing.
+      const s = stateRef.current;
+      const currentPlayer = s.players[s.currentPlayerIndex];
 
       dispatch({ type: "SHOW_QUESTION_MODAL", show: false });
       dispatch({ type: "CLEAR_QUESTION" });
 
-      if (state.gameMode === "online" && identity.roomCode && identity.playerId) {
+      if (s.gameMode === "online" && identity.roomCode && identity.playerId) {
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
 
         if (correct) {
           const newPosition = Math.min(
-            currentPlayer.position + state.pendingMove,
+            currentPlayer.position + s.pendingMove,
             MAX_POSITION
           );
           // Advance turn first — this clears currentQuestion in Firebase,
           // which closes the modal on all clients before movement starts
-          if (state.isTeamMode && identity.teamId) {
-            advanceTeamTurn(identity.roomCode);
-            animateMovement(currentPlayer.id, currentPlayer.position, state.pendingMove);
+          if (s.isTeamMode && identity.teamId) {
+            advanceTeamTurn(identity.roomCode).catch((err) => {
+              console.error("[advanceTeamTurn] Firebase write failed:", err);
+            });
+            animateMovement(currentPlayer.id, currentPlayer.position, s.pendingMove);
             setTimeout(() => {
-              updateTeamPosition(identity.roomCode!, identity.teamId!, newPosition);
-            }, state.pendingMove * MOVE_DURATION + 100);
+              updateTeamPosition(identity.roomCode!, identity.teamId!, newPosition).catch((err) => {
+                console.error("[updateTeamPosition] Firebase write failed:", err);
+              });
+            }, s.pendingMove * MOVE_DURATION + 100);
           } else {
-            advanceTurn(identity.roomCode);
-            animateMovement(currentPlayer.id, currentPlayer.position, state.pendingMove);
+            advanceTurn(identity.roomCode).catch((err) => {
+              console.error("[advanceTurn] Firebase write failed:", err);
+            });
+            animateMovement(currentPlayer.id, currentPlayer.position, s.pendingMove);
             setTimeout(() => {
-              updatePlayerPosition(identity.roomCode!, identity.playerId!, newPosition);
-            }, state.pendingMove * MOVE_DURATION + 100);
+              updatePlayerPosition(identity.roomCode!, identity.playerId!, newPosition).catch((err) => {
+                console.error("[updatePlayerPosition] Firebase write failed:", err);
+              });
+            }, s.pendingMove * MOVE_DURATION + 100);
           }
         } else {
-          if (state.isTeamMode) {
-            advanceTeamTurn(identity.roomCode);
+          if (s.isTeamMode) {
+            advanceTeamTurn(identity.roomCode).catch((err) => {
+              console.error("[advanceTeamTurn] Firebase write failed:", err);
+            });
           } else {
-            advanceTurn(identity.roomCode);
+            advanceTurn(identity.roomCode).catch((err) => {
+              console.error("[advanceTurn] Firebase write failed:", err);
+            });
           }
         }
         return;
@@ -308,17 +352,17 @@ export function useGameLogic() {
 
       // Local mode
       if (correct) {
-        animateMovement(currentPlayer.id, currentPlayer.position, state.pendingMove);
+        animateMovement(currentPlayer.id, currentPlayer.position, s.pendingMove);
         setTimeout(() => {
           dispatch({ type: "ADVANCE_TURN" });
           dispatch({ type: "UNLOCK_TURN" });
-        }, state.pendingMove * MOVE_DURATION + 100);
+        }, s.pendingMove * MOVE_DURATION + 100);
       } else {
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
       }
     },
-    [state.players, state.currentPlayerIndex, state.pendingMove, state.gameMode, state.isTeamMode, identity, dispatch, animateMovement]
+    [dispatch, animateMovement, identity]
   );
 
   const handleCultureScore = useCallback(
@@ -426,6 +470,7 @@ export function useGameLogic() {
   const handleSkip = useCallback(() => {
     if (!state.debugMode) return;
     const currentPlayer = state.players[state.currentPlayerIndex];
+    if (!currentPlayer) return;
 
     dispatch({ type: "SHOW_QUESTION_MODAL", show: false });
     dispatch({ type: "CLEAR_QUESTION" });

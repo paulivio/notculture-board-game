@@ -102,11 +102,17 @@ export default function NotModal() {
   useEffect(() => {
     if (state.gameMode !== "online" || !state.notTimerStartedAt) return;
 
+    const start = state.notTimerStartedAt;
     const update = () => {
-      const elapsed = Math.floor((Date.now() - state.notTimerStartedAt!) / 1000);
+      const elapsed = Math.floor((Date.now() - start) / 1000);
       const tl = Math.max(0, NOT_TIMER_SECONDS - elapsed);
       if (tl > 0) playTick();
       setTimeLeft(tl);
+      // Stop polling once the timer has expired
+      if (tl === 0) {
+        clearInterval(onlineIntervalRef.current!);
+        onlineIntervalRef.current = null;
+      }
     };
 
     update();

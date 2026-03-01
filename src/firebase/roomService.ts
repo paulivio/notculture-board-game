@@ -1,4 +1,4 @@
-import { ref, set, update, get } from "firebase/database";
+import { ref, set, update, get, runTransaction } from "firebase/database";
 
 const ROOM_TTL_MS = 60 * 60 * 1000; // 1 hour
 import { db } from "./config";
@@ -8,11 +8,15 @@ function generateRoomCode(): string {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
 }
 
+function generatePlayerId(): string {
+  return `${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+}
+
 export async function createRoom(
   playerName: string
 ): Promise<{ roomCode: string; playerId: string }> {
   const roomCode = generateRoomCode();
-  const playerId = Date.now().toString();
+  const playerId = generatePlayerId();
 
   await set(ref(db, `rooms/${roomCode}`), {
     createdAt: Date.now(),
@@ -52,23 +56,28 @@ export async function joinRoom(
     return null;
   }
 
-  const playerId = existingPlayerId ?? Date.now().toString();
+  const playerId = existingPlayerId ?? generatePlayerId();
 
   const existingPlayers = roomData.players || {};
-  const existingOrder = roomData.playerOrder || [];
 
-  // Reconnect if already in room
+  // Reconnect — player already exists; update name in case it changed
   if (existingPlayers[playerId]) {
+    if (existingPlayers[playerId].name !== playerName) {
+      await update(roomRef, { [`players/${playerId}/name`]: playerName });
+    }
     return { playerId };
   }
 
+  // Write player data first (safe: uses a specific path, won't clobber others)
   await update(roomRef, {
-    [`players/${playerId}`]: {
-      id: playerId,
-      name: playerName,
-      position: 0,
-    },
-    playerOrder: [...existingOrder, playerId],
+    [`players/${playerId}`]: { id: playerId, name: playerName, position: 0 },
+  });
+
+  // Use a transaction for playerOrder so concurrent joins don't overwrite each other
+  await runTransaction(ref(db, `rooms/${roomCode}/playerOrder`), (current) => {
+    const order: string[] = current ?? [];
+    if (order.includes(playerId)) return order;
+    return [...order, playerId];
   });
 
   return { playerId };
@@ -79,26 +88,23 @@ export async function leaveRoom(
   playerId: string
 ): Promise<void> {
   const roomRef = ref(db, `rooms/${roomCode}`);
-  const snapshot = await get(roomRef);
 
-  if (!snapshot.exists()) return;
+  // Remove the player entry atomically (null = delete in Firebase update)
+  // Never overwrite the whole players object — that would clobber concurrent joins.
+  await update(roomRef, { [`players/${playerId}`]: null });
 
-  const roomData = snapshot.val();
-  const players = roomData.players || {};
-  const playerOrder: string[] = roomData.playerOrder || [];
-
-  delete players[playerId];
-  const newOrder = playerOrder.filter((id) => id !== playerId);
-
-  if (newOrder.length === 0) {
-    await set(roomRef, null);
-    return;
-  }
-
-  await update(roomRef, {
-    players,
-    playerOrder: newOrder,
+  // Update playerOrder with a transaction so concurrent leaves/joins don't race
+  let remaining = 0;
+  await runTransaction(ref(db, `rooms/${roomCode}/playerOrder`), (current) => {
+    const order: string[] = current ?? [];
+    const newOrder = order.filter((id) => id !== playerId);
+    remaining = newOrder.length;
+    return newOrder;
   });
+
+  if (remaining === 0) {
+    await set(roomRef, null);
+  }
 }
 
 export async function rollDice(
@@ -177,7 +183,12 @@ export async function advanceTurn(roomCode: string): Promise<void> {
 }
 
 export async function activateCulture(roomCode: string, questionIndex: number): Promise<void> {
-  await set(ref(db, `rooms/${roomCode}/cultureEvent`), { active: true, questionIndex });
+  // Use a transaction so only the first writer wins — prevents double-trigger
+  // when multiple clients (e.g. same team) hit this simultaneously.
+  await runTransaction(ref(db, `rooms/${roomCode}/cultureEvent`), (current) => {
+    if (current !== null) return; // already active — abort
+    return { active: true, questionIndex };
+  });
 }
 
 export async function startCultureTimer(roomCode: string): Promise<void> {
@@ -197,7 +208,11 @@ export async function submitCultureScore(roomCode: string, score: number): Promi
 }
 
 export async function activateNot(roomCode: string, question: { id: string; answers: string[] }): Promise<void> {
-  await set(ref(db, `rooms/${roomCode}/notEvent`), { active: true, question });
+  // Use a transaction so only the first writer wins — prevents double-trigger.
+  await runTransaction(ref(db, `rooms/${roomCode}/notEvent`), (current) => {
+    if (current !== null) return; // already active — abort
+    return { active: true, question };
+  });
 }
 
 export async function startNotTimer(roomCode: string): Promise<void> {
@@ -256,8 +271,8 @@ export async function createTeamRoom(
   teamName: string
 ): Promise<{ roomCode: string; playerId: string; teamId: string }> {
   const roomCode = generateRoomCode();
-  const playerId = Date.now().toString();
-  const teamId = `team_${Date.now() + 1}`;
+  const playerId = generatePlayerId();
+  const teamId = `team_${Date.now()}`;
 
   const team: TeamData = {
     name: teamName,
@@ -326,15 +341,35 @@ export async function joinTeam(
   if (!team) return false;
 
   const playerIds: string[] = team.playerIds || [];
-  if (playerIds.length >= 2) return false;
-  if (playerIds.includes(playerId)) return true;
 
+  // Reconnect — already in this team; update name if changed
+  if (playerIds.includes(playerId)) {
+    const existing = roomData.players?.[playerId];
+    if (existing?.name !== playerName) {
+      await update(roomRef, { [`players/${playerId}/name`]: playerName });
+    }
+    return true;
+  }
+
+  if (playerIds.length >= 2) return false;
+
+  // Write player data first (specific path — safe against concurrent writes)
   await update(roomRef, {
     [`players/${playerId}`]: { id: playerId, name: playerName },
-    [`teams/${teamId}/playerIds`]: [...playerIds, playerId],
   });
 
-  return true;
+  // Use a transaction for playerIds so two players joining the same team concurrently
+  // don't race and one doesn't get dropped
+  let joined = false;
+  await runTransaction(ref(db, `rooms/${roomCode}/teams/${teamId}/playerIds`), (current) => {
+    const ids: string[] = current ?? [];
+    if (ids.includes(playerId)) { joined = true; return ids; }
+    if (ids.length >= 2) return ids; // full — abort (joined stays false)
+    joined = true;
+    return [...ids, playerId];
+  });
+
+  return joined;
 }
 
 export async function leaveTeam(
@@ -353,12 +388,8 @@ export async function leaveTeam(
   if (!team) return;
 
   const newPlayerIds = (team.playerIds || []).filter((id: string) => id !== playerId);
-  const players = { ...roomData.players };
-  delete players[playerId];
 
   if (newPlayerIds.length === 0) {
-    const newTeams = { ...teams };
-    delete newTeams[teamId];
     const newTeamOrder = teamOrder.filter((id) => id !== teamId);
 
     if (newTeamOrder.length === 0) {
@@ -366,10 +397,15 @@ export async function leaveTeam(
       return;
     }
 
-    await update(roomRef, { players, teams: newTeams, teamOrder: newTeamOrder });
+    // Use null to delete entries atomically — never overwrite the whole players/teams object
+    await update(roomRef, {
+      [`players/${playerId}`]: null,
+      [`teams/${teamId}`]: null,
+      teamOrder: newTeamOrder,
+    });
   } else {
     await update(roomRef, {
-      players,
+      [`players/${playerId}`]: null,
       [`teams/${teamId}/playerIds`]: newPlayerIds,
     });
   }

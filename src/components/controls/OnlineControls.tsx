@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { get, ref, onValue } from "firebase/database";
-import { PLAYER_COLORS } from "../../lib/constants";
+import { PLAYER_COLORS, LS_ROOM_CODE, LS_PLAYER_ID, LS_PLAYER_NAME, LS_TEAM_ID, LS_TEAM_NAME } from "../../lib/constants";
 import { db } from "../../firebase/config";
 import { TextureButton } from "../ui/TextureButton";
 import {
@@ -19,6 +19,15 @@ import { useGame, useGameDispatch } from "../../context/GameContext";
 import { useGameLogicContext } from "../../context/GameLogicContext";
 import { useOnline } from "../../context/OnlineContext";
 import type { TeamData } from "../../types/game";
+
+// Room/player identity is stored in sessionStorage so each browser tab gets its
+// own isolated identity — tabs on the same device don't bleed into each other.
+// Only the player name is kept in localStorage for cross-session convenience.
+const ss = sessionStorage;
+
+function freshPlayerId() {
+  return `${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+}
 
 export default function OnlineControls() {
   const state = useGame();
@@ -43,6 +52,11 @@ export default function OnlineControls() {
   const [newTeamNameInput, setNewTeamNameInput] = useState("");
   const [lobbyError, setLobbyError] = useState<string | null>(null);
 
+  // Tracks whether this browser session has already started a room (create/join).
+  // Used to prevent the auto-reconnect effect from overwriting a freshly created room
+  // if the Firebase promise resolves after the user has already set up a new session.
+  const sessionStartedRef = useRef(false);
+
   // Live team roster for the in-room view
   const [teamRoster, setTeamRoster] = useState<{
     teamOrder: string[];
@@ -50,9 +64,15 @@ export default function OnlineControls() {
     players: Record<string, { name: string }>;
   } | null>(null);
 
-  // Pre-fill name input from saved identity (persists even after leaving a room)
+  // Stable ref so onQuestionReady doesn't capture state.questions in its closure.
+  // state.questions is a new array reference on every SYNC_ONLINE_STATE dispatch,
+  // which would make onQuestionReady unstable → useRoom re-subscribes → infinite loop.
+  const questionsRef = useRef(state.questions);
+  questionsRef.current = state.questions;
+
+  // Pre-fill name input from localStorage (persists across sessions for convenience)
   useEffect(() => {
-    const savedName = localStorage.getItem("notculture_playerName");
+    const savedName = localStorage.getItem(LS_PLAYER_NAME);
     if (savedName && !playerNameInput) setPlayerNameInput(savedName);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -75,19 +95,19 @@ export default function OnlineControls() {
     return () => unsubscribe();
   }, [identity.roomCode, state.isTeamMode]);
 
-  // Reconnect from localStorage
+  // Reconnect from sessionStorage (per-tab — won't bleed between tabs)
   useEffect(() => {
-    const savedRoom = localStorage.getItem("notculture_roomCode");
-    const savedId = localStorage.getItem("notculture_playerId");
-    const savedName = localStorage.getItem("notculture_playerName");
-    const savedTeamId = localStorage.getItem("notculture_teamId");
-
-    const savedTeamName = localStorage.getItem("notculture_teamName");
+    const savedRoom = ss.getItem(LS_ROOM_CODE);
+    const savedId = ss.getItem(LS_PLAYER_ID);
+    const savedName = localStorage.getItem(LS_PLAYER_NAME); // name stays in localStorage
+    const savedTeamId = ss.getItem(LS_TEAM_ID);
+    const savedTeamName = ss.getItem(LS_TEAM_NAME);
 
     if (savedRoom && savedId && savedName) {
       if (savedTeamId) {
-        // Team mode reconnect: re-join the team (works even if previously removed, as long as team has space)
+        // Team mode reconnect
         joinTeam(savedRoom, savedId, savedName, savedTeamId).then(async (ok) => {
+          if (sessionStartedRef.current) return;
           if (ok) {
             setIdentity({
               roomCode: savedRoom,
@@ -99,15 +119,15 @@ export default function OnlineControls() {
           } else {
             // Team was deleted — check if the room still exists
             const snapshot = await get(ref(db, `rooms/${savedRoom}`));
+            if (sessionStartedRef.current) return;
             if (!snapshot.exists()) {
-              // Room is gone — clear stale localStorage
-              localStorage.removeItem("notculture_roomCode");
-              localStorage.removeItem("notculture_playerId");
-              localStorage.removeItem("notculture_playerName");
-              localStorage.removeItem("notculture_teamId");
-              localStorage.removeItem("notculture_teamName");
+              // Room is gone — clear stale session data
+              ss.removeItem(LS_ROOM_CODE);
+              ss.removeItem(LS_PLAYER_ID);
+              ss.removeItem(LS_TEAM_ID);
+              ss.removeItem(LS_TEAM_NAME);
             } else if (snapshot.val()?.isTeamMode) {
-              // Room exists but original team is gone — show lobby so player can pick a new team
+              // Room exists but original team is gone — show lobby
               const roomData = snapshot.val();
               setTeamLobby({
                 roomCode: savedRoom,
@@ -122,6 +142,7 @@ export default function OnlineControls() {
       } else {
         // Regular reconnect
         joinRoom(savedRoom, savedName, savedId).then((result) => {
+          if (sessionStartedRef.current) return;
           if (result) {
             setIdentity({
               roomCode: savedRoom,
@@ -150,12 +171,12 @@ export default function OnlineControls() {
 
   const onQuestionReady = useCallback(
     (questionId: string, rollValue: number) => {
-      const question = state.questions.find((q) => q.id === questionId);
+      const question = questionsRef.current.find((q) => q.id === questionId);
       if (question) {
         dispatch({ type: "SET_ACTIVE_QUESTION", question, roll: rollValue });
       }
     },
-    [state.questions, dispatch]
+    [dispatch]
   );
 
   const onPlayerMove = useCallback(
@@ -180,25 +201,27 @@ export default function OnlineControls() {
       alert("Enter your name first.");
       return;
     }
+    sessionStartedRef.current = true;
 
     if (isTeamModeChecked) {
       const { roomCode, playerId, teamId } = await createTeamRoom(name, teamName);
 
-      localStorage.setItem("notculture_roomCode", roomCode);
-      localStorage.setItem("notculture_playerId", playerId);
-      localStorage.setItem("notculture_playerName", name);
-      localStorage.setItem("notculture_teamId", teamId);
-      localStorage.setItem("notculture_teamName", teamName);
+      ss.setItem(LS_ROOM_CODE, roomCode);
+      ss.setItem(LS_PLAYER_ID, playerId);
+      ss.setItem(LS_TEAM_ID, teamId);
+      ss.setItem(LS_TEAM_NAME, teamName);
+      localStorage.setItem(LS_PLAYER_NAME, name);
 
       setIdentity({ roomCode, playerId, playerName: name, teamId, teamName });
       setCreatedRoomCode(roomCode);
     } else {
       const { roomCode, playerId } = await createRoom(name);
 
-      localStorage.setItem("notculture_roomCode", roomCode);
-      localStorage.setItem("notculture_playerId", playerId);
-      localStorage.setItem("notculture_playerName", name);
-      localStorage.removeItem("notculture_teamId");
+      ss.setItem(LS_ROOM_CODE, roomCode);
+      ss.setItem(LS_PLAYER_ID, playerId);
+      ss.removeItem(LS_TEAM_ID);
+      ss.removeItem(LS_TEAM_NAME);
+      localStorage.setItem(LS_PLAYER_NAME, name);
 
       setIdentity({ roomCode, playerId, playerName: name, teamId: null, teamName: null });
       setCreatedRoomCode(roomCode);
@@ -214,7 +237,8 @@ export default function OnlineControls() {
       return;
     }
 
-    // Fetch room data to check if it's team mode
+    sessionStartedRef.current = true;
+
     const snapshot = await get(ref(db, `rooms/${code}`));
     if (!snapshot.exists()) {
       alert("Room does not exist.");
@@ -223,13 +247,13 @@ export default function OnlineControls() {
 
     const roomData = snapshot.val();
 
-    // Reuse saved playerId so a player who left can rejoin as themselves.
-    const savedPlayerId = localStorage.getItem("notculture_playerId");
+    // Only reuse the saved player ID when rejoining the exact same room in this tab
+    // (true reconnect scenario). A fresh tab will have no sessionStorage entry.
+    const savedRoomCode = ss.getItem(LS_ROOM_CODE);
+    const savedPlayerId = savedRoomCode === code ? ss.getItem(LS_PLAYER_ID) : null;
 
     if (roomData.isTeamMode) {
-      // Show team lobby instead of joining directly.
-      // Prefer the saved playerId so rejoining players keep their identity.
-      const playerId = savedPlayerId || Date.now().toString();
+      const playerId = savedPlayerId || freshPlayerId();
       setTeamLobby({
         roomCode: code,
         playerId,
@@ -240,17 +264,17 @@ export default function OnlineControls() {
       return;
     }
 
-    // Regular non-team join — pass saved ID so the server recognises a returning player
     const result = await joinRoom(code, name, savedPlayerId ?? undefined);
     if (!result) {
       alert("Room does not exist.");
       return;
     }
 
-    localStorage.setItem("notculture_roomCode", code);
-    localStorage.setItem("notculture_playerId", result.playerId);
-    localStorage.setItem("notculture_playerName", name);
-    localStorage.removeItem("notculture_teamId");
+    ss.setItem(LS_ROOM_CODE, code);
+    ss.setItem(LS_PLAYER_ID, result.playerId);
+    ss.removeItem(LS_TEAM_ID);
+    ss.removeItem(LS_TEAM_NAME);
+    localStorage.setItem(LS_PLAYER_NAME, name);
 
     setIdentity({ roomCode: code, playerId: result.playerId, playerName: name, teamId: null, teamName: null });
   };
@@ -258,6 +282,7 @@ export default function OnlineControls() {
   const handleJoinTeam = async (teamId: string) => {
     if (!teamLobby) return;
     setLobbyError(null);
+    sessionStartedRef.current = true;
 
     const ok = await joinTeam(teamLobby.roomCode, teamLobby.playerId, teamLobby.playerName, teamId);
     if (!ok) {
@@ -267,11 +292,11 @@ export default function OnlineControls() {
 
     const joinedTeamName = teamLobby.teams[teamId]?.name ?? null;
 
-    localStorage.setItem("notculture_roomCode", teamLobby.roomCode);
-    localStorage.setItem("notculture_playerId", teamLobby.playerId);
-    localStorage.setItem("notculture_playerName", teamLobby.playerName);
-    localStorage.setItem("notculture_teamId", teamId);
-    if (joinedTeamName) localStorage.setItem("notculture_teamName", joinedTeamName);
+    ss.setItem(LS_ROOM_CODE, teamLobby.roomCode);
+    ss.setItem(LS_PLAYER_ID, teamLobby.playerId);
+    ss.setItem(LS_TEAM_ID, teamId);
+    if (joinedTeamName) ss.setItem(LS_TEAM_NAME, joinedTeamName);
+    localStorage.setItem(LS_PLAYER_NAME, teamLobby.playerName);
 
     setIdentity({
       roomCode: teamLobby.roomCode,
@@ -289,7 +314,6 @@ export default function OnlineControls() {
     if (!tName) { setLobbyError("Enter a team name."); return; }
     setLobbyError(null);
 
-    // Refresh lobby data first
     const snapshot = await get(ref(db, `rooms/${teamLobby.roomCode}`));
     if (!snapshot.exists()) { setLobbyError("Room not found."); return; }
     const roomData = snapshot.val();
@@ -322,11 +346,10 @@ export default function OnlineControls() {
         await leaveRoom(identity.roomCode, identity.playerId);
       }
     }
-    // Keep playerId and playerName so the player can rejoin as the same person.
-    // Only clear the room/team binding.
-    localStorage.removeItem("notculture_roomCode");
-    localStorage.removeItem("notculture_teamId");
-    localStorage.removeItem("notculture_teamName");
+    ss.removeItem(LS_ROOM_CODE);
+    ss.removeItem(LS_PLAYER_ID);
+    ss.removeItem(LS_TEAM_ID);
+    ss.removeItem(LS_TEAM_NAME);
     setIdentity({ roomCode: null, playerId: null, playerName: null, teamId: null, teamName: null });
     setCreatedRoomCode(null);
   };
