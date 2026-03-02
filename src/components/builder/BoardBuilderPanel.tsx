@@ -64,17 +64,12 @@ export default function BoardBuilderPanel() {
     }
   }, [config]);
 
-  // On mount, attempt to restore from localStorage if no config already
+  // On mount, pre-fill the load input with the last saved code as a convenience
+  // (the user must explicitly click Load to apply it — no auto-restore)
   useEffect(() => {
-    const savedBoardCode = localStorage.getItem(LS_BOARD_CODE);
-    if (savedBoardCode && !state.customBoardConfig) {
-      loadBoard(savedBoardCode).then((loaded) => {
-        if (loaded) {
-          dispatch({ type: "SET_CUSTOM_BOARD_CONFIG", config: loaded });
-        } else {
-          localStorage.removeItem(LS_BOARD_CODE);
-        }
-      });
+    const lastCode = localStorage.getItem(LS_BOARD_CODE);
+    if (lastCode && !config) {
+      setLoadCodeInput(lastCode);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
