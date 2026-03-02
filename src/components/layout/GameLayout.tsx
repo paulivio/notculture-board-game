@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGame, useGameDispatch } from "../../context/GameContext";
 import TopPanel from "./TopPanel";
 import BottomPanel from "./BottomPanel";
@@ -9,6 +9,7 @@ import QuestionEditor from "../modals/QuestionEditor";
 import CultureModal from "../modals/CultureModal";
 import NotModal from "../modals/NotModal";
 import InstructionsModal from "../modals/InstructionsModal";
+import FeedbackModal from "../modals/FeedbackModal";
 import type { Question } from "../../types/game";
 
 import filmData from "../../data/film.json";
@@ -20,6 +21,7 @@ import sportsData from "../../data/sports.json";
 export default function GameLayout() {
   const state = useGame();
   const dispatch = useGameDispatch();
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   // Load questions on mount
   useEffect(() => {
@@ -49,7 +51,15 @@ export default function GameLayout() {
     <div className="flex min-h-screen flex-col items-center justify-start gap-1 p-2.5 lg:flex-row lg:items-start lg:justify-center lg:gap-10">
       <TopPanel />
       <Board />
-      <BottomPanel />
+      <div className="flex flex-col items-center">
+        <BottomPanel />
+        <button
+          onClick={() => setFeedbackOpen(true)}
+          className="mt-2 text-xs text-white/30 hover:text-white/60 transition-colors"
+        >
+          Send feedback
+        </button>
+      </div>
 
       {state.showQuestionModal && state.activeQuestion && <QuestionModal />}
       {state.showWinModal && <WinModal />}
@@ -57,6 +67,7 @@ export default function GameLayout() {
       {state.showCultureModal && <CultureModal />}
       {state.showNotModal && <NotModal />}
       {state.showWelcome && <InstructionsModal />}
+      <FeedbackModal open={feedbackOpen} onClose={() => setFeedbackOpen(false)} />
     </div>
   );
 }

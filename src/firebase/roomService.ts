@@ -555,3 +555,13 @@ export async function getTeamRoomData(
     teamOrder: roomData.teamOrder || [],
   };
 }
+
+export async function submitFeedback(name: string, message: string) {
+  const { push } = await import("firebase/database");
+  const feedbackRef = ref(db, "feedback");
+  await push(feedbackRef, {
+    name: name.trim() || "Anonymous",
+    message: message.trim(),
+    timestamp: Date.now(),
+  });
+}

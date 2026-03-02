@@ -1,6 +1,6 @@
 # NotCulture Board Game
 
-A multiplayer trivia board game with 412 questions across 4 categories. Play locally with up to 4 players or online via Firebase real-time rooms.
+A multiplayer trivia board game with 462 questions across 5 categories. Play locally with up to 4 players or online via Firebase real-time rooms, including online team mode.
 
 ## Getting Started
 
@@ -29,11 +29,16 @@ npm run preview  # Preview production build locally
 
 - **Local** — 1-4 players on the same device, use +/- buttons to add or remove players
 - **Online** — Create a room and share the code, or join an existing room. Turns sync across all connected browsers in real-time
+- **Online Team Mode** — create a team room, form teams, and compete head-to-head. Each team shares a board position; roles (answerer / describer) rotate between teammates each turn
 
 ### Special Tiles
 
 - **Not tiles** (positions 5, 15, 25, 35, 45) — when a player starts their turn on a Not tile, the Not modal opens automatically. Inactive players describe items; the active player guesses. Each correct guess moves the player forward one space (up to 6).
 - **Culture tiles** — same describe-and-guess mechanic with a different card set.
+
+### Category Selector
+
+Before a game starts (local) or when creating an online room, choose which 4 of the 5 categories to include. The selector is locked once any player has moved. Online rooms sync the host's chosen categories to all joined players automatically.
 
 ### Settings (gear icon)
 
@@ -42,11 +47,16 @@ npm run preview  # Preview production build locally
 - **Sound Settings** — toggle sound effects on/off
 - **Restart Game** — resets all players to start
 
+### Feedback
+
+A "Send feedback" link at the bottom of the page opens a modal where players can report bugs or question issues. Submissions are stored in Firebase under `feedback/` and read by the creator.
+
 ## Online Rooms
 
 - Rooms expire automatically after **1 hour** — stale rooms are cleaned up on join and in the real-time listener
 - A full-screen **welcome/instructions modal** is shown on every page load with Gameplay and Online tabs
-- Disconnect and rejoin a room using the same browser — your identity is persisted via localStorage
+- Disconnect and rejoin a room using the same browser — identity is persisted via sessionStorage (per-tab, prevents cross-tab contamination when testing two players on the same device)
+- Player name is stored in localStorage for cross-session convenience
 
 ## Tech Stack
 
@@ -89,15 +99,16 @@ src/
     board/                          # Board (7×7 grid), Cell, PlayerToken, BoardCanvas
     dice/                           # WheelSpinner (SVG spin-the-wheel, Framer Motion)
     modals/                         # QuestionModal, WinModal, QuestionEditor, NotModal,
-                                    #   CultureModal, InstructionsModal
+                                    #   CultureModal, InstructionsModal, FeedbackModal
     controls/                       # ModeSelector, LocalControls, OnlineControls,
                                     #   SettingsMenu, PlayerBar
 
   data/
-    film.json                       # 60 Film & TV questions
-    science.json                    # 130 Science & Technology questions
-    general.json                    # 60 General Knowledge questions
-    history.json                    # 62 History & Arts questions
+    film.json                       # Film & TV questions
+    science.json                    # Science & Technology questions
+    general.json                    # General Knowledge questions
+    history.json                    # History & Arts questions
+    sports.json                     # Sports & Leisure questions
     not.json                        # 30 Not tile cards (6 answers each)
     culture.json                    # Culture tile cards
 
@@ -109,14 +120,15 @@ public/
 
 ## Question Categories
 
-| Category | Color | Questions |
-|----------|-------|-----------|
-| Film & TV | Purple | 60 |
-| Science & Technology | Steel Blue | 130 |
-| General Knowledge | Green | 60 |
-| History & Arts | Orange | 62 |
+| Category | Color | Notes |
+|----------|-------|-------|
+| Film & TV | Purple | |
+| Science & Technology | Steel Blue | |
+| General Knowledge | Green | |
+| History & Arts | Orange | |
+| Sports & Leisure | Red | Optional — choose any 4 of 5 via the category selector |
 
-Questions have difficulty levels 1-6. The dice roll determines which difficulty you get.
+Questions have difficulty levels 1–6. The dice roll determines which difficulty you get.
 
 ## Board Layout
 
