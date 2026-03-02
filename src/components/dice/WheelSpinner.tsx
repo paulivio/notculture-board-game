@@ -124,7 +124,7 @@ export default function WheelSpinner({
   return (
     <div className="flex flex-col items-center select-none">
       <div
-        className={`relative w-[clamp(100px,10vw,155px)] 2xl:w-[180px] ${isClickable ? "cursor-pointer" : locked ? "opacity-50 cursor-not-allowed" : "cursor-default"}`}
+        className={`relative w-[clamp(100px,10vw,155px)] xl:w-[180px] ${isClickable ? "cursor-pointer" : locked ? "opacity-50 cursor-not-allowed" : "cursor-default"}`}
         onClick={isClickable ? onClick : undefined}
       >
         <svg

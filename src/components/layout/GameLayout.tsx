@@ -113,7 +113,7 @@ export default function GameLayout() {
 
   return (
     <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="flex min-h-screen flex-col items-center justify-start gap-1 p-2.5 2xl:flex-row 2xl:items-start 2xl:justify-center 2xl:gap-10">
+      <div className="flex min-h-screen flex-col items-center justify-start gap-1 p-2.5 xl:flex-row xl:items-start xl:justify-center xl:gap-10">
         <TopPanel />
         <Board />
         <div className="flex flex-col items-center">

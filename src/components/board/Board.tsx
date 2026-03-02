@@ -88,7 +88,7 @@ export default function Board() {
   return (
     <div
       ref={boardRef}
-      className="relative grid grid-cols-8 grid-rows-8 gap-[clamp(4px,1.2vw,10px)] w-[min(92vw,92vh)] aspect-square 2xl:flex-1 2xl:max-h-[90vh] 2xl:max-w-[90vh] 2xl:w-auto"
+      className="relative grid grid-cols-8 grid-rows-8 gap-[clamp(4px,1.2vw,10px)] w-[min(92vw,92vh)] aspect-square xl:flex-1 xl:max-h-[90vh] xl:max-w-[90vh] xl:w-auto"
       style={{
         backgroundImage: `url('${import.meta.env.BASE_URL}assets/logo.svg')`,
         backgroundSize: "44%",
