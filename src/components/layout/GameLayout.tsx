@@ -114,9 +114,11 @@ export default function GameLayout() {
   return (
     <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className="flex min-h-screen flex-col items-center justify-start gap-1 p-2.5 xl:flex-row xl:items-start xl:justify-center xl:gap-10">
-        <TopPanel />
+        <div className="xl:w-52 xl:shrink-0 xl:self-start xl:flex xl:justify-center">
+          <TopPanel />
+        </div>
         <Board />
-        <div className="flex flex-col items-center">
+        <div className="xl:w-72 xl:shrink-0 xl:self-start flex flex-col items-center">
           <BottomPanel />
           <button
             onClick={() => setFeedbackOpen(true)}

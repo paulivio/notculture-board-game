@@ -143,7 +143,7 @@ export default function BottomPanel() {
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="overflow-hidden w-full flex justify-center"
           >
-            <div className="py-1 w-full max-w-lg px-2">
+            <div className="py-1 w-full max-w-lg xl:max-w-full px-2">
               <BoardBuilderPanel />
             </div>
           </motion.div>
