@@ -3,7 +3,7 @@ import { useGame } from "../../context/GameContext";
 import Cell from "./Cell";
 import BoardCanvas from "./BoardCanvas";
 import PlayerToken from "./PlayerToken";
-import { TOTAL_CELLS, SPIRAL_PATH, CATEGORIES, CULTURE_POSITIONS, NOT_POSITIONS, GRID_SIZE } from "../../lib/constants";
+import { TOTAL_CELLS, SPIRAL_PATH, CULTURE_POSITIONS, NOT_POSITIONS, GRID_SIZE } from "../../lib/constants";
 
 export default function Board() {
   const state = useGame();
@@ -49,7 +49,7 @@ export default function Board() {
 
         let category: string | null = null;
         if (isOnPath && !isStart && !isFinish && !isCulture && !isNot) {
-          category = CATEGORIES[pathIndex % CATEGORIES.length];
+          category = state.activeCategories[pathIndex % state.activeCategories.length];
         }
 
         // Figure out connection direction to next cell

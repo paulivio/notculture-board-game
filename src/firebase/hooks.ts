@@ -5,8 +5,8 @@ import { db } from "./config";
 const ROOM_TTL_MS = 60 * 60 * 1000; // 1 hour
 import { useGame, useGameDispatch } from "../context/GameContext";
 import { useSound } from "../hooks/useSound";
-import { MAX_POSITION, PLAYER_COLORS } from "../lib/constants";
-import type { RoomData, Player, TeamData } from "../types/game";
+import { MAX_POSITION, PLAYER_COLORS, CATEGORIES } from "../lib/constants";
+import type { Category, RoomData, Player, TeamData } from "../types/game";
 
 interface UseRoomOptions {
   roomCode: string | null;
@@ -182,6 +182,12 @@ export function useRoom({
       dispatch({ type: "SET_TEAM_MODE", value: isTeamMode });
       dispatch({ type: "SET_ANSWERER_IDS", answererId: currentAnswererId, describerId: currentDescriberId });
       dispatch({ type: "SET_ACTIVE_TEAM", teamId: activeTeamId });
+
+      // Sync active categories — fall back to default 4 for rooms created before this feature
+      const roomCategories: Category[] = Array.isArray(roomData.activeCategories) && roomData.activeCategories.length > 0
+        ? roomData.activeCategories
+        : CATEGORIES;
+      dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: roomCategories });
 
       dispatch({
         type: "SYNC_ONLINE_STATE",

@@ -5,7 +5,6 @@ import { useQuestions } from "./useQuestions";
 import { useSound } from "./useSound";
 import {
   SPIRAL_PATH,
-  CATEGORIES,
   CULTURE_POSITIONS,
   NOT_POSITIONS,
   MAX_POSITION,
@@ -104,11 +103,12 @@ export function useGameLogic() {
       if (!currentPlayer) return; // Guard: players array may be empty during online sync
       const pathIndex = currentPlayer.position;
 
+      const activeCategories = s.activeCategories;
       let category: Category;
       if (pathIndex === 0 || pathIndex === SPIRAL_PATH.length - 1) {
-        category = CATEGORIES[Math.floor(Math.random() * CATEGORIES.length)];
+        category = activeCategories[Math.floor(Math.random() * activeCategories.length)];
       } else {
-        category = CATEGORIES[pathIndex % CATEGORIES.length];
+        category = activeCategories[pathIndex % activeCategories.length];
       }
 
       dispatch({ type: "SET_PENDING_CATEGORY", category });
@@ -452,7 +452,7 @@ export function useGameLogic() {
         return;
       }
 
-      const category = CATEGORIES[position % CATEGORIES.length];
+      const category = state.activeCategories[position % state.activeCategories.length];
       dispatch({ type: "SET_PENDING_CATEGORY", category });
 
       const roll = Math.floor(Math.random() * 6) + 1;

@@ -16,12 +16,14 @@ export const SPIRAL_PATH = [
 export const MAX_POSITION = SPIRAL_PATH.length - 1; // 48 tiles → index 47 is FINISH
 
 export const CATEGORIES: Category[] = ["film", "science", "general", "history"];
+export const ALL_CATEGORIES: Category[] = ["film", "science", "general", "history", "sports"];
 
 export const CATEGORY_LABELS: Record<Category, string> = {
   film: "Film & TV",
   science: "Science & Technology",
   general: "General Knowledge",
   history: "History & Arts",
+  sports: "Sports & Leisure",
 };
 
 export const PLAYER_COLORS: Record<number, string> = {
@@ -51,6 +53,7 @@ export const CATEGORY_COLORS: Record<Category, string> = {
   science: "#4682b4",
   general: "#008000",
   history: "#ffa500",
+  sports: "#ef4444",
 };
 
 export const CATEGORY_TEXT_COLORS: Record<Category, string> = {
@@ -58,6 +61,7 @@ export const CATEGORY_TEXT_COLORS: Record<Category, string> = {
   science: "text-cat-science",
   general: "text-cat-general",
   history: "text-cat-history",
+  sports: "text-cat-sports",
 };
 
 export const CATEGORY_BG_COLORS: Record<Category, string> = {
@@ -65,6 +69,7 @@ export const CATEGORY_BG_COLORS: Record<Category, string> = {
   science: "bg-cat-science",
   general: "bg-cat-general",
   history: "bg-cat-history",
+  sports: "bg-cat-sports",
 };
 
 export const CULTURE_POSITIONS = new Set([10, 20, 30, 40]);

@@ -15,6 +15,7 @@ import filmData from "../../data/film.json";
 import scienceData from "../../data/science.json";
 import generalData from "../../data/general.json";
 import historyData from "../../data/history.json";
+import sportsData from "../../data/sports.json";
 
 export default function GameLayout() {
   const state = useGame();
@@ -27,6 +28,7 @@ export default function GameLayout() {
       ...(scienceData as Question[]).map((q) => ({ ...q, category: "science" as const })),
       ...(generalData as Question[]).map((q) => ({ ...q, category: "general" as const })),
       ...(historyData as Question[]).map((q) => ({ ...q, category: "history" as const })),
+      ...(sportsData as Question[]).map((q) => ({ ...q, category: "sports" as const })),
     ];
     dispatch({ type: "SET_QUESTIONS", questions: allQuestions });
   }, [dispatch]);

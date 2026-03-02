@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import type { GameState, GameAction } from "../types/game";
-import { MAX_POSITION, PLAYER_COLORS } from "../lib/constants";
+import { MAX_POSITION, PLAYER_COLORS, CATEGORIES } from "../lib/constants";
 
 const initialState: GameState = {
   questionsLoaded: false,
@@ -44,6 +44,7 @@ const initialState: GameState = {
   currentDescriberId: null,
   activeTeamId: null,
   cultureQuestionIndex: null,
+  activeCategories: [...CATEGORIES],
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -318,6 +319,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SET_CULTURE_QUESTION_INDEX":
       return { ...state, cultureQuestionIndex: action.index };
+
+    case "SET_ACTIVE_CATEGORIES":
+      return { ...state, activeCategories: action.categories };
 
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };

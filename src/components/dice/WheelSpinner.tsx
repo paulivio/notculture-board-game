@@ -8,18 +8,9 @@ interface WheelSpinnerProps {
   onComplete: (() => void) | null;
   onClick: () => void;
   locked: boolean;
+  /** Colours for segments 1–6 in order. Defaults to the 4 active categories + Culture + Not. */
+  segmentColors: string[];
 }
-
-// Segment colours for values 1–6 — one unique colour per segment
-// film=#800080, science=#4682b4, general=#008000, history=#ffa500, culture=#c026d3, not=#f97316
-const SEGMENT_COLORS: Record<number, string> = {
-  1: "#800080",
-  2: "#4682b4",
-  3: "#008000",
-  4: "#ffa500",
-  5: "#c026d3",
-  6: "#f97316",
-};
 
 const CX = 100;
 const CY = 100;
@@ -78,6 +69,7 @@ export default function WheelSpinner({
   onComplete,
   onClick,
   locked,
+  segmentColors,
 }: WheelSpinnerProps) {
   const controls = useAnimation();
   const rotationRef = useRef(0);
@@ -166,7 +158,7 @@ export default function WheelSpinner({
                 <g key={value}>
                   <path
                     d={buildSegmentPath(i)}
-                    fill={SEGMENT_COLORS[value]}
+                    fill={segmentColors[i] ?? "#888888"}
                     stroke="white"
                     strokeWidth="1.5"
                   />

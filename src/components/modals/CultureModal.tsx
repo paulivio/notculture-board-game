@@ -224,9 +224,20 @@ export default function CultureModal() {
           className="w-[340px] max-w-[95vw]"
         >
           <TextureCard className="max-h-[85vh] overflow-y-auto">
-            <h2 className="mb-4 text-center text-xl font-bold text-fuchsia-400">
-              ★ Culture Tile!
-            </h2>
+            <div className="relative mb-4">
+              <h2 className="text-center text-xl font-bold text-fuchsia-400">
+                ★ Culture Tile!
+              </h2>
+              {canContinue && (
+                <button
+                  onClick={() => handleCultureScore(0)}
+                  title="Cancel round"
+                  className="absolute right-0 top-0 text-white/40 hover:text-white/80 transition-colors text-lg leading-none"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
 
             {/* ── Result screen — shown to all clients once score is known ── */}
             {showResult ? (

@@ -19,7 +19,7 @@ export interface NotQuestion {
   answers: string[];
 }
 
-export type Category = "film" | "science" | "general" | "history";
+export type Category = "film" | "science" | "general" | "history" | "sports";
 
 export type GameMode = "local" | "online";
 
@@ -62,6 +62,7 @@ export interface GameState {
   currentDescriberId: string | null;
   activeTeamId: string | null;
   cultureQuestionIndex: number | null;
+  activeCategories: Category[];
 }
 
 export interface OnlineIdentity {
@@ -100,6 +101,7 @@ export interface RoomData {
   currentTeamIndex?: number;
   currentAnswererId?: string | null;
   currentDescriberId?: string | null;
+  activeCategories?: Category[];
 }
 
 export type GameAction =
@@ -142,4 +144,5 @@ export type GameAction =
   | { type: "SET_TEAM_MODE"; value: boolean }
   | { type: "SET_ANSWERER_IDS"; answererId: string | null; describerId: string | null }
   | { type: "SET_ACTIVE_TEAM"; teamId: string | null }
-  | { type: "SET_CULTURE_QUESTION_INDEX"; index: number | null };
+  | { type: "SET_CULTURE_QUESTION_INDEX"; index: number | null }
+  | { type: "SET_ACTIVE_CATEGORIES"; categories: Category[] };

@@ -104,7 +104,9 @@ export default function InstructionsModal() {
                         <CategoryItem color="bg-cat-science" label="Science & Tech" />
                         <CategoryItem color="bg-cat-general" label="General Knowledge" />
                         <CategoryItem color="bg-cat-history" label="History & Arts" />
+                        <CategoryItem color="bg-cat-sports" label="Sports & Leisure" />
                       </ul>
+                      <p className="mt-1.5 text-xs text-white/50">Choose any 4 active categories before starting a local game.</p>
                     </Section>
 
                     <Section title="Special Tiles">
@@ -113,7 +115,7 @@ export default function InstructionsModal() {
                           <strong className="text-white">Not tile</strong> — Inactive players describe words or phrases; the active player guesses. Score up to 6 points and move that many spaces.
                         </li>
                         <li className="text-sm text-white/80">
-                          <strong className="text-white">Culture tile</strong> — A performance challenge: sing, act, or draw. Other players judge the result.
+                          <strong className="text-white">Culture tile</strong> — The active player guesses 1–10 answers for a trivia question. Score one space forward per correct answer.
                         </li>
                       </ul>
                     </Section>
