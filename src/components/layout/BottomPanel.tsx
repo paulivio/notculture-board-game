@@ -4,17 +4,14 @@ import { useGame, useGameDispatch } from "../../context/GameContext";
 import LocalControls from "../controls/LocalControls";
 import OnlineControls from "../controls/OnlineControls";
 import SettingsMenu from "../controls/SettingsMenu";
-import CategorySelector from "../controls/CategorySelector";
 import BoardBuilderPanel from "../builder/BoardBuilderPanel";
 import { TextureButton } from "../ui/TextureButton";
 
-type Section = "local" | "online" | "categories" | "board";
+type Section = "local" | "online" | "board";
 
 export default function BottomPanel() {
   const state = useGame();
   const dispatch = useGameDispatch();
-  const gameStarted = state.players.some((p) => p.position > 0);
-
   const [openSection, setOpenSection] = useState<Section | null>(
     state.gameMode as Section
   );
@@ -60,17 +57,6 @@ export default function BottomPanel() {
         >
           Online
         </TextureButton>
-        {state.gameMode === "local" && (
-          <TextureButton
-            size="sm"
-            variant={openSection === "categories" ? "primary" : "default"}
-            onClick={() =>
-              handleSectionChange(openSection === "categories" ? null : "categories")
-            }
-          >
-            Categories
-          </TextureButton>
-        )}
         <TextureButton
           size="sm"
           variant={state.customBoardConfig !== null ? "primary" : openSection === "board" ? "primary" : "default"}
@@ -109,27 +95,6 @@ export default function BottomPanel() {
           >
             <div className="py-1">
               <OnlineControls />
-            </div>
-          </motion.div>
-        )}
-
-        {openSection === "categories" && state.gameMode === "local" && (
-          <motion.div
-            key="categories"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeInOut" }}
-            className="overflow-hidden w-full flex justify-center"
-          >
-            <div className="py-1">
-              <CategorySelector
-                value={state.activeCategories}
-                onChange={(cats) =>
-                  dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: cats })
-                }
-                locked={gameStarted}
-              />
             </div>
           </motion.div>
         )}

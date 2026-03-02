@@ -102,6 +102,16 @@ export default function SettingsMenu() {
             <TextureButton
               className="w-full justify-start"
               onClick={() => {
+                dispatch({ type: "SHOW_WELCOME" });
+                dispatch({ type: "SHOW_SETTINGS", show: false });
+              }}
+            >
+              Instructions
+            </TextureButton>
+
+            <TextureButton
+              className="w-full justify-start"
+              onClick={() => {
                 dispatch({ type: "SHOW_EDITOR", show: true });
                 dispatch({ type: "SHOW_SETTINGS", show: false });
               }}

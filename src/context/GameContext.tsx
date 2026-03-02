@@ -310,6 +310,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "DISMISS_WELCOME":
       return { ...state, showWelcome: false };
 
+    case "SHOW_WELCOME":
+      return { ...state, showWelcome: true };
+
     case "SET_TEAM_MODE":
       return { ...state, isTeamMode: action.value };
 

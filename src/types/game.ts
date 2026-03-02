@@ -154,6 +154,7 @@ export type GameAction =
   | { type: "SET_NOT_SCORE"; score: number | null }
   | { type: "SET_NOT_CARD"; card: NotQuestion | null }
   | { type: "DISMISS_WELCOME" }
+  | { type: "SHOW_WELCOME" }
   | { type: "SET_TEAM_MODE"; value: boolean }
   | { type: "SET_ANSWERER_IDS"; answererId: string | null; describerId: string | null }
   | { type: "SET_ACTIVE_TEAM"; teamId: string | null }
