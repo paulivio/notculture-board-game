@@ -1,28 +1,124 @@
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useGame, useGameDispatch } from "../../context/GameContext";
-import ModeSelector from "../controls/ModeSelector";
 import LocalControls from "../controls/LocalControls";
 import OnlineControls from "../controls/OnlineControls";
 import SettingsMenu from "../controls/SettingsMenu";
 import CategorySelector from "../controls/CategorySelector";
+import { TextureButton } from "../ui/TextureButton";
+
+type Section = "local" | "online" | "categories";
 
 export default function BottomPanel() {
   const state = useGame();
   const dispatch = useGameDispatch();
-
   const gameStarted = state.players.some((p) => p.position > 0);
 
+  const [openSection, setOpenSection] = useState<Section | null>(
+    state.gameMode as Section
+  );
+
+  // Keep panel in sync when mode changes externally (e.g. Firebase reconnect)
+  useEffect(() => {
+    setOpenSection(state.gameMode as Section);
+  }, [state.gameMode]);
+
+  function handleModeClick(mode: "local" | "online") {
+    if (state.gameMode !== mode) {
+      dispatch({ type: "SET_GAME_MODE", mode });
+      setOpenSection(mode);
+    } else if (openSection === mode) {
+      setOpenSection(null);
+    } else {
+      setOpenSection(mode);
+    }
+  }
+
   return (
-    <div className="mt-4 flex flex-col items-center gap-3">
-      <ModeSelector />
-      {state.gameMode === "local" ? <LocalControls /> : <OnlineControls />}
-      {state.gameMode === "local" && (
-        <CategorySelector
-          value={state.activeCategories}
-          onChange={(cats) => dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: cats })}
-          locked={gameStarted}
-        />
-      )}
-      <SettingsMenu />
+    <div className="mt-2 flex flex-col items-center gap-2">
+      {/* Button row */}
+      <div className="flex flex-wrap justify-center gap-2">
+        <TextureButton
+          size="sm"
+          variant={state.gameMode === "local" ? "primary" : "default"}
+          onClick={() => handleModeClick("local")}
+        >
+          Local
+        </TextureButton>
+        <TextureButton
+          size="sm"
+          variant={state.gameMode === "online" ? "primary" : "default"}
+          onClick={() => handleModeClick("online")}
+        >
+          Online
+        </TextureButton>
+        {state.gameMode === "local" && (
+          <TextureButton
+            size="sm"
+            variant={openSection === "categories" ? "primary" : "default"}
+            onClick={() =>
+              setOpenSection(openSection === "categories" ? null : "categories")
+            }
+          >
+            Categories
+          </TextureButton>
+        )}
+        <SettingsMenu />
+      </div>
+
+      {/* Collapsible sections */}
+      <AnimatePresence initial={false}>
+        {openSection === "local" && state.gameMode === "local" && (
+          <motion.div
+            key="local"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="overflow-hidden w-full flex justify-center"
+          >
+            <div className="py-1">
+              <LocalControls />
+            </div>
+          </motion.div>
+        )}
+
+        {openSection === "online" && state.gameMode === "online" && (
+          <motion.div
+            key="online"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="overflow-hidden w-full flex justify-center"
+          >
+            <div className="py-1">
+              <OnlineControls />
+            </div>
+          </motion.div>
+        )}
+
+        {openSection === "categories" && state.gameMode === "local" && (
+          <motion.div
+            key="categories"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="overflow-hidden w-full flex justify-center"
+          >
+            <div className="py-1">
+              <CategorySelector
+                value={state.activeCategories}
+                onChange={(cats) =>
+                  dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: cats })
+                }
+                locked={gameStarted}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

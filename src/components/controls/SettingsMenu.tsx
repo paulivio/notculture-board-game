@@ -82,6 +82,7 @@ export default function SettingsMenu() {
   return (
     <div ref={wrapperRef} className="relative z-10">
       <TextureButton
+        size="sm"
         onClick={() =>
           dispatch({ type: "SHOW_SETTINGS", show: !state.showSettings })
         }
