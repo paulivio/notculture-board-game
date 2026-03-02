@@ -195,7 +195,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-017",
+    "id": "general-016",
     "category": "general",
     "difficulty": 6,
     "question": "Which company was the first to reach a market valuation of $1 trillion?",
@@ -208,7 +208,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-018",
+    "id": "general-017",
     "category": "general",
     "difficulty": 2,
     "question": "What does 'WWW' stand for?",
@@ -221,7 +221,7 @@
     "correctIndex": 0
   },
   {
-    "id": "general-019",
+    "id": "general-018",
     "category": "general",
     "difficulty": 3,
     "question": "Which country’s national airline is called Qantas?",
@@ -234,7 +234,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-020",
+    "id": "general-019",
     "category": "general",
     "difficulty": 4,
     "question": "Which luxury watch brand produces the 'Submariner' model?",
@@ -247,7 +247,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-021",
+    "id": "general-020",
     "category": "general",
     "difficulty": 1,
     "question": "Which company produces the sportswear brand Air Jordan?",
@@ -260,7 +260,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-022",
+    "id": "general-021",
     "category": "general",
     "difficulty": 1,
     "question": "What does the acronym 'IMF' stand for?",
@@ -273,7 +273,7 @@
     "correctIndex": 0
   },
   {
-    "id": "general-023",
+    "id": "general-022",
     "category": "general",
     "difficulty": 2,
     "question": "Which country hosts the Formula 1 race at Silverstone?",
@@ -286,7 +286,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-024",
+    "id": "general-023",
     "category": "general",
     "difficulty": 2,
     "question": "Which global fast-food chain uses the slogan 'I'm Lovin' It'?",
@@ -299,7 +299,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-025",
+    "id": "general-024",
     "category": "general",
     "difficulty": 3,
     "question": "Which company owns YouTube?",
@@ -312,7 +312,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-026",
+    "id": "general-025",
     "category": "general",
     "difficulty": 3,
     "question": "Which city hosts the annual World Economic Forum?",
@@ -325,7 +325,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-027",
+    "id": "general-026",
     "category": "general",
     "difficulty": 3,
     "question": "Which country won the UEFA European Championship in 2020 (played in 2021)?",
@@ -338,7 +338,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-028",
+    "id": "general-027",
     "category": "general",
     "difficulty": 4,
     "question": "Which British newspaper is owned by News UK?",
@@ -351,7 +351,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-029",
+    "id": "general-028",
     "category": "general",
     "difficulty": 4,
     "question": "Which company manufactures the 'Kindle' e-reader?",
@@ -364,7 +364,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-030",
+    "id": "general-029",
     "category": "general",
     "difficulty": 4,
     "question": "Which country is home to the luxury fashion house Hermès?",
@@ -377,7 +377,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-031",
+    "id": "general-030",
     "category": "general",
     "difficulty": 5,
     "question": "Which company was formerly known as Facebook, Inc. before rebranding in 2021?",
@@ -390,7 +390,7 @@
     "correctIndex": 0
   },
   {
-    "id": "general-032",
+    "id": "general-031",
     "category": "general",
     "difficulty": 5,
     "question": "Which sporting event awards the Claret Jug to its winner?",
@@ -403,7 +403,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-033",
+    "id": "general-032",
     "category": "general",
     "difficulty": 5,
     "question": "Which luxury conglomerate owns brands including Louis Vuitton and Moët & Chandon?",
@@ -416,7 +416,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-034",
+    "id": "general-033",
     "category": "general",
     "difficulty": 5,
     "question": "Which country has won the most Cricket World Cups (Men’s ODI)?",
@@ -429,7 +429,7 @@
     "correctIndex": 0
   },
   {
-    "id": "general-035",
+    "id": "general-034",
     "category": "general",
     "difficulty": 6,
     "question": "Which year was the United Nations officially established?",
@@ -442,7 +442,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-036",
+    "id": "general-035",
     "category": "general",
     "difficulty": 6,
     "question": "Which company originally created the Android operating system?",
@@ -455,7 +455,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-037",
+    "id": "general-036",
     "category": "general",
     "difficulty": 6,
     "question": "Which country is the headquarters of the International Olympic Committee?",
@@ -468,7 +468,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-038",
+    "id": "general-037",
     "category": "general",
     "difficulty": 2,
     "question": "Which sport uses a shuttlecock?",
@@ -481,7 +481,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-039",
+    "id": "general-038",
     "category": "general",
     "difficulty": 3,
     "question": "Which country’s airline is called Emirates?",
@@ -494,7 +494,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-040",
+    "id": "general-039",
     "category": "general",
     "difficulty": 4,
     "question": "Which financial index tracks 100 major companies listed on the London Stock Exchange?",
@@ -507,7 +507,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-041",
+    "id": "general-040",
     "category": "general",
     "difficulty": 3,
     "question": "In what year did Facebook first launch to the public?",
@@ -520,7 +520,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-042",
+    "id": "general-041",
     "category": "general",
     "difficulty": 3,
     "question": "Who is the current governing body of international football?",
@@ -533,7 +533,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-043",
+    "id": "general-042",
     "category": "general",
     "difficulty": 4,
     "question": "The brand 'Airbnb' is a shortened version of what original name?",
@@ -546,7 +546,7 @@
     "correctIndex": 0
   },
   {
-    "id": "general-044",
+    "id": "general-043",
     "category": "general",
     "difficulty": 4,
     "question": "Identify the company that owns the luxury car manufacturer Bentley.",
@@ -559,7 +559,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-045",
+    "id": "general-044",
     "category": "general",
     "difficulty": 4,
     "question": "How many permanent members sit on the United Nations Security Council?",
@@ -572,7 +572,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-046",
+    "id": "general-045",
     "category": "general",
     "difficulty": 5,
     "question": "Complete the economic term: GDP measures the total value of all final ______ produced within a country.",
@@ -585,7 +585,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-047",
+    "id": "general-046",
     "category": "general",
     "difficulty": 5,
     "question": "Name the founder of Amazon.",
@@ -598,7 +598,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-048",
+    "id": "general-047",
     "category": "general",
     "difficulty": 5,
     "question": "In which year was the Euro introduced as an electronic currency (before physical notes)?",
@@ -611,7 +611,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-049",
+    "id": "general-048",
     "category": "general",
     "difficulty": 5,
     "question": "What is the name of the trophy awarded to the winner of the UEFA Champions League?",
@@ -624,7 +624,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-050",
+    "id": "general-049",
     "category": "general",
     "difficulty": 5,
     "question": "The brand Zara originated in which country?",
@@ -637,7 +637,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-051",
+    "id": "general-050",
     "category": "general",
     "difficulty": 6,
     "question": "Identify the company that first surpassed a $2 trillion market valuation.",
@@ -650,7 +650,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-052",
+    "id": "general-051",
     "category": "general",
     "difficulty": 6,
     "question": "In what year did the United Kingdom formally trigger Article 50 to leave the EU?",
@@ -663,7 +663,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-053",
+    "id": "general-052",
     "category": "general",
     "difficulty": 6,
     "question": "How many time zones does Russia officially span?",
@@ -676,7 +676,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-054",
+    "id": "general-053",
     "category": "general",
     "difficulty": 6,
     "question": "Name the organisation that oversees global internet domain names and IP address allocation.",
@@ -689,7 +689,7 @@
     "correctIndex": 0
   },
   {
-    "id": "general-055",
+    "id": "general-054",
     "category": "general",
     "difficulty": 6,
     "question": "The sovereign wealth fund known as the 'Government Pension Fund Global' belongs to which country?",
@@ -702,7 +702,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-056",
+    "id": "general-055",
     "category": "general",
     "difficulty": 6,
     "question": "What is the official currency of the International Monetary Fund?",
@@ -715,7 +715,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-057",
+    "id": "general-056",
     "category": "general",
     "difficulty": 6,
     "question": "In global finance, what does the acronym 'BRICS' refer to?",
@@ -728,7 +728,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-058",
+    "id": "general-057",
     "category": "general",
     "difficulty": 6,
     "question": "Identify the headquarters city of the European Central Bank.",
@@ -741,7 +741,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-059",
+    "id": "general-058",
     "category": "general",
     "difficulty": 6,
     "question": "How many countries are currently members of the European Union?",
@@ -754,7 +754,7 @@
     "correctIndex": 1
   },
   {
-    "id": "general-060",
+    "id": "general-059",
     "category": "general",
     "difficulty": 6,
     "question": "The Fortune 500 list ranks companies based on what primary metric?",
@@ -767,7 +767,7 @@
     "correctIndex": 2
   },
   {
-    "id": "general-061",
+    "id": "general-060",
     "category": "general",
     "difficulty": 1,
     "question": "How many sides does a hexagon have?",
@@ -780,7 +780,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-062",
+    "id": "general-061",
     "category": "general",
     "difficulty": 1,
     "question": "What is the capital city of France?",
@@ -793,7 +793,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-063",
+    "id": "general-062",
     "category": "general",
     "difficulty": 1,
     "question": "How many days are in a leap year?",
@@ -806,7 +806,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-064",
+    "id": "general-063",
     "category": "general",
     "difficulty": 1,
     "question": "How many continents are there on Earth?",
@@ -819,7 +819,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-065",
+    "id": "general-064",
     "category": "general",
     "difficulty": 1,
     "question": "What is the largest ocean on Earth?",
@@ -832,7 +832,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-066",
+    "id": "general-065",
     "category": "general",
     "difficulty": 1,
     "question": "How many hours are in a day?",
@@ -845,7 +845,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-067",
+    "id": "general-066",
     "category": "general",
     "difficulty": 2,
     "question": "In which country is the Great Barrier Reef located?",
@@ -858,7 +858,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-068",
+    "id": "general-067",
     "category": "general",
     "difficulty": 2,
     "question": "What is the longest river in the world?",
@@ -871,7 +871,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-069",
+    "id": "general-068",
     "category": "general",
     "difficulty": 2,
     "question": "How many strings does a standard guitar have?",
@@ -884,7 +884,7 @@
     "correctIndex": 3
   },
   {
-    "id": "general-070",
+    "id": "general-069",
     "category": "general",
     "difficulty": 2,
     "question": "What currency is used in Japan?",
@@ -895,5 +895,785 @@
       "Yen"
     ],
     "correctIndex": 3
+  },
+  {
+    "id": "general-070",
+    "category": "general",
+    "difficulty": 1,
+    "question": "Which river flows through London?",
+    "answers": [
+      "Severn",
+      "Avon",
+      "Thames",
+      "Tyne"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-071",
+    "category": "general",
+    "difficulty": 1,
+    "question": "What is the capital city of France?",
+    "answers": [
+      "Lyon",
+      "Marseille",
+      "Nice",
+      "Paris"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-072",
+    "category": "general",
+    "difficulty": 1,
+    "question": "How many players are on a football (soccer) team on the pitch?",
+    "answers": [
+      "9",
+      "10",
+      "11",
+      "12"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-073",
+    "category": "general",
+    "difficulty": 1,
+    "question": "What colour is associated with the Conservative Party in the UK?",
+    "answers": [
+      "Red",
+      "Yellow",
+      "Blue",
+      "Green"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-074",
+    "category": "general",
+    "difficulty": 1,
+    "question": "What is the name of the UK's publicly funded national health service?",
+    "answers": [
+      "Medicare",
+      "NHS",
+      "Medicaid",
+      "BUPA"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-075",
+    "category": "general",
+    "difficulty": 1,
+    "question": "How many days are there in a leap year?",
+    "answers": [
+      "364",
+      "365",
+      "366",
+      "367"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-076",
+    "category": "general",
+    "difficulty": 1,
+    "question": "Which long-running British soap opera features the pub 'The Queen Vic'?",
+    "answers": [
+      "Coronation Street",
+      "Emmerdale",
+      "Hollyoaks",
+      "EastEnders"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-077",
+    "category": "general",
+    "difficulty": 1,
+    "question": "Which country hosted the 2012 Summer Olympics?",
+    "answers": [
+      "France",
+      "Germany",
+      "United Kingdom",
+      "Spain"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-078",
+    "category": "general",
+    "difficulty": 1,
+    "question": "What is the highest mountain in the British Isles?",
+    "answers": [
+      "Scafell Pike",
+      "Snowdon",
+      "Slieve Donard",
+      "Ben Nevis"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-079",
+    "category": "general",
+    "difficulty": 1,
+    "question": "In which city are the UK's Houses of Parliament located?",
+    "answers": [
+      "Edinburgh",
+      "Manchester",
+      "Birmingham",
+      "London"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-080",
+    "category": "general",
+    "difficulty": 2,
+    "question": "How many players are on a rugby union team?",
+    "answers": [
+      "13",
+      "14",
+      "15",
+      "16"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-081",
+    "category": "general",
+    "difficulty": 2,
+    "question": "How many strings does a standard guitar have?",
+    "answers": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-082",
+    "category": "general",
+    "difficulty": 2,
+    "question": "What is the name of the longest river in Africa?",
+    "answers": [
+      "Congo",
+      "Niger",
+      "Nile",
+      "Zambezi"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-083",
+    "category": "general",
+    "difficulty": 2,
+    "question": "In which country is the Taj Mahal located?",
+    "answers": [
+      "Pakistan",
+      "Bangladesh",
+      "Nepal",
+      "India"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-084",
+    "category": "general",
+    "difficulty": 2,
+    "question": "Which planet is known as the 'morning star' or 'evening star'?",
+    "answers": [
+      "Mercury",
+      "Mars",
+      "Venus",
+      "Jupiter"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-085",
+    "category": "general",
+    "difficulty": 2,
+    "question": "What is the name of the tallest mountain in the world?",
+    "answers": [
+      "K2",
+      "Kangchenjunga",
+      "Mount Everest",
+      "Lhotse"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-086",
+    "category": "general",
+    "difficulty": 2,
+    "question": "In which English county does the Glastonbury music festival take place?",
+    "answers": [
+      "Devon",
+      "Dorset",
+      "Somerset",
+      "Wiltshire"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-087",
+    "category": "general",
+    "difficulty": 2,
+    "question": "What is the traditional material associated with a 25th wedding anniversary?",
+    "answers": [
+      "Gold",
+      "Silver",
+      "Diamond",
+      "Ruby"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-088",
+    "category": "general",
+    "difficulty": 2,
+    "question": "How many holes are there in a standard round of golf?",
+    "answers": [
+      "9",
+      "12",
+      "18",
+      "24"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-089",
+    "category": "general",
+    "difficulty": 2,
+    "question": "What is the currency of the United States?",
+    "answers": [
+      "Pound",
+      "Euro",
+      "Dollar",
+      "Yen"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-090",
+    "category": "general",
+    "difficulty": 3,
+    "question": "In which year did the United Kingdom vote to leave the European Union?",
+    "answers": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-091",
+    "category": "general",
+    "difficulty": 3,
+    "question": "What is the name of the body of water separating England from France?",
+    "answers": [
+      "Strait of Gibraltar",
+      "English Channel",
+      "North Sea",
+      "Irish Sea"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-092",
+    "category": "general",
+    "difficulty": 3,
+    "question": "In chess, which piece can only move diagonally?",
+    "answers": [
+      "Rook",
+      "Knight",
+      "Bishop",
+      "Queen"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-093",
+    "category": "general",
+    "difficulty": 3,
+    "question": "Which British city is commonly known as the 'Steel City'?",
+    "answers": [
+      "Birmingham",
+      "Sheffield",
+      "Leeds",
+      "Manchester"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-094",
+    "category": "general",
+    "difficulty": 3,
+    "question": "What is the name of the tactile writing system developed in the 19th century for use by blind people?",
+    "answers": [
+      "Esperanto",
+      "Morse code",
+      "Braille",
+      "Sign language"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-095",
+    "category": "general",
+    "difficulty": 3,
+    "question": "What is the name of the layer of the Earth between the crust and the core?",
+    "answers": [
+      "Biosphere",
+      "Lithosphere",
+      "Mantle",
+      "Asthenosphere"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-096",
+    "category": "general",
+    "difficulty": 3,
+    "question": "Which animal is the symbol of the World Wildlife Fund (WWF)?",
+    "answers": [
+      "Polar bear",
+      "Tiger",
+      "Giant panda",
+      "Snow leopard"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-097",
+    "category": "general",
+    "difficulty": 3,
+    "question": "In which decade was the first iPhone released?",
+    "answers": [
+      "1990s",
+      "2000s",
+      "2010s",
+      "2020s"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-098",
+    "category": "general",
+    "difficulty": 3,
+    "question": "Which London landmark has served as a fortress, royal palace, and prison throughout its history?",
+    "answers": [
+      "Westminster Abbey",
+      "Buckingham Palace",
+      "St Paul's Cathedral",
+      "Tower of London"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-099",
+    "category": "general",
+    "difficulty": 3,
+    "question": "What is the oldest order of chivalry in England, founded by Edward III in 1348?",
+    "answers": [
+      "Order of the Bath",
+      "Order of St Michael and St George",
+      "Order of the Garter",
+      "Order of the Thistle"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-100",
+    "category": "general",
+    "difficulty": 4,
+    "question": "What is the collective noun for a group of flamingos?",
+    "answers": [
+      "A flush",
+      "A flamboyance",
+      "A colony",
+      "A pride"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-101",
+    "category": "general",
+    "difficulty": 4,
+    "question": "In music, how many semitones make up an octave?",
+    "answers": [
+      "8",
+      "10",
+      "12",
+      "14"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-102",
+    "category": "general",
+    "difficulty": 4,
+    "question": "What is the name of the philosophical thought experiment that asks whether a ship remains the same if all its parts are gradually replaced?",
+    "answers": [
+      "Theseus's Paradox",
+      "The Ship of Theseus",
+      "The Trolley Problem",
+      "Zeno's Ship"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-103",
+    "category": "general",
+    "difficulty": 4,
+    "question": "In computing, what does 'HTTP' stand for?",
+    "answers": [
+      "HyperText Transfer Protocol",
+      "HyperText Transmission Process",
+      "High Transfer Text Protocol",
+      "Hyperlink Text Transfer Program"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "general-104",
+    "category": "general",
+    "difficulty": 4,
+    "question": "What is the name of the logical fallacy where something is deemed correct simply because it has always been done that way?",
+    "answers": [
+      "Ad hominem",
+      "Straw man",
+      "Appeal to tradition",
+      "Slippery slope"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-105",
+    "category": "general",
+    "difficulty": 4,
+    "question": "Which city served as the temporary capital of Australia before Canberra was completed?",
+    "answers": [
+      "Sydney",
+      "Melbourne",
+      "Brisbane",
+      "Adelaide"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-106",
+    "category": "general",
+    "difficulty": 4,
+    "question": "What is the name of the ancient trade route connecting China to the Mediterranean world?",
+    "answers": [
+      "The Amber Road",
+      "The Silk Road",
+      "The Spice Route",
+      "The Incense Road"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-107",
+    "category": "general",
+    "difficulty": 4,
+    "question": "Which British Prime Minister served the longest unbroken term in office during the 20th century?",
+    "answers": [
+      "Winston Churchill",
+      "Clement Attlee",
+      "Harold Wilson",
+      "Margaret Thatcher"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-108",
+    "category": "general",
+    "difficulty": 4,
+    "question": "What economic term describes the practice of a government funding expenditure by issuing bonds rather than raising taxes?",
+    "answers": [
+      "Quantitative easing",
+      "Fiscal stimulus",
+      "Deficit financing",
+      "Monetarism"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-109",
+    "category": "general",
+    "difficulty": 4,
+    "question": "What is the term for an economic concept in which a good becomes more valuable as more people use it?",
+    "answers": [
+      "The multiplier effect",
+      "The network effect",
+      "Economies of scale",
+      "The bandwagon effect"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-110",
+    "category": "general",
+    "difficulty": 5,
+    "question": "Which island in the Outer Hebrides is home to the ancient Callanish Standing Stones?",
+    "answers": [
+      "Skye",
+      "Islay",
+      "Barra",
+      "Lewis"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-111",
+    "category": "general",
+    "difficulty": 5,
+    "question": "In the International Phonetic Alphabet (IPA), which symbol represents the unvoiced 'th' sound in 'think'?",
+    "answers": [
+      "ð",
+      "ʃ",
+      "θ",
+      "ʒ"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-112",
+    "category": "general",
+    "difficulty": 5,
+    "question": "In which Italian city is the Uffizi Gallery, home to Botticelli's 'The Birth of Venus'?",
+    "answers": [
+      "Rome",
+      "Milan",
+      "Venice",
+      "Florence"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-113",
+    "category": "general",
+    "difficulty": 5,
+    "question": "In astronomy, what is the name for the point in a planet's orbit when it is closest to the Sun?",
+    "answers": [
+      "Aphelion",
+      "Periapsis",
+      "Perihelion",
+      "Apoapsis"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-114",
+    "category": "general",
+    "difficulty": 5,
+    "question": "What is the Māori-language name for New Zealand, used alongside the English name in official government documentation?",
+    "answers": [
+      "Aotearoa",
+      "Te Papa",
+      "Waitangi",
+      "Tangata Whenua"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "general-115",
+    "category": "general",
+    "difficulty": 5,
+    "question": "Which British artist, associated with the YBA movement, is known for installations featuring animals preserved in formaldehyde?",
+    "answers": [
+      "Tracey Emin",
+      "Chris Ofili",
+      "Rachel Whiteread",
+      "Damien Hirst"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-116",
+    "category": "general",
+    "difficulty": 5,
+    "question": "Which ancient Greek mathematician first proved that there are infinitely many prime numbers?",
+    "answers": [
+      "Pythagoras",
+      "Archimedes",
+      "Plato",
+      "Euclid"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "general-117",
+    "category": "general",
+    "difficulty": 5,
+    "question": "What is the name of the process by which a bill receives final approval and becomes law in the UK?",
+    "answers": [
+      "Royal Assent",
+      "Prime Ministerial Approval",
+      "Parliamentary Ratification",
+      "Constitutional Approval"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "general-118",
+    "category": "general",
+    "difficulty": 5,
+    "question": "What is the name for the economic phenomenon where rising production costs are passed on to consumers through higher prices?",
+    "answers": [
+      "Demand-pull inflation",
+      "Wage-price spiral",
+      "Cost-push inflation",
+      "Stagflation"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-119",
+    "category": "general",
+    "difficulty": 5,
+    "question": "In classical rhetoric, what is the term for repeating a word or phrase at the end of successive clauses?",
+    "answers": [
+      "Anaphora",
+      "Epistrophe",
+      "Chiasmus",
+      "Asyndeton"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-120",
+    "category": "general",
+    "difficulty": 6,
+    "question": "What linguistic term describes a word whose meaning becomes more positive over time — such as 'nice', which originally meant 'foolish'?",
+    "answers": [
+      "Pejoration",
+      "Amelioration",
+      "Semantic broadening",
+      "Metaphorical extension"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-121",
+    "category": "general",
+    "difficulty": 6,
+    "question": "What is the 'Gettier problem' in philosophy?",
+    "answers": [
+      "A challenge to the three classical laws of logic",
+      "A counterexample to the traditional justified true belief account of knowledge",
+      "A paradox about free will and determinism",
+      "A dilemma in game theory about rational cooperation"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-122",
+    "category": "general",
+    "difficulty": 6,
+    "question": "Which economist introduced the concept of 'creative destruction' to describe industrial mutation in capitalism?",
+    "answers": [
+      "John Maynard Keynes",
+      "Friedrich Hayek",
+      "Joseph Schumpeter",
+      "Milton Friedman"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-123",
+    "category": "general",
+    "difficulty": 6,
+    "question": "In heraldry, what does the term 'argent' refer to?",
+    "answers": [
+      "Gold",
+      "Silver",
+      "Red",
+      "Blue"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-124",
+    "category": "general",
+    "difficulty": 6,
+    "question": "What is the name of the set-theory paradox involving a set of all sets that do not contain themselves?",
+    "answers": [
+      "Zeno's Paradox",
+      "Russell's Paradox",
+      "The Liar's Paradox",
+      "Cantor's Diagonal Argument"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-125",
+    "category": "general",
+    "difficulty": 6,
+    "question": "In game theory, what is the 'Nash Equilibrium'?",
+    "answers": [
+      "A strategy where one player always wins",
+      "A state where no player can benefit by unilaterally changing their strategy",
+      "The point at which all players cooperate",
+      "A model predicting irrational decision-making"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-126",
+    "category": "general",
+    "difficulty": 6,
+    "question": "What is the term in topology for a surface with only one side and one boundary, famously demonstrated as a twisted loop of paper?",
+    "answers": [
+      "Klein bottle",
+      "Torus",
+      "Möbius strip",
+      "Projective plane"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-127",
+    "category": "general",
+    "difficulty": 6,
+    "question": "The Voynich Manuscript, believed to date from the 15th century, is notable for being written in what?",
+    "answers": [
+      "Mirror-image Latin",
+      "An undeciphered script or language",
+      "Medieval Welsh",
+      "A lost dialect of Aramaic"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "general-128",
+    "category": "general",
+    "difficulty": 6,
+    "question": "What linguistic term describes the process where a word's meaning becomes more negative over time — as in 'villain', which originally meant 'farm worker'?",
+    "answers": [
+      "Amelioration",
+      "Semantic shift",
+      "Pejoration",
+      "Semantic narrowing"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "general-129",
+    "category": "general",
+    "difficulty": 6,
+    "question": "Which philosophical paradox asks whether a sentence that calls itself false is true or false?",
+    "answers": [
+      "The Sorites Paradox",
+      "The Liar's Paradox",
+      "Russell's Paradox",
+      "The Raven Paradox"
+    ],
+    "correctIndex": 1
   }
 ]

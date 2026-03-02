@@ -1,6 +1,6 @@
 [
   {
-    "id": "history-002",
+    "id": "history-001",
     "category": "history",
     "difficulty": 2,
     "question": "Who was the first President of the United States?",
@@ -13,7 +13,7 @@
     "correctIndex": 1
   },
   {
-    "id": "history-003",
+    "id": "history-002",
     "category": "history",
     "difficulty": 3,
     "question": "In which year did World War II end?",
@@ -26,7 +26,7 @@
     "correctIndex": 2
   },
   {
-    "id": "history-004",
+    "id": "history-003",
     "category": "history",
     "difficulty": 4,
     "question": "Which empire built the Colosseum?",
@@ -39,7 +39,7 @@
     "correctIndex": 1
   },
   {
-    "id": "history-005",
+    "id": "history-004",
     "category": "history",
     "difficulty": 5,
     "question": "Who was the British Prime Minister during most of World War II?",
@@ -52,7 +52,7 @@
     "correctIndex": 1
   },
   {
-    "id": "history-006",
+    "id": "history-005",
     "category": "history",
     "difficulty": 6,
     "question": "The Renaissance began in which European country?",
@@ -65,7 +65,7 @@
     "correctIndex": 2
   },
   {
-    "id": "history-007",
+    "id": "history-006",
     "category": "history",
     "difficulty": 1,
     "question": "Who built the pyramids?",
@@ -78,7 +78,7 @@
     "correctIndex": 2
   },
   {
-    "id": "history-008",
+    "id": "history-007",
     "category": "history",
     "difficulty": 2,
     "question": "Which wall divided Berlin during the Cold War?",
@@ -91,7 +91,7 @@
     "correctIndex": 1
   },
   {
-    "id": "history-009",
+    "id": "history-008",
     "category": "history",
     "difficulty": 3,
     "question": "Who was known as the Maid of Orléans?",
@@ -104,7 +104,7 @@
     "correctIndex": 1
   },
   {
-    "id": "history-010",
+    "id": "history-009",
     "category": "history",
     "difficulty": 4,
     "question": "Which year did the Titanic sink?",
@@ -117,7 +117,7 @@
     "correctIndex": 1
   },
   {
-    "id": "history-011",
+    "id": "history-010",
     "category": "history",
     "difficulty": 5,
     "question": "Who was the first Roman Emperor?",
@@ -130,7 +130,7 @@
     "correctIndex": 1
   },
   {
-    "id": "history-012",
+    "id": "history-011",
     "category": "history",
     "difficulty": 6,
     "question": "The Battle of Hastings took place in which year?",
@@ -143,7 +143,7 @@
     "correctIndex": 0
   },
   {
-    "id": "history-013",
+    "id": "history-012",
     "difficulty": 1,
     "question": "Which English monarch reigned during the Spanish Armada in 1588?",
     "answers": [
@@ -152,10 +152,11 @@
       "James I",
       "Henry VIII"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-014",
+    "id": "history-013",
     "difficulty": 1,
     "question": "Which artist painted 'Guernica' in response to the bombing during the Spanish Civil War?",
     "answers": [
@@ -164,10 +165,11 @@
       "Joan Miró",
       "Francisco Goya"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-015",
+    "id": "history-014",
     "difficulty": 1,
     "question": "Which empire was ruled at its height by Suleiman the Magnificent?",
     "answers": [
@@ -176,10 +178,11 @@
       "Persian Empire",
       "Mongol Empire"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-016",
+    "id": "history-015",
     "difficulty": 2,
     "question": "The Magna Carta was signed in which year?",
     "answers": [
@@ -188,10 +191,11 @@
       "1314",
       "1453"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-017",
+    "id": "history-016",
     "difficulty": 2,
     "question": "Which composer wrote the opera 'The Marriage of Figaro'?",
     "answers": [
@@ -200,10 +204,11 @@
       "Verdi",
       "Wagner"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-019",
+    "id": "history-017",
     "difficulty": 3,
     "question": "Which pharaoh’s tomb was discovered largely intact in 1922 by Howard Carter?",
     "answers": [
@@ -212,10 +217,11 @@
       "Tutankhamun",
       "Seti I"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-020",
+    "id": "history-018",
     "difficulty": 3,
     "question": "Which playwright wrote 'The Importance of Being Earnest'?",
     "answers": [
@@ -224,10 +230,11 @@
       "Henrik Ibsen",
       "Noël Coward"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-021",
+    "id": "history-019",
     "difficulty": 3,
     "question": "Which battle in 1815 marked the final defeat of Napoleon Bonaparte?",
     "answers": [
@@ -236,10 +243,11 @@
       "Leipzig",
       "Waterloo"
     ],
-    "correctIndex": 3
+    "correctIndex": 3,
+    "category": "history"
   },
   {
-    "id": "history-022",
+    "id": "history-020",
     "difficulty": 4,
     "question": "Which artistic movement is Salvador Dalí most closely associated with?",
     "answers": [
@@ -248,10 +256,11 @@
       "Surrealism",
       "Futurism"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-023",
+    "id": "history-021",
     "difficulty": 4,
     "question": "Which 14th-century pandemic is estimated to have killed up to one-third of Europe's population?",
     "answers": [
@@ -260,10 +269,11 @@
       "The Antonine Plague",
       "The Justinian Plague"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-024",
+    "id": "history-022",
     "difficulty": 4,
     "question": "Which architect designed St Paul’s Cathedral in London?",
     "answers": [
@@ -272,10 +282,11 @@
       "John Nash",
       "Nicholas Hawksmoor"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-025",
+    "id": "history-023",
     "difficulty": 5,
     "question": "Which 17th-century war was fought primarily between Royalists and Parliamentarians in England?",
     "answers": [
@@ -284,10 +295,11 @@
       "The Nine Years' War",
       "The Glorious Revolution"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-026",
+    "id": "history-024",
     "difficulty": 5,
     "question": "Which Dutch painter created 'The Night Watch'?",
     "answers": [
@@ -296,10 +308,11 @@
       "Frans Hals",
       "Rubens"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-027",
+    "id": "history-025",
     "difficulty": 5,
     "question": "Which document, issued in 1689, limited the powers of the English monarchy and established parliamentary sovereignty?",
     "answers": [
@@ -308,10 +321,11 @@
       "English Bill of Rights",
       "Petition of Right"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-028",
+    "id": "history-026",
     "difficulty": 6,
     "question": "Which Carthaginian general crossed the Alps with elephants during the Second Punic War?",
     "answers": [
@@ -320,10 +334,11 @@
       "Scipio Africanus",
       "Mago Barca"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-029",
+    "id": "history-027",
     "difficulty": 6,
     "question": "Which artistic technique, meaning 'light-dark', was mastered by Caravaggio?",
     "answers": [
@@ -332,10 +347,11 @@
       "Impasto",
       "Pointillism"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-030",
+    "id": "history-028",
     "difficulty": 6,
     "question": "Which 1555 treaty established the principle of 'cuius regio, eius religio' within the Holy Roman Empire?",
     "answers": [
@@ -344,10 +360,11 @@
       "Treaty of Tordesillas",
       "Edict of Nantes"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-031",
+    "id": "history-029",
     "difficulty": 6,
     "question": "Which Russian ruler abolished serfdom in 1861?",
     "answers": [
@@ -356,10 +373,11 @@
       "Alexander II",
       "Nicholas I"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-032",
+    "id": "history-030",
     "difficulty": 2,
     "question": "Which American president delivered the Gettysburg Address in 1863?",
     "answers": [
@@ -368,10 +386,11 @@
       "Andrew Johnson",
       "Theodore Roosevelt"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-033",
+    "id": "history-031",
     "difficulty": 3,
     "question": "Which composer wrote the ballet 'The Rite of Spring'?",
     "answers": [
@@ -380,10 +399,11 @@
       "Debussy",
       "Ravel"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-034",
+    "id": "history-032",
     "difficulty": 4,
     "question": "Which dynasty ruled China when the Great Wall was largely rebuilt in its current form?",
     "answers": [
@@ -392,10 +412,11 @@
       "Qing",
       "Song"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-035",
+    "id": "history-033",
     "difficulty": 4,
     "question": "Which art movement was founded by Filippo Tommaso Marinetti in 1909?",
     "answers": [
@@ -404,10 +425,11 @@
       "Expressionism",
       "Constructivism"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-036",
+    "id": "history-034",
     "difficulty": 5,
     "question": "Which 18th-century conflict is also known as the French and Indian War in North America?",
     "answers": [
@@ -416,10 +438,11 @@
       "War of Spanish Succession",
       "American Revolutionary War"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-037",
+    "id": "history-035",
     "difficulty": 5,
     "question": "Which painter is known for the frescoes of the Scrovegni Chapel in Padua?",
     "answers": [
@@ -428,10 +451,11 @@
       "Botticelli",
       "Titian"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "category": "history"
   },
   {
-    "id": "history-038",
+    "id": "history-036",
     "difficulty": 6,
     "question": "Which battle in 480 BCE saw a small Greek force led by King Leonidas resist the Persian army?",
     "answers": [
@@ -440,10 +464,11 @@
       "Salamis",
       "Thermopylae"
     ],
-    "correctIndex": 3
+    "correctIndex": 3,
+    "category": "history"
   },
   {
-    "id": "history-039",
+    "id": "history-037",
     "difficulty": 6,
     "question": "Which philosopher wrote 'The Social Contract' in 1762?",
     "answers": [
@@ -452,10 +477,11 @@
       "Jean-Jacques Rousseau",
       "Montesquieu"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-041",
+    "id": "history-038",
     "difficulty": 4,
     "question": "Which cathedral is famous for housing the Shrine of Thomas Becket?",
     "answers": [
@@ -464,10 +490,11 @@
       "Durham Cathedral",
       "Winchester Cathedral"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-042",
+    "id": "history-039",
     "difficulty": 5,
     "question": "Which 19th-century artistic movement sought to capture light and everyday scenes with visible brushstrokes?",
     "answers": [
@@ -476,10 +503,11 @@
       "Realism",
       "Symbolism"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-043",
+    "id": "history-040",
     "difficulty": 6,
     "question": "Which treaty in 1648 ended the Thirty Years' War?",
     "answers": [
@@ -488,10 +516,11 @@
       "Treaty of Nijmegen",
       "Treaty of Vienna"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-044",
+    "id": "history-041",
     "difficulty": 4,
     "question": "Which ancient wonder was located in Alexandria?",
     "answers": [
@@ -500,10 +529,11 @@
       "Lighthouse of Alexandria",
       "Hanging Gardens"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-045",
+    "id": "history-042",
     "difficulty": 5,
     "question": "Which emperor converted to Christianity after reportedly seeing a vision before the Battle of the Milvian Bridge?",
     "answers": [
@@ -512,10 +542,11 @@
       "Justinian",
       "Diocletian"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-046",
+    "id": "history-043",
     "difficulty": 6,
     "question": "Which medieval Islamic scholar wrote 'The Muqaddimah', considered an early work of sociology?",
     "answers": [
@@ -524,10 +555,11 @@
       "Ibn Khaldun",
       "Al-Ghazali"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-047",
+    "id": "history-044",
     "difficulty": 3,
     "question": "Which artist painted the ceiling of the Sistine Chapel?",
     "answers": [
@@ -536,10 +568,11 @@
       "Raphael",
       "Caravaggio"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-048",
+    "id": "history-045",
     "difficulty": 5,
     "question": "Which English queen reigned for just nine days in 1553?",
     "answers": [
@@ -548,10 +581,11 @@
       "Elizabeth I",
       "Anne Boleyn"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-049",
+    "id": "history-046",
     "difficulty": 6,
     "question": "Which war was sparked by the defenestration of Prague in 1618?",
     "answers": [
@@ -560,10 +594,11 @@
       "Seven Years' War",
       "Crimean War"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "category": "history"
   },
   {
-    "id": "history-051",
+    "id": "history-047",
     "difficulty": 6,
     "question": "Which Byzantine emperor ordered the codification of Roman law known as the Corpus Juris Civilis?",
     "answers": [
@@ -572,10 +607,11 @@
       "Justinian I",
       "Heraclius"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-052",
+    "id": "history-048",
     "difficulty": 3,
     "question": "Which revolution began in France in 1789?",
     "answers": [
@@ -584,10 +620,11 @@
       "Glorious Revolution",
       "February Revolution"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-053",
+    "id": "history-049",
     "difficulty": 5,
     "question": "Which art style is characterised by dramatic use of light and emotional intensity, flourishing in 17th-century Europe?",
     "answers": [
@@ -596,10 +633,11 @@
       "Neoclassicism",
       "Mannerism"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-054",
+    "id": "history-050",
     "difficulty": 6,
     "question": "Which 19th-century political thinker authored 'Das Kapital'?",
     "answers": [
@@ -608,10 +646,11 @@
       "Max Weber",
       "Vladimir Lenin"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-055",
+    "id": "history-051",
     "difficulty": 4,
     "question": "Which battle in 1066 took place shortly before the Battle of Hastings and saw Harold II defeat Harald Hardrada?",
     "answers": [
@@ -620,10 +659,11 @@
       "Bosworth Field",
       "Edgehill"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "category": "history"
   },
   {
-    "id": "history-056",
+    "id": "history-052",
     "difficulty": 5,
     "question": "Which Italian city-state was ruled by the Medici family during the Renaissance?",
     "answers": [
@@ -632,10 +672,11 @@
       "Florence",
       "Genoa"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-057",
+    "id": "history-053",
     "difficulty": 6,
     "question": "Which Japanese period began in 1603 under Tokugawa Ieyasu?",
     "answers": [
@@ -644,10 +685,11 @@
       "Heian",
       "Kamakura"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-058",
+    "id": "history-054",
     "difficulty": 3,
     "question": "Which American document begins with the words 'We the People'?",
     "answers": [
@@ -656,10 +698,11 @@
       "US Constitution",
       "Articles of Confederation"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-059",
+    "id": "history-055",
     "difficulty": 5,
     "question": "Which English Romantic poet wrote 'Ozymandias'?",
     "answers": [
@@ -668,10 +711,11 @@
       "Lord Byron",
       "Percy Bysshe Shelley"
     ],
-    "correctIndex": 3
+    "correctIndex": 3,
+    "category": "history"
   },
   {
-    "id": "history-060",
+    "id": "history-056",
     "difficulty": 6,
     "question": "Which council in 325 CE sought to establish consensus in early Christian doctrine?",
     "answers": [
@@ -680,10 +724,11 @@
       "First Council of Nicaea",
       "Council of Constance"
     ],
-    "correctIndex": 2
+    "correctIndex": 2,
+    "category": "history"
   },
   {
-    "id": "history-061",
+    "id": "history-057",
     "difficulty": 4,
     "question": "Which English monarch defeated Richard III at the Battle of Bosworth Field?",
     "answers": [
@@ -692,10 +737,11 @@
       "Edward IV",
       "James II"
     ],
-    "correctIndex": 0
+    "correctIndex": 0,
+    "category": "history"
   },
   {
-    "id": "history-062",
+    "id": "history-058",
     "difficulty": 6,
     "question": "Which 20th-century art movement was founded at the Cabaret Voltaire in Zurich in 1916?",
     "answers": [
@@ -704,10 +750,11 @@
       "Surrealism",
       "Constructivism"
     ],
-    "correctIndex": 1
+    "correctIndex": 1,
+    "category": "history"
   },
   {
-    "id": "history-064",
+    "id": "history-059",
     "category": "history",
     "difficulty": 1,
     "question": "Which city did the Titanic depart from on its maiden voyage?",
@@ -720,7 +767,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-065",
+    "id": "history-060",
     "category": "history",
     "difficulty": 1,
     "question": "Who is credited with inventing the telephone?",
@@ -733,7 +780,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-066",
+    "id": "history-061",
     "category": "history",
     "difficulty": 1,
     "question": "In which year did the First World War begin?",
@@ -746,7 +793,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-067",
+    "id": "history-062",
     "category": "history",
     "difficulty": 1,
     "question": "What was the name of the ship Charles Darwin sailed on during his famous voyage?",
@@ -759,7 +806,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-068",
+    "id": "history-063",
     "category": "history",
     "difficulty": 1,
     "question": "Which ancient wonder of the world is located in Egypt?",
@@ -772,7 +819,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-069",
+    "id": "history-064",
     "category": "history",
     "difficulty": 2,
     "question": "Julius Caesar rose to prominence in which ancient civilisation?",
@@ -785,7 +832,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-070",
+    "id": "history-065",
     "category": "history",
     "difficulty": 2,
     "question": "What was the name of the first artificial satellite launched into space?",
@@ -798,7 +845,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-071",
+    "id": "history-066",
     "category": "history",
     "difficulty": 2,
     "question": "Who led the Cuban Revolution?",
@@ -811,7 +858,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-072",
+    "id": "history-067",
     "category": "history",
     "difficulty": 2,
     "question": "Which country was the first to grant women the right to vote?",
@@ -824,7 +871,7 @@
     "correctIndex": 3
   },
   {
-    "id": "history-073",
+    "id": "history-068",
     "category": "history",
     "difficulty": 2,
     "question": "In which year did the Russian Revolution take place?",
@@ -835,5 +882,785 @@
       "1917"
     ],
     "correctIndex": 3
+  },
+  {
+    "id": "history-069",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Which English monarch was known as 'The Virgin Queen'?",
+    "answers": [
+      "Mary I",
+      "Anne",
+      "Victoria",
+      "Elizabeth I"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-070",
+    "category": "history",
+    "difficulty": 1,
+    "question": "In which year did World War Two end?",
+    "answers": [
+      "1943",
+      "1944",
+      "1945",
+      "1946"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-071",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Who was the first man to walk on the Moon?",
+    "answers": [
+      "Buzz Aldrin",
+      "Neil Armstrong",
+      "Michael Collins",
+      "Yuri Gagarin"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-072",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Which of the Seven Wonders of the Ancient World still survives today?",
+    "answers": [
+      "The Hanging Gardens of Babylon",
+      "The Colossus of Rhodes",
+      "The Great Pyramid of Giza",
+      "The Lighthouse of Alexandria"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-073",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Who was the first President of the United States?",
+    "answers": [
+      "Abraham Lincoln",
+      "Thomas Jefferson",
+      "George Washington",
+      "John Adams"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-074",
+    "category": "history",
+    "difficulty": 1,
+    "question": "In which country did the Aztec Empire exist?",
+    "answers": [
+      "Peru",
+      "Brazil",
+      "Mexico",
+      "Colombia"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-075",
+    "category": "history",
+    "difficulty": 1,
+    "question": "What was the name of the flagship on which Christopher Columbus first reached the Americas?",
+    "answers": [
+      "Pinta",
+      "Niña",
+      "Mayflower",
+      "Santa María"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-076",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Who was the British Prime Minister at the start of World War Two?",
+    "answers": [
+      "Stanley Baldwin",
+      "Neville Chamberlain",
+      "Winston Churchill",
+      "Clement Attlee"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-077",
+    "category": "history",
+    "difficulty": 1,
+    "question": "In which city did the Great Fire break out in 1666?",
+    "answers": [
+      "Edinburgh",
+      "Bristol",
+      "London",
+      "Manchester"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-078",
+    "category": "history",
+    "difficulty": 1,
+    "question": "Which empire was nicknamed 'The Empire on Which the Sun Never Sets'?",
+    "answers": [
+      "Roman Empire",
+      "Ottoman Empire",
+      "French Empire",
+      "British Empire"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-079",
+    "category": "history",
+    "difficulty": 2,
+    "question": "In which year did the Titanic sink?",
+    "answers": [
+      "1909",
+      "1912",
+      "1915",
+      "1918"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-080",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Who is credited with inventing the telephone?",
+    "answers": [
+      "Thomas Edison",
+      "Nikola Tesla",
+      "Alexander Graham Bell",
+      "Guglielmo Marconi"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-081",
+    "category": "history",
+    "difficulty": 2,
+    "question": "In which year did the Berlin Wall fall?",
+    "answers": [
+      "1985",
+      "1987",
+      "1989",
+      "1991"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-082",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Which country did Germany invade to trigger Britain's entry into World War One?",
+    "answers": [
+      "France",
+      "Belgium",
+      "Serbia",
+      "Russia"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-083",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Who wrote 'Common Sense' (1776), the influential pamphlet that helped inspire the American Revolution?",
+    "answers": [
+      "Benjamin Franklin",
+      "Thomas Paine",
+      "John Adams",
+      "George Washington"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-084",
+    "category": "history",
+    "difficulty": 2,
+    "question": "In which year was the Magna Carta signed?",
+    "answers": [
+      "1065",
+      "1215",
+      "1415",
+      "1515"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-085",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Which ancient civilisation built Machu Picchu in Peru?",
+    "answers": [
+      "Maya",
+      "Aztec",
+      "Inca",
+      "Olmec"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-086",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Who was the first woman to win a Nobel Prize?",
+    "answers": [
+      "Rosalind Franklin",
+      "Lise Meitner",
+      "Marie Curie",
+      "Dorothy Hodgkin"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-087",
+    "category": "history",
+    "difficulty": 2,
+    "question": "What was the name of the war fought between the North and South United States from 1861 to 1865?",
+    "answers": [
+      "The Revolutionary War",
+      "The War of 1812",
+      "The Civil War",
+      "The Mexican-American War"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-088",
+    "category": "history",
+    "difficulty": 2,
+    "question": "Which English king was compelled to sign the Magna Carta in 1215?",
+    "answers": [
+      "Richard I",
+      "Henry II",
+      "King John",
+      "Henry III"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-089",
+    "category": "history",
+    "difficulty": 3,
+    "question": "Who led the Peasants' Revolt of 1381 in England?",
+    "answers": [
+      "Jack Cade",
+      "John Ball",
+      "Wat Tyler",
+      "Robert Kett"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-090",
+    "category": "history",
+    "difficulty": 3,
+    "question": "In which year did the French Revolution begin?",
+    "answers": [
+      "1783",
+      "1789",
+      "1793",
+      "1799"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-091",
+    "category": "history",
+    "difficulty": 3,
+    "question": "Which Roman leader is credited with the phrase 'Veni, Vidi, Vici' — I came, I saw, I conquered?",
+    "answers": [
+      "Augustus",
+      "Mark Antony",
+      "Julius Caesar",
+      "Nero"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-092",
+    "category": "history",
+    "difficulty": 3,
+    "question": "The Scramble for Africa — the rapid colonisation of the continent by European powers — primarily occurred during which decade?",
+    "answers": [
+      "1850s",
+      "1870s",
+      "1880s",
+      "1900s"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-093",
+    "category": "history",
+    "difficulty": 3,
+    "question": "Which Scottish explorer and missionary became famous for his journeys across Africa in the 19th century?",
+    "answers": [
+      "Henry Morton Stanley",
+      "James Bruce",
+      "Mungo Park",
+      "David Livingstone"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-094",
+    "category": "history",
+    "difficulty": 3,
+    "question": "The Dissolution of the Monasteries in England was ordered by which monarch?",
+    "answers": [
+      "Mary I",
+      "Edward VI",
+      "Henry VIII",
+      "Elizabeth I"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-095",
+    "category": "history",
+    "difficulty": 3,
+    "question": "Who wrote 'The Wealth of Nations' (1776), often regarded as the foundational text of modern economics?",
+    "answers": [
+      "David Hume",
+      "John Locke",
+      "Adam Smith",
+      "Thomas Malthus"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-096",
+    "category": "history",
+    "difficulty": 3,
+    "question": "In which year did the Indian subcontinent gain independence from British rule?",
+    "answers": [
+      "1945",
+      "1947",
+      "1948",
+      "1950"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-097",
+    "category": "history",
+    "difficulty": 3,
+    "question": "Which Enlightenment philosopher wrote 'The Social Contract' (1762)?",
+    "answers": [
+      "John Locke",
+      "Thomas Hobbes",
+      "Jean-Jacques Rousseau",
+      "Voltaire"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-098",
+    "category": "history",
+    "difficulty": 3,
+    "question": "In ancient Rome, what was the name of the governing body that held legislative power and advised the emperor?",
+    "answers": [
+      "The Forum",
+      "The Senate",
+      "The Comitia",
+      "The Praetorium"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-099",
+    "category": "history",
+    "difficulty": 4,
+    "question": "The Battle of Agincourt (1415) was fought during which war?",
+    "answers": [
+      "The Wars of the Roses",
+      "The Crusades",
+      "The Hundred Years' War",
+      "The Black Prince's Wars"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-100",
+    "category": "history",
+    "difficulty": 4,
+    "question": "The Boston Massacre of 1770, which helped trigger the American Revolution, occurred in which British colony?",
+    "answers": [
+      "Virginia",
+      "New York",
+      "Pennsylvania",
+      "Massachusetts"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-101",
+    "category": "history",
+    "difficulty": 4,
+    "question": "Which Byzantine Emperor oversaw the compilation of the 'Corpus Juris Civilis', the foundational legal code of Roman law?",
+    "answers": [
+      "Constantine I",
+      "Justinian I",
+      "Theodosius I",
+      "Heraclius"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-102",
+    "category": "history",
+    "difficulty": 4,
+    "question": "The Defenestration of Prague in 1618 triggered the beginning of which major European conflict?",
+    "answers": [
+      "The War of Spanish Succession",
+      "The Seven Years' War",
+      "The Thirty Years' War",
+      "The Wars of Religion"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-103",
+    "category": "history",
+    "difficulty": 4,
+    "question": "What was the name of the secret state police force of Nazi Germany?",
+    "answers": [
+      "The Stasi",
+      "The Gestapo",
+      "The SS",
+      "The Wehrmacht"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-104",
+    "category": "history",
+    "difficulty": 4,
+    "question": "The Sykes-Picot Agreement (1916) secretly divided influence over which region between Britain and France?",
+    "answers": [
+      "East Africa",
+      "The Indian subcontinent",
+      "The Middle East",
+      "Southeast Asia"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-105",
+    "category": "history",
+    "difficulty": 4,
+    "question": "The Bengal Famine of 1943, which killed an estimated 2–3 million people, occurred during whose tenure as British Prime Minister?",
+    "answers": [
+      "Clement Attlee",
+      "Neville Chamberlain",
+      "Stanley Baldwin",
+      "Winston Churchill"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-106",
+    "category": "history",
+    "difficulty": 4,
+    "question": "Which ancient Greek historian is known as the 'Father of History'?",
+    "answers": [
+      "Thucydides",
+      "Plutarch",
+      "Herodotus",
+      "Polybius"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-107",
+    "category": "history",
+    "difficulty": 4,
+    "question": "What Latin phrase, attributed to René Descartes, forms the foundation of his philosophical method?",
+    "answers": [
+      "Cogito ergo sum",
+      "In vino veritas",
+      "Tabula rasa",
+      "Ex nihilo"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "history-108",
+    "category": "history",
+    "difficulty": 4,
+    "question": "The Constitutions of Clarendon (1164) were a set of procedures that King Henry II sought to impose upon which institution?",
+    "answers": [
+      "The nobility",
+      "The Church",
+      "Parliament",
+      "The judiciary"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-109",
+    "category": "history",
+    "difficulty": 5,
+    "question": "Who was the last English monarch to die in battle?",
+    "answers": [
+      "Harold II",
+      "Richard I",
+      "Henry V",
+      "Richard III"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-110",
+    "category": "history",
+    "difficulty": 5,
+    "question": "The Meiji Restoration (1868) in Japan was primarily driven by which alliance of clans?",
+    "answers": [
+      "The Choshu and Satsuma clans",
+      "The Tokugawa clan",
+      "The Mori clan",
+      "The Shimazu clan"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "history-111",
+    "category": "history",
+    "difficulty": 5,
+    "question": "Which 15th-century Italian statesman wrote 'The Prince', a treatise on political power and statecraft?",
+    "answers": [
+      "Dante Alighieri",
+      "Niccolò Machiavelli",
+      "Francesco Guicciardini",
+      "Leon Battista Alberti"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-112",
+    "category": "history",
+    "difficulty": 5,
+    "question": "The Anschluss of 1938 refers to the annexation of which country by Nazi Germany?",
+    "answers": [
+      "Czechoslovakia",
+      "Hungary",
+      "Austria",
+      "Poland"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-113",
+    "category": "history",
+    "difficulty": 5,
+    "question": "Who was the first Viceroy of India, appointed after the transfer of power from the East India Company to the Crown in 1858?",
+    "answers": [
+      "Warren Hastings",
+      "Lord Dalhousie",
+      "Charles Canning",
+      "Lord Curzon"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-114",
+    "category": "history",
+    "difficulty": 5,
+    "question": "Which medieval theologian wrote 'Summa Theologica', reconciling Christian theology with Aristotelian philosophy?",
+    "answers": [
+      "Augustine of Hippo",
+      "Peter Abelard",
+      "Roger Bacon",
+      "Thomas Aquinas"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-115",
+    "category": "history",
+    "difficulty": 5,
+    "question": "The Zulu Wars of 1879 between the British Empire and the Zulu Kingdom took place in which modern-day country?",
+    "answers": [
+      "Zimbabwe",
+      "Mozambique",
+      "South Africa",
+      "Tanzania"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-116",
+    "category": "history",
+    "difficulty": 5,
+    "question": "Which English statesman, known as 'The Great Commoner', served as Prime Minister during the Seven Years' War?",
+    "answers": [
+      "Robert Walpole",
+      "William Pitt the Elder",
+      "Edmund Burke",
+      "Charles James Fox"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-117",
+    "category": "history",
+    "difficulty": 5,
+    "question": "The Putney Debates of 1647, held during the English Civil War, were remarkable for debating which radical political idea?",
+    "answers": [
+      "The divine right of Oliver Cromwell",
+      "Universal male suffrage",
+      "The trial of King Charles I",
+      "Parliamentary sovereignty over the army"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-118",
+    "category": "history",
+    "difficulty": 5,
+    "question": "The term 'Blitzkrieg', describing the German military strategy in World War Two, literally translates to what in English?",
+    "answers": [
+      "Thunder war",
+      "Steel wave",
+      "Lightning war",
+      "Iron fist"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-119",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The Treaty of Westphalia (1648), ending the Thirty Years' War, is considered foundational for establishing which modern concept?",
+    "answers": [
+      "The divine right of kings",
+      "Freedom of the press",
+      "The sovereignty of nation-states",
+      "Universal male suffrage"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-120",
+    "category": "history",
+    "difficulty": 6,
+    "question": "Which Mongol ruler sacked Baghdad in 1258, ending the Abbasid Caliphate?",
+    "answers": [
+      "Genghis Khan",
+      "Kublai Khan",
+      "Ögedei Khan",
+      "Hulagu Khan"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-121",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The 'Harrying of the North' (1069–70), a campaign of devastation by William the Conqueror, primarily affected which region?",
+    "answers": [
+      "East Anglia",
+      "The Midlands",
+      "Yorkshire and the North",
+      "The West Country"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-122",
+    "category": "history",
+    "difficulty": 6,
+    "question": "Which Roman-British ruler led a famous uprising against the Roman occupation in 60–61 AD?",
+    "answers": [
+      "Cartimandua",
+      "Caractacus",
+      "Cassivellaunus",
+      "Boudicca"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "history-123",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The first Defenestration of Prague (1419) immediately triggered the outbreak of which 15th-century conflict?",
+    "answers": [
+      "The Great Schism",
+      "The Lollard Uprising",
+      "The Hussite Wars",
+      "The Council of Constance"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-124",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The 'Domesday Book' (1086), commissioned by William the Conqueror, served what primary purpose?",
+    "answers": [
+      "Recording England's military strength",
+      "Cataloguing landholdings and resources for taxation",
+      "Documenting the genealogy of English nobles",
+      "Setting the boundaries of church parishes"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-125",
+    "category": "history",
+    "difficulty": 6,
+    "question": "Which ancient battle in 490 BC saw the Athenians defeat a Persian invasion force, with news reportedly carried to Athens by a runner?",
+    "answers": [
+      "Battle of Salamis",
+      "Battle of Thermopylae",
+      "Battle of Marathon",
+      "Battle of Plataea"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-126",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The Encyclopédie, compiled by Diderot and d'Alembert in 18th-century France, was a primary vehicle for which intellectual movement?",
+    "answers": [
+      "Romanticism",
+      "The Enlightenment",
+      "The Counter-Reformation",
+      "Mercantilism"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "history-127",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The Constitutio Antoniniana (212 AD), issued by Emperor Caracalla, granted Roman citizenship to whom?",
+    "answers": [
+      "All slaves within the empire",
+      "All freedmen within the empire",
+      "All free inhabitants of the Roman Empire",
+      "All male subjects of the empire"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "history-128",
+    "category": "history",
+    "difficulty": 6,
+    "question": "The Pragmatic Sanction of 1713, issued by Holy Roman Emperor Charles VI, was designed to achieve what?",
+    "answers": [
+      "Abolish the Holy Roman Empire",
+      "Allow his daughter Maria Theresa to inherit the Habsburg throne",
+      "Establish freedom of religion across the Empire",
+      "Create a standing army for the Habsburgs"
+    ],
+    "correctIndex": 1
   }
 ]

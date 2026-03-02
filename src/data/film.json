@@ -1,6 +1,6 @@
 [
   {
-    "id": "film-101",
+    "id": "film-001",
     "category": "film",
     "difficulty": 1,
     "question": "Who directed the 1994 film 'Pulp Fiction'?",
@@ -13,7 +13,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-102",
+    "id": "film-002",
     "category": "film",
     "difficulty": 1,
     "question": "In which fictional city is Batman primarily based?",
@@ -26,7 +26,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-103",
+    "id": "film-003",
     "category": "film",
     "difficulty": 2,
     "question": "Which actor portrayed Don Draper in 'Mad Men'?",
@@ -39,7 +39,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-104",
+    "id": "film-004",
     "category": "film",
     "difficulty": 2,
     "question": "Name the 1999 sci-fi film that features the line, 'There is no spoon.'",
@@ -52,7 +52,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-106",
+    "id": "film-005",
     "category": "film",
     "difficulty": 3,
     "question": "Who composed the original score for 'Jaws'?",
@@ -65,7 +65,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-107",
+    "id": "film-006",
     "category": "film",
     "difficulty": 3,
     "question": "Which streaming platform produced the series 'Stranger Things'?",
@@ -78,7 +78,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-108",
+    "id": "film-007",
     "category": "film",
     "difficulty": 4,
     "question": "Identify the film that won Best Picture at the Oscars in 2020.",
@@ -91,7 +91,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-109",
+    "id": "film-008",
     "category": "film",
     "difficulty": 4,
     "question": "Which British sitcom is set in the fictional Slough branch of Wernham Hogg?",
@@ -104,7 +104,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-110",
+    "id": "film-009",
     "category": "film",
     "difficulty": 4,
     "question": "Who played the role of Vito Corleone in 'The Godfather' (1972)?",
@@ -117,7 +117,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-111",
+    "id": "film-010",
     "category": "film",
     "difficulty": 5,
     "question": "Name the director of the 2001 film 'Mulholland Drive'.",
@@ -130,7 +130,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-112",
+    "id": "film-011",
     "category": "film",
     "difficulty": 5,
     "question": "In which year did 'The Simpsons' first premiere on television?",
@@ -143,7 +143,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-113",
+    "id": "film-012",
     "category": "film",
     "difficulty": 5,
     "question": "Which film features the character Travis Bickle?",
@@ -156,7 +156,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-114",
+    "id": "film-013",
     "category": "film",
     "difficulty": 5,
     "question": "Complete the film title: 'Dr. Strangelove or: How I Learned to Stop Worrying and ______.'",
@@ -169,7 +169,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-115",
+    "id": "film-014",
     "category": "film",
     "difficulty": 6,
     "question": "Who directed the 1957 courtroom drama '12 Angry Men'?",
@@ -182,7 +182,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-116",
+    "id": "film-015",
     "category": "film",
     "difficulty": 6,
     "question": "Which Japanese director made the film 'Seven Samurai'?",
@@ -195,7 +195,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-117",
+    "id": "film-016",
     "category": "film",
     "difficulty": 6,
     "question": "In which year was the original 'Blade Runner' released?",
@@ -208,7 +208,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-120",
+    "id": "film-017",
     "category": "film",
     "difficulty": 6,
     "question": "Which film won the first Academy Award for Best Picture in 1929?",
@@ -221,7 +221,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-121",
+    "id": "film-018",
     "category": "film",
     "difficulty": 1,
     "question": "Who played Jack Dawson in the 1997 film 'Titanic'?",
@@ -234,7 +234,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-122",
+    "id": "film-019",
     "category": "film",
     "difficulty": 1,
     "question": "In which TV series would you find the character Walter White?",
@@ -247,7 +247,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-123",
+    "id": "film-020",
     "category": "film",
     "difficulty": 2,
     "question": "Name the actor who portrayed Wolverine in the X-Men film series.",
@@ -260,7 +260,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-124",
+    "id": "film-021",
     "category": "film",
     "difficulty": 2,
     "question": "What is the name of the fictional continent where 'Game of Thrones' is primarily set?",
@@ -273,7 +273,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-125",
+    "id": "film-022",
     "category": "film",
     "difficulty": 3,
     "question": "In what year was the original 'Jurassic Park' released?",
@@ -286,7 +286,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-126",
+    "id": "film-023",
     "category": "film",
     "difficulty": 3,
     "question": "Who directed the 2017 horror film 'Get Out'?",
@@ -299,7 +299,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-127",
+    "id": "film-024",
     "category": "film",
     "difficulty": 3,
     "question": "Which actor played Fleabag’s sister Claire in the BBC series 'Fleabag'?",
@@ -312,7 +312,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-128",
+    "id": "film-025",
     "category": "film",
     "difficulty": 4,
     "question": "Identify the film in which the character Daniel Plainview appears.",
@@ -325,7 +325,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-129",
+    "id": "film-026",
     "category": "film",
     "difficulty": 4,
     "question": "Which actress won an Oscar for her performance in 'La La Land'?",
@@ -338,7 +338,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-130",
+    "id": "film-027",
     "category": "film",
     "difficulty": 4,
     "question": "Name the long-running British sci-fi series that began in 1963 and features the Time Lord known as the Doctor.",
@@ -351,7 +351,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-131",
+    "id": "film-028",
     "category": "film",
     "difficulty": 5,
     "question": "Who directed the 2007 film 'No Country for Old Men'?",
@@ -364,7 +364,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-132",
+    "id": "film-029",
     "category": "film",
     "difficulty": 5,
     "question": "Which South Korean film won the Palme d'Or at Cannes in 2019?",
@@ -377,7 +377,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-133",
+    "id": "film-030",
     "category": "film",
     "difficulty": 5,
     "question": "In the film 'Goodfellas', what is the name of Ray Liotta’s character?",
@@ -390,7 +390,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-134",
+    "id": "film-031",
     "category": "film",
     "difficulty": 5,
     "question": "Which HBO series is based on the video game franchise created by Naughty Dog?",
@@ -403,7 +403,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-135",
+    "id": "film-032",
     "category": "film",
     "difficulty": 6,
     "question": "Name the director of the 1979 war epic 'Apocalypse Now'.",
@@ -416,7 +416,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-136",
+    "id": "film-033",
     "category": "film",
     "difficulty": 6,
     "question": "In which year did Alfred Hitchcock release 'Psycho'?",
@@ -429,7 +429,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-137",
+    "id": "film-034",
     "category": "film",
     "difficulty": 6,
     "question": "Which Italian filmmaker directed 'La Dolce Vita'?",
@@ -442,7 +442,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-138",
+    "id": "film-035",
     "category": "film",
     "difficulty": 6,
     "question": "Who composed the score for the film 'The Good, the Bad and the Ugly'?",
@@ -455,7 +455,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-139",
+    "id": "film-036",
     "category": "film",
     "difficulty": 6,
     "question": "Identify the television series created by Phoebe Waller-Bridge that first aired in 2016.",
@@ -468,7 +468,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-140",
+    "id": "film-037",
     "category": "film",
     "difficulty": 6,
     "question": "Which film won Best Picture at the 1973 Academy Awards?",
@@ -481,7 +481,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-141",
+    "id": "film-038",
     "category": "film",
     "difficulty": 2,
     "question": "In what year was the first 'Harry Potter' film released?",
@@ -494,7 +494,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-142",
+    "id": "film-039",
     "category": "film",
     "difficulty": 2,
     "question": "Name the actor who portrayed Tony Soprano.",
@@ -507,7 +507,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-143",
+    "id": "film-040",
     "category": "film",
     "difficulty": 3,
     "question": "Who directed the 2014 film 'Interstellar'?",
@@ -520,7 +520,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-144",
+    "id": "film-041",
     "category": "film",
     "difficulty": 3,
     "question": "In 'The Silence of the Lambs', what is the profession of Clarice Starling?",
@@ -533,7 +533,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-145",
+    "id": "film-042",
     "category": "film",
     "difficulty": 3,
     "question": "The series 'The Wire' is primarily set in which U.S. city?",
@@ -546,7 +546,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-146",
+    "id": "film-043",
     "category": "film",
     "difficulty": 4,
     "question": "Identify the film in which the character Anton Chigurh appears.",
@@ -559,7 +559,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-147",
+    "id": "film-044",
     "category": "film",
     "difficulty": 4,
     "question": "Who starred opposite Julia Roberts in 'Notting Hill'?",
@@ -572,7 +572,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-148",
+    "id": "film-045",
     "category": "film",
     "difficulty": 4,
     "question": "In which year did 'The Shawshank Redemption' premiere?",
@@ -585,7 +585,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-149",
+    "id": "film-046",
     "category": "film",
     "difficulty": 5,
     "question": "Name the director of the 2016 film 'Arrival'.",
@@ -598,7 +598,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-150",
+    "id": "film-047",
     "category": "film",
     "difficulty": 5,
     "question": "Which actress played the lead role in the 2017 film 'Lady Bird'?",
@@ -611,7 +611,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-151",
+    "id": "film-048",
     "category": "film",
     "difficulty": 5,
     "question": "In 'The Big Lebowski', what is the nickname of Jeffrey Lebowski?",
@@ -624,7 +624,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-152",
+    "id": "film-049",
     "category": "film",
     "difficulty": 5,
     "question": "Which television network originally broadcast 'Twin Peaks' in 1990?",
@@ -637,7 +637,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-153",
+    "id": "film-050",
     "category": "film",
     "difficulty": 6,
     "question": "Who directed the 1968 science-fiction film '2001: A Space Odyssey'?",
@@ -650,7 +650,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-154",
+    "id": "film-051",
     "category": "film",
     "difficulty": 6,
     "question": "In which year did the first Cannes Film Festival take place?",
@@ -663,7 +663,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-155",
+    "id": "film-052",
     "category": "film",
     "difficulty": 6,
     "question": "Name the cinematographer who shot 'Blade Runner 2049'.",
@@ -676,7 +676,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-156",
+    "id": "film-053",
     "category": "film",
     "difficulty": 6,
     "question": "Which Iranian director made the Oscar-winning film 'A Separation'?",
@@ -689,7 +689,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-157",
+    "id": "film-054",
     "category": "film",
     "difficulty": 6,
     "question": "What was the first animated feature-length film nominated for the Academy Award for Best Picture?",
@@ -702,7 +702,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-158",
+    "id": "film-055",
     "category": "film",
     "difficulty": 6,
     "question": "In television, what does the term 'pilot' refer to?",
@@ -715,7 +715,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-159",
+    "id": "film-056",
     "category": "film",
     "difficulty": 6,
     "question": "Who composed the score for 'The Lord of the Rings' trilogy?",
@@ -728,7 +728,7 @@
     "correctIndex": 0
   },
   {
-    "id": "film-160",
+    "id": "film-057",
     "category": "film",
     "difficulty": 6,
     "question": "Which film won Best Picture at the 1995 Academy Awards?",
@@ -741,7 +741,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-161",
+    "id": "film-058",
     "category": "film",
     "difficulty": 1,
     "question": "Who directed the 1997 blockbuster Titanic?",
@@ -754,7 +754,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-162",
+    "id": "film-059",
     "category": "film",
     "difficulty": 1,
     "question": "Which actor played Iron Man in the Marvel Cinematic Universe?",
@@ -767,7 +767,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-163",
+    "id": "film-060",
     "category": "film",
     "difficulty": 1,
     "question": "What is the name of the lion cub at the centre of The Lion King?",
@@ -780,7 +780,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-164",
+    "id": "film-061",
     "category": "film",
     "difficulty": 1,
     "question": "Which animated film features a clownfish searching for his missing son?",
@@ -793,7 +793,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-165",
+    "id": "film-062",
     "category": "film",
     "difficulty": 1,
     "question": "In which film does the character Forrest Gump appear?",
@@ -806,7 +806,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-166",
+    "id": "film-063",
     "category": "film",
     "difficulty": 1,
     "question": "What is the name of the magical school attended by Harry Potter?",
@@ -819,7 +819,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-167",
+    "id": "film-064",
     "category": "film",
     "difficulty": 2,
     "question": "Who played the Joker in The Dark Knight (2008)?",
@@ -832,7 +832,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-168",
+    "id": "film-065",
     "category": "film",
     "difficulty": 2,
     "question": "Which film features the famous line 'You can't handle the truth!'?",
@@ -845,7 +845,7 @@
     "correctIndex": 2
   },
   {
-    "id": "film-169",
+    "id": "film-066",
     "category": "film",
     "difficulty": 2,
     "question": "What is the name of the main character in The Matrix?",
@@ -858,7 +858,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-170",
+    "id": "film-067",
     "category": "film",
     "difficulty": 2,
     "question": "In which film does Tom Hanks play a man stranded on a deserted island?",
@@ -871,7 +871,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-171",
+    "id": "film-068",
     "category": "film",
     "difficulty": 3,
     "question": "In which Alfred Hitchcock film does the character Norman Bates appear?",
@@ -884,7 +884,7 @@
     "correctIndex": 1
   },
   {
-    "id": "film-172",
+    "id": "film-069",
     "category": "film",
     "difficulty": 3,
     "question": "Which director made the 1968 science-fiction film 2001: A Space Odyssey?",
@@ -897,7 +897,7 @@
     "correctIndex": 3
   },
   {
-    "id": "film-173",
+    "id": "film-070",
     "category": "film",
     "difficulty": 4,
     "question": "Which Coen Brothers film won the Academy Award for Best Picture in 2008?",
@@ -908,5 +908,785 @@
       "No Country for Old Men"
     ],
     "correctIndex": 3
+  },
+  {
+    "id": "film-071",
+    "category": "film",
+    "difficulty": 1,
+    "question": "Which fictional school does Harry Potter attend?",
+    "answers": [
+      "Beauxbatons",
+      "Durmstrang",
+      "Hogwarts",
+      "Ilvermorny"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-072",
+    "category": "film",
+    "difficulty": 1,
+    "question": "What colour is the pill Neo takes in 'The Matrix' to see the truth?",
+    "answers": [
+      "Blue",
+      "Green",
+      "Red",
+      "White"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-073",
+    "category": "film",
+    "difficulty": 1,
+    "question": "Which animated Pixar film features the catchphrase 'To infinity and beyond'?",
+    "answers": [
+      "Cars",
+      "Finding Nemo",
+      "Monsters, Inc.",
+      "Toy Story"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-074",
+    "category": "film",
+    "difficulty": 1,
+    "question": "What is the name of the fictional kingdom in Disney's 'Frozen'?",
+    "answers": [
+      "Agrabah",
+      "Arendelle",
+      "Corona",
+      "Motunui"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-075",
+    "category": "film",
+    "difficulty": 1,
+    "question": "In which fictional city does Batman operate?",
+    "answers": [
+      "Central City",
+      "Metropolis",
+      "Star City",
+      "Gotham City"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-076",
+    "category": "film",
+    "difficulty": 1,
+    "question": "Which actress plays Katniss Everdeen in 'The Hunger Games' films?",
+    "answers": [
+      "Emma Watson",
+      "Jennifer Lawrence",
+      "Shailene Woodley",
+      "Saoirse Ronan"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-077",
+    "category": "film",
+    "difficulty": 1,
+    "question": "What is the name of the toy cowboy in Pixar's 'Toy Story'?",
+    "answers": [
+      "Buzz",
+      "Rex",
+      "Woody",
+      "Hamm"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-078",
+    "category": "film",
+    "difficulty": 1,
+    "question": "Which actor plays the title character in the BBC series 'Sherlock'?",
+    "answers": [
+      "David Tennant",
+      "Martin Freeman",
+      "Tom Hiddleston",
+      "Benedict Cumberbatch"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-079",
+    "category": "film",
+    "difficulty": 1,
+    "question": "In 'The Lion King', what is the name of Simba's villainous uncle?",
+    "answers": [
+      "Mufasa",
+      "Rafiki",
+      "Timon",
+      "Scar"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-080",
+    "category": "film",
+    "difficulty": 1,
+    "question": "Which long-running British soap opera features the pub 'The Queen Vic' on Albert Square?",
+    "answers": [
+      "Coronation Street",
+      "Emmerdale",
+      "Hollyoaks",
+      "EastEnders"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-081",
+    "category": "film",
+    "difficulty": 2,
+    "question": "\"You're gonna need a bigger boat\" is a famous line from which 1975 Steven Spielberg film?",
+    "answers": [
+      "The Deep",
+      "Jaws",
+      "Piranha",
+      "Orca"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-082",
+    "category": "film",
+    "difficulty": 2,
+    "question": "Which 1997 James Cameron blockbuster features the song 'My Heart Will Go On' by Céline Dion?",
+    "answers": [
+      "The Abyss",
+      "Avatar",
+      "Titanic",
+      "Poseidon"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-083",
+    "category": "film",
+    "difficulty": 2,
+    "question": "Who played James Bond in 'GoldenEye' (1995)?",
+    "answers": [
+      "Roger Moore",
+      "Timothy Dalton",
+      "Pierce Brosnan",
+      "Daniel Craig"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-084",
+    "category": "film",
+    "difficulty": 2,
+    "question": "In 'Only Fools and Horses', what is Del Boy's full name?",
+    "answers": [
+      "Derek Trotter",
+      "David Trotter",
+      "Dennis Trotter",
+      "Douglas Trotter"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "film-085",
+    "category": "film",
+    "difficulty": 2,
+    "question": "In the UK version of 'The Office', which town is Wernham Hogg's paper company based in?",
+    "answers": [
+      "Reading",
+      "Swindon",
+      "Basingstoke",
+      "Slough"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-086",
+    "category": "film",
+    "difficulty": 2,
+    "question": "Which British actor plays Legolas in 'The Lord of the Rings' trilogy?",
+    "answers": [
+      "Sean Bean",
+      "Ian McKellen",
+      "Orlando Bloom",
+      "Karl Urban"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-087",
+    "category": "film",
+    "difficulty": 2,
+    "question": "What is the name of Captain Jack Sparrow's ship in 'Pirates of the Caribbean'?",
+    "answers": [
+      "The Flying Dutchman",
+      "The Black Pearl",
+      "The Queen Anne's Revenge",
+      "The Interceptor"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-088",
+    "category": "film",
+    "difficulty": 2,
+    "question": "Which actress plays the lead role in 'Mamma Mia!' (2008)?",
+    "answers": [
+      "Helena Bonham Carter",
+      "Cate Blanchett",
+      "Meryl Streep",
+      "Julie Andrews"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-089",
+    "category": "film",
+    "difficulty": 2,
+    "question": "In 'Harry Potter', what is the name of the magical newspaper read by wizards?",
+    "answers": [
+      "The Daily Prophet",
+      "The Quibbler",
+      "The Wizard's Times",
+      "The Sorcerer's Gazette"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "film-090",
+    "category": "film",
+    "difficulty": 2,
+    "question": "Which classic 1942 romantic drama features the line 'Here\\'s looking at you, kid'?",
+    "answers": [
+      "Gone with the Wind",
+      "Casablanca",
+      "Rebecca",
+      "Brief Encounter"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-091",
+    "category": "film",
+    "difficulty": 3,
+    "question": "Which actor plays Thomas Shelby in the BBC series 'Peaky Blinders'?",
+    "answers": [
+      "Tom Hardy",
+      "Paul Anderson",
+      "Joe Cole",
+      "Cillian Murphy"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-092",
+    "category": "film",
+    "difficulty": 3,
+    "question": "Who directed the 1999 psychological thriller 'Fight Club'?",
+    "answers": [
+      "Guy Ritchie",
+      "Darren Aronofsky",
+      "David Fincher",
+      "Spike Jonze"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-093",
+    "category": "film",
+    "difficulty": 3,
+    "question": "Which Welsh actor plays Hannibal Lecter in 'The Silence of the Lambs' (1991)?",
+    "answers": [
+      "Gary Oldman",
+      "Anthony Hopkins",
+      "Jeremy Irons",
+      "Brian Cox"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-094",
+    "category": "film",
+    "difficulty": 3,
+    "question": "What is the name of the fictional county town in ITV's 'Midsomer Murders'?",
+    "answers": [
+      "Midsomer Newton",
+      "Causton",
+      "Midsomer Cross",
+      "Worthington"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-095",
+    "category": "film",
+    "difficulty": 3,
+    "question": "In 'Trainspotting' (1996), set in Edinburgh, who plays the lead character Mark Renton?",
+    "answers": [
+      "Robert Carlyle",
+      "Jonny Lee Miller",
+      "Ewen Bremner",
+      "Ewan McGregor"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-096",
+    "category": "film",
+    "difficulty": 3,
+    "question": "Which director made the 2014 sci-fi film 'Ex Machina'?",
+    "answers": [
+      "Alex Garland",
+      "Danny Boyle",
+      "Christopher Nolan",
+      "Jonathan Glazer"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "film-097",
+    "category": "film",
+    "difficulty": 3,
+    "question": "In 'The Crown', which actress plays Queen Elizabeth II in the first two seasons?",
+    "answers": [
+      "Imelda Staunton",
+      "Olivia Colman",
+      "Claire Foy",
+      "Helena Bonham Carter"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-098",
+    "category": "film",
+    "difficulty": 3,
+    "question": "Who directed the original 'Blade Runner' (1982)?",
+    "answers": [
+      "James Cameron",
+      "Ridley Scott",
+      "Terry Gilliam",
+      "Paul Verhoeven"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-099",
+    "category": "film",
+    "difficulty": 3,
+    "question": "Which 2010 Christopher Nolan film follows a team who enter people's dreams to steal information?",
+    "answers": [
+      "Interstellar",
+      "The Prestige",
+      "Inception",
+      "Memento"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-100",
+    "category": "film",
+    "difficulty": 3,
+    "question": "In 'Doctor Who', what is the name of the Doctor's time-travelling spacecraft?",
+    "answers": [
+      "Time Vessel",
+      "TARDIS",
+      "Time Capsule",
+      "The Transmat"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-101",
+    "category": "film",
+    "difficulty": 4,
+    "question": "Which British-Irish writer-director made the 2008 black comedy 'In Bruges'?",
+    "answers": [
+      "Edgar Wright",
+      "Shane Meadows",
+      "Martin McDonagh",
+      "Armando Iannucci"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-102",
+    "category": "film",
+    "difficulty": 4,
+    "question": "Who played the T-1000 liquid metal terminator in 'Terminator 2: Judgment Day' (1991)?",
+    "answers": [
+      "Tom Noonan",
+      "Lance Henriksen",
+      "Robert Patrick",
+      "Michael Biehn"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-103",
+    "category": "film",
+    "difficulty": 4,
+    "question": "In the 2013 film 'Philomena', which British comedian co-stars alongside Judi Dench as journalist Martin Sixsmith?",
+    "answers": [
+      "Peter Capaldi",
+      "Rob Brydon",
+      "Steve Coogan",
+      "Steve Pemberton"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-104",
+    "category": "film",
+    "difficulty": 4,
+    "question": "Who composed the iconic score for the original 'Star Wars' trilogy?",
+    "answers": [
+      "Bernard Herrmann",
+      "Ennio Morricone",
+      "Hans Zimmer",
+      "John Williams"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-105",
+    "category": "film",
+    "difficulty": 4,
+    "question": "Which 1985 Terry Gilliam film is set in a retro-futuristic dystopia and takes its name from a piece of music?",
+    "answers": [
+      "1984",
+      "Brazil",
+      "Dark Star",
+      "Metropolis"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-106",
+    "category": "film",
+    "difficulty": 4,
+    "question": "In Ridley Scott's 'Alien' (1979), what is the name of the commercial vessel whose crew encounters the xenomorph?",
+    "answers": [
+      "Sulaco",
+      "Discovery One",
+      "Nostromo",
+      "Prometheus"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-107",
+    "category": "film",
+    "difficulty": 4,
+    "question": "Which actor plays the role of Patrick Bateman in the 2000 film 'American Psycho'?",
+    "answers": [
+      "Jared Leto",
+      "Matt Dillon",
+      "Ryan Phillippe",
+      "Christian Bale"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-108",
+    "category": "film",
+    "difficulty": 4,
+    "question": "In Stanley Kubrick's 'The Shining' (1980), what is the number of the room to avoid at the Overlook Hotel?",
+    "answers": [
+      "217",
+      "237",
+      "256",
+      "313"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-109",
+    "category": "film",
+    "difficulty": 4,
+    "question": "In the 2003 Lars von Trier film 'Dogville', starring Nicole Kidman, what is notable about the production design?",
+    "answers": [
+      "It was shot in a single take",
+      "The sets are outlined in chalk on a bare stage",
+      "All actors wore masks",
+      "It was filmed entirely in reverse"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-110",
+    "category": "film",
+    "difficulty": 4,
+    "question": "In which 1994 Quentin Tarantino film does John Travolta play hitman Vincent Vega?",
+    "answers": [
+      "Reservoir Dogs",
+      "Jackie Brown",
+      "Kill Bill",
+      "Pulp Fiction"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-111",
+    "category": "film",
+    "difficulty": 5,
+    "question": "In Kubrick's 'Eyes Wide Shut' (1999), which composer's 'Musica Ricercata No. 7' plays during the masked ball?",
+    "answers": [
+      "Bach",
+      "Bartók",
+      "Ligeti",
+      "Satie"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-112",
+    "category": "film",
+    "difficulty": 5,
+    "question": "Which cinematographer shot Kubrick's 'Barry Lyndon' (1975) using only natural light and specially adapted NASA lenses?",
+    "answers": [
+      "Freddie Young",
+      "Gordon Willis",
+      "John Alcott",
+      "Vilmos Zsigmond"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-113",
+    "category": "film",
+    "difficulty": 5,
+    "question": "The 'Dogme 95' filmmaking movement was co-founded by Lars von Trier and which other Danish director?",
+    "answers": [
+      "Carl Theodor Dreyer",
+      "Thomas Vinterberg",
+      "Nicolas Winding Refn",
+      "Bille August"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-114",
+    "category": "film",
+    "difficulty": 5,
+    "question": "In which year was the British Film Institute (BFI) founded?",
+    "answers": [
+      "1923",
+      "1933",
+      "1943",
+      "1953"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-115",
+    "category": "film",
+    "difficulty": 5,
+    "question": "Which 1954 Akira Kurosawa film was later remade by John Sturges as 'The Magnificent Seven' (1960)?",
+    "answers": [
+      "Rashomon",
+      "Ikiru",
+      "Seven Samurai",
+      "Yojimbo"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-116",
+    "category": "film",
+    "difficulty": 5,
+    "question": "In David Fincher's 'Zodiac' (2007), which real-life San Francisco Chronicle cartoonist is played by Jake Gyllenhaal?",
+    "answers": [
+      "Paul Avery",
+      "Dave Toschi",
+      "Robert Graysmith",
+      "Mel Nicolai"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-117",
+    "category": "film",
+    "difficulty": 5,
+    "question": "Which British director made 'A Field in England' (2013), shot in black and white and set during the English Civil War?",
+    "answers": [
+      "Ben Wheatley",
+      "Andrew Haigh",
+      "Jonathan Glazer",
+      "Steve McQueen"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "film-118",
+    "category": "film",
+    "difficulty": 5,
+    "question": "Which Michael Haneke film won the Palme d'Or at Cannes in 2009?",
+    "answers": [
+      "Caché",
+      "The Piano Teacher",
+      "Funny Games",
+      "The White Ribbon"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-119",
+    "category": "film",
+    "difficulty": 5,
+    "question": "In film criticism, 'mise-en-scène' refers to which aspect of filmmaking?",
+    "answers": [
+      "The film's narrative structure",
+      "The soundtrack and musical score",
+      "Everything visible within the frame",
+      "The editing rhythm and pacing"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-120",
+    "category": "film",
+    "difficulty": 5,
+    "question": "In Terrence Malick's 'The Tree of Life' (2011), which actor plays the strict father figure?",
+    "answers": [
+      "Sean Penn",
+      "Brad Pitt",
+      "Heath Ledger",
+      "Ryan Gosling"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-121",
+    "category": "film",
+    "difficulty": 6,
+    "question": "In David Lynch's 'Mulholland Drive' (2001), what is the name of the mysterious theatre where the a cappella scene takes place?",
+    "answers": [
+      "Club Silencio",
+      "Club Paradiso",
+      "The Blue Room",
+      "The Red Curtain"
+    ],
+    "correctIndex": 0
+  },
+  {
+    "id": "film-122",
+    "category": "film",
+    "difficulty": 6,
+    "question": "Which French New Wave director theorised the 'auteur theory' in his 1954 essay 'Une certaine tendance du cinéma français'?",
+    "answers": [
+      "Godard",
+      "Truffaut",
+      "Rohmer",
+      "Resnais"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-123",
+    "category": "film",
+    "difficulty": 6,
+    "question": "In Andrei Tarkovsky's 'Stalker' (1979), what is the name of the mysterious forbidden zone at the centre of the film?",
+    "answers": [
+      "The Quarry",
+      "The Wilderness",
+      "The Zone",
+      "The Threshold"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-124",
+    "category": "film",
+    "difficulty": 6,
+    "question": "Which 1943 American experimental film, co-directed by Maya Deren and Alexander Hammid, is widely considered the first major US avant-garde film?",
+    "answers": [
+      "Un Chien Andalou",
+      "Meshes of the Afternoon",
+      "The Blood of a Poet",
+      "At Land"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-125",
+    "category": "film",
+    "difficulty": 6,
+    "question": "In Ingmar Bergman's 'The Seventh Seal' (1957), against which backdrop does the knight play chess with Death?",
+    "answers": [
+      "A winter forest",
+      "A crumbling castle",
+      "A rocky shoreline",
+      "A burning church"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-126",
+    "category": "film",
+    "difficulty": 6,
+    "question": "The term 'chiaroscuro' in cinematography describes the use of what?",
+    "answers": [
+      "Rapid cutting between shots",
+      "Strong contrasts of light and shadow",
+      "Extreme wide-angle lenses",
+      "Desaturated colour grading"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-127",
+    "category": "film",
+    "difficulty": 6,
+    "question": "Which filmmaker coined the term 'dialectical montage' as a theory of film editing?",
+    "answers": [
+      "Dziga Vertov",
+      "Lev Kuleshov",
+      "Sergei Eisenstein",
+      "Vsevolod Pudovkin"
+    ],
+    "correctIndex": 2
+  },
+  {
+    "id": "film-128",
+    "category": "film",
+    "difficulty": 6,
+    "question": "In which 1963 Visconti film — based on a Lampedusa novel — does Burt Lancaster play a Sicilian prince facing the end of his aristocratic world?",
+    "answers": [
+      "Rocco and His Brothers",
+      "The Damned",
+      "Ludwig",
+      "The Leopard"
+    ],
+    "correctIndex": 3
+  },
+  {
+    "id": "film-129",
+    "category": "film",
+    "difficulty": 6,
+    "question": "Which Robert Bresson film — considered a masterpiece of cinematographic asceticism — follows a petty thief living in Paris?",
+    "answers": [
+      "A Man Escaped",
+      "Pickpocket",
+      "Au Hasard Balthazar",
+      "The Devil, Probably"
+    ],
+    "correctIndex": 1
+  },
+  {
+    "id": "film-130",
+    "category": "film",
+    "difficulty": 6,
+    "question": "The 'Kuleshov Effect', foundational to film editing theory, was demonstrated using a close-up of which actor's expressionless face?",
+    "answers": [
+      "Charlie Chaplin",
+      "Ivan Mosjoukine",
+      "Buster Keaton",
+      "Lon Chaney"
+    ],
+    "correctIndex": 1
   }
 ]
