@@ -122,6 +122,9 @@ export function useGameLogic() {
           // Special tiles handled elsewhere (auto-trigger effect); use random as fallback
           const cats = s.activeCategories;
           category = cats[Math.floor(Math.random() * cats.length)];
+        } else if (tileType === "auto") {
+          // "auto" tiles fall back to cycling category
+          category = s.activeCategories[pathIndex % s.activeCategories.length];
         } else {
           category = tileType as Category;
         }
@@ -182,11 +185,12 @@ export function useGameLogic() {
     if (pos <= 0 || pos >= effectiveMax) return;
 
     const isCulturePos = customConfig
-      ? customConfig.tiles[pos] === "culture"
+      ? (customConfig.tiles[pos] === "culture")
       : CULTURE_POSITIONS.has(pos);
     const isNotPos = customConfig
-      ? customConfig.tiles[pos] === "not"
+      ? (customConfig.tiles[pos] === "not")
       : NOT_POSITIONS.has(pos);
+    // "auto" tiles are never culture or not
     if (!isCulturePos && !isNotPos) return;
 
     if (state.gameMode === "online") {
@@ -503,8 +507,9 @@ export function useGameLogic() {
         return;
       }
 
-      const category = customConfig && customConfig.tiles[position] && customConfig.tiles[position] !== "start" && customConfig.tiles[position] !== "finish"
-        ? customConfig.tiles[position] as Category
+      const rawTile = customConfig?.tiles[position];
+      const category = rawTile && rawTile !== "start" && rawTile !== "finish" && rawTile !== "not" && rawTile !== "culture" && rawTile !== "auto"
+        ? rawTile as Category
         : state.activeCategories[position % state.activeCategories.length];
       dispatch({ type: "SET_PENDING_CATEGORY", category });
 

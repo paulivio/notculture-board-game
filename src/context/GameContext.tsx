@@ -46,6 +46,7 @@ const initialState: GameState = {
   cultureQuestionIndex: null,
   activeCategories: [...CATEGORIES],
   customBoardConfig: null,
+  boardPreviewConfig: null,
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -354,6 +355,16 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         ...state,
         customBoardConfig: { ...state.customBoardConfig, tiles: newTiles },
       };
+    }
+
+    case "SET_BOARD_PREVIEW_CONFIG":
+      return { ...state, boardPreviewConfig: action.config };
+
+    case "SET_BOARD_PREVIEW_TILE_TYPE": {
+      if (!state.boardPreviewConfig) return state;
+      const tiles = [...state.boardPreviewConfig.tiles];
+      tiles[action.index] = action.tileType;
+      return { ...state, boardPreviewConfig: { ...state.boardPreviewConfig, tiles } };
     }
 
     case "SET_PENDING_CATEGORY":

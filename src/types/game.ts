@@ -21,7 +21,7 @@ export interface NotQuestion {
 
 export type Category = "film" | "science" | "general" | "history" | "sports";
 
-export type TileType = Category | "not" | "culture" | "start" | "finish";
+export type TileType = Category | "not" | "culture" | "start" | "finish" | "auto";
 
 export interface CustomBoardConfig {
   id: string;          // 4-char alphanumeric board code
@@ -74,6 +74,7 @@ export interface GameState {
   cultureQuestionIndex: number | null;
   activeCategories: Category[];
   customBoardConfig: CustomBoardConfig | null;
+  boardPreviewConfig: CustomBoardConfig | null;
 }
 
 export interface OnlineIdentity {
@@ -159,4 +160,6 @@ export type GameAction =
   | { type: "SET_CULTURE_QUESTION_INDEX"; index: number | null }
   | { type: "SET_ACTIVE_CATEGORIES"; categories: Category[] }
   | { type: "SET_CUSTOM_BOARD_CONFIG"; config: CustomBoardConfig | null }
-  | { type: "SET_TILE_TYPE"; index: number; tileType: TileType };
+  | { type: "SET_TILE_TYPE"; index: number; tileType: TileType }
+  | { type: "SET_BOARD_PREVIEW_CONFIG"; config: CustomBoardConfig | null }
+  | { type: "SET_BOARD_PREVIEW_TILE_TYPE"; index: number; tileType: TileType };

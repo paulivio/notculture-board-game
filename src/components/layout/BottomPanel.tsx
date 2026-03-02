@@ -24,14 +24,21 @@ export default function BottomPanel() {
     setOpenSection(state.gameMode as Section);
   }, [state.gameMode]);
 
+  function handleSectionChange(next: Section | null) {
+    if (openSection === "board" && next !== "board") {
+      dispatch({ type: "SET_BOARD_PREVIEW_CONFIG", config: null });
+    }
+    setOpenSection(next);
+  }
+
   function handleModeClick(mode: "local" | "online") {
     if (state.gameMode !== mode) {
       dispatch({ type: "SET_GAME_MODE", mode });
-      setOpenSection(mode);
+      handleSectionChange(mode);
     } else if (openSection === mode) {
-      setOpenSection(null);
+      handleSectionChange(null);
     } else {
-      setOpenSection(mode);
+      handleSectionChange(mode);
     }
   }
 
@@ -58,7 +65,7 @@ export default function BottomPanel() {
             size="sm"
             variant={openSection === "categories" ? "primary" : "default"}
             onClick={() =>
-              setOpenSection(openSection === "categories" ? null : "categories")
+              handleSectionChange(openSection === "categories" ? null : "categories")
             }
           >
             Categories
@@ -67,7 +74,7 @@ export default function BottomPanel() {
         <TextureButton
           size="sm"
           variant={state.customBoardConfig !== null ? "primary" : openSection === "board" ? "primary" : "default"}
-          onClick={() => setOpenSection(openSection === "board" ? null : "board")}
+          onClick={() => handleSectionChange(openSection === "board" ? null : "board")}
         >
           Board
         </TextureButton>

@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { get, ref, onValue } from "firebase/database";
-import { PLAYER_COLORS, CATEGORIES, LS_ROOM_CODE, LS_PLAYER_ID, LS_PLAYER_NAME, LS_TEAM_ID, LS_TEAM_NAME } from "../../lib/constants";
+import { PLAYER_COLORS, LS_ROOM_CODE, LS_PLAYER_ID, LS_PLAYER_NAME, LS_TEAM_ID, LS_TEAM_NAME } from "../../lib/constants";
 import { db } from "../../firebase/config";
 import { TextureButton } from "../ui/TextureButton";
 import {
@@ -19,7 +19,7 @@ import { useGame, useGameDispatch } from "../../context/GameContext";
 import { useGameLogicContext } from "../../context/GameLogicContext";
 import { useOnline } from "../../context/OnlineContext";
 import CategorySelector from "./CategorySelector";
-import type { Category, TeamData } from "../../types/game";
+import type { TeamData } from "../../types/game";
 
 // Room/player identity is stored in sessionStorage so each browser tab gets its
 // own isolated identity — tabs on the same device don't bleed into each other.
@@ -41,7 +41,6 @@ export default function OnlineControls() {
   const [teamNameInput, setTeamNameInput] = useState("");
   const [isTeamModeChecked, setIsTeamModeChecked] = useState(false);
   const [createdRoomCode, setCreatedRoomCode] = useState<string | null>(null);
-  const [selectedCategories, setSelectedCategories] = useState<Category[]>([...CATEGORIES]);
 
   // Team lobby state (shown after joining a team-mode room)
   const [teamLobby, setTeamLobby] = useState<{
@@ -206,7 +205,7 @@ export default function OnlineControls() {
     sessionStartedRef.current = true;
 
     if (isTeamModeChecked) {
-      const { roomCode, playerId, teamId } = await createTeamRoom(name, teamName, selectedCategories, state.customBoardConfig);
+      const { roomCode, playerId, teamId } = await createTeamRoom(name, teamName, state.activeCategories, state.customBoardConfig);
 
       ss.setItem(LS_ROOM_CODE, roomCode);
       ss.setItem(LS_PLAYER_ID, playerId);
@@ -217,7 +216,7 @@ export default function OnlineControls() {
       setIdentity({ roomCode, playerId, playerName: name, teamId, teamName });
       setCreatedRoomCode(roomCode);
     } else {
-      const { roomCode, playerId } = await createRoom(name, selectedCategories, state.customBoardConfig);
+      const { roomCode, playerId } = await createRoom(name, state.activeCategories, state.customBoardConfig);
 
       ss.setItem(LS_ROOM_CODE, roomCode);
       ss.setItem(LS_PLAYER_ID, playerId);
@@ -482,13 +481,13 @@ export default function OnlineControls() {
   }
 
   // ── Create / Join form ──────────────────────────────────────────────────
-  const canCreate = selectedCategories.length === 4;
+  const canCreate = state.activeCategories.length === 4;
 
   return (
     <div className="flex flex-col items-center gap-3">
       <CategorySelector
-        value={selectedCategories}
-        onChange={setSelectedCategories}
+        value={state.activeCategories}
+        onChange={(cats) => dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: cats })}
         locked={false}
       />
 

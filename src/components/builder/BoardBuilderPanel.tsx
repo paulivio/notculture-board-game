@@ -1,113 +1,148 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
 import { useGame, useGameDispatch } from "../../context/GameContext";
 import { TextureButton } from "../ui/TextureButton";
-import { saveBoard, loadBoard, buildDefaultTiles } from "../../firebase/boardService";
-import { LS_BOARD_CODE, MIN_BOARD_TILES, MAX_BOARD_TILES, CATEGORY_COLORS } from "../../lib/constants";
+import { saveBoard, loadBoard, buildDefaultTiles, resolveAutoTiles } from "../../firebase/boardService";
+import { LS_BOARD_CODE, MIN_BOARD_TILES, MAX_BOARD_TILES, CATEGORY_COLORS, CULTURE_POSITIONS, NOT_POSITIONS } from "../../lib/constants";
 import type { TileType, CustomBoardConfig } from "../../types/game";
 
-// Cycle order for clicking through tile types
-const CYCLE_ORDER: TileType[] = ["film", "science", "general", "history", "sports", "not", "culture"];
+const PALETTE_TILES: { type: TileType; label: string; color: string }[] = [
+  { type: "film",    label: "Film",    color: CATEGORY_COLORS.film },
+  { type: "science", label: "Sci",     color: CATEGORY_COLORS.science },
+  { type: "general", label: "Gen",     color: CATEGORY_COLORS.general },
+  { type: "history", label: "Hist",    color: CATEGORY_COLORS.history },
+  { type: "sports",  label: "Sport",   color: CATEGORY_COLORS.sports },
+  { type: "not",     label: "NOT",     color: "#d97706" },
+  { type: "culture", label: "CULTURE", color: "#c026d3" },
+  { type: "auto",    label: "⌫ Blank", color: "#52525b" },
+];
 
-const TILE_LABELS: Record<TileType, string> = {
-  film: "Film",
-  science: "Sci",
-  general: "Gen",
-  history: "Hist",
-  sports: "Sport",
-  not: "NOT",
-  culture: "CULTURE",
-  start: "START",
-  finish: "FINISH",
-};
+interface PaletteChipProps {
+  tileType: TileType;
+  label: string;
+  color: string;
+}
 
-const TILE_COLORS: Record<TileType, string> = {
-  film: CATEGORY_COLORS.film,
-  science: CATEGORY_COLORS.science,
-  general: CATEGORY_COLORS.general,
-  history: CATEGORY_COLORS.history,
-  sports: CATEGORY_COLORS.sports,
-  not: "#d97706",   // amber
-  culture: "#0d9488", // teal
-  start: "#6b7280",  // grey
-  finish: "#6b7280", // grey
-};
+function PaletteChip({ tileType, label, color }: PaletteChipProps) {
+  const { setNodeRef, attributes, listeners, transform, isDragging } = useDraggable({
+    id: `palette-${tileType}`,
+    data: { tileType },
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={{
+        backgroundColor: color,
+        transform: CSS.Transform.toString(transform),
+        opacity: isDragging ? 0 : 1,
+        cursor: "grab",
+        touchAction: "none",
+      }}
+      className="flex-shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-white select-none"
+    >
+      {label}
+    </div>
+  );
+}
 
 export default function BoardBuilderPanel() {
   const state = useGame();
   const dispatch = useGameDispatch();
 
-  const config = state.customBoardConfig;
+  const previewConfig = state.boardPreviewConfig;
+  const appliedConfig = state.customBoardConfig;
 
-  // Local editing state
-  const [boardName, setBoardName] = useState(config?.name ?? "My Board");
-  const [totalTiles, setTotalTiles] = useState(config?.totalTiles ?? 20);
-  const [tiles, setTiles] = useState<TileType[]>(
-    config?.tiles ?? buildDefaultTiles(20)
-  );
+  // Local UI state
+  const [boardName, setBoardName] = useState(appliedConfig?.name ?? "My Board");
+  const [totalTiles, setTotalTiles] = useState(appliedConfig?.totalTiles ?? 20);
+  // Separate display value for the number input so the user can type freely;
+  // the actual clamped value is applied on blur or Enter.
+  const [tileInputValue, setTileInputValue] = useState(String(appliedConfig?.totalTiles ?? 20));
 
   // Load/save UI state
-  const [savedCode, setSavedCode] = useState<string | null>(null);
+  const [savedCode, setSavedCode] = useState<string | null>(appliedConfig?.id ?? null);
   const [loadCodeInput, setLoadCodeInput] = useState("");
   const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
   const [loadStatus, setLoadStatus] = useState<"idle" | "loading" | "notfound" | "expired" | "ok">("idle");
   const [copied, setCopied] = useState(false);
 
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // Sync local state from global config when it changes externally (e.g. loaded board)
+  // On mount: initialise preview from applied config or fresh defaults
   useEffect(() => {
-    if (config) {
-      setBoardName(config.name);
-      setTotalTiles(config.totalTiles);
-      setTiles([...config.tiles]);
-      setSavedCode(config.id);
-    }
-  }, [config]);
+    const source = appliedConfig;
+    const initTiles = source ? [...source.tiles] : buildDefaultTiles(totalTiles);
+    const initCount = source?.totalTiles ?? totalTiles;
+    const initName  = source?.name ?? boardName;
 
-  // On mount, pre-fill the load input with the last saved code as a convenience
-  // (the user must explicitly click Load to apply it — no auto-restore)
-  useEffect(() => {
+    setBoardName(initName);
+    setTotalTiles(initCount);
+    setTileInputValue(String(initCount));
+    setSavedCode(source?.id ?? null);
+
+    dispatch({
+      type: "SET_BOARD_PREVIEW_CONFIG",
+      config: {
+        id: source?.id ?? "",
+        createdAt: source?.createdAt ?? Date.now(),
+        name: initName,
+        totalTiles: initCount,
+        tiles: initTiles,
+      },
+    });
+
+    // Pre-fill load input with last saved code as a convenience
     const lastCode = localStorage.getItem(LS_BOARD_CODE);
-    if (lastCode && !config) {
+    if (lastCode && !source) {
       setLoadCodeInput(lastCode);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Sync name into preview whenever boardName changes
+  useEffect(() => {
+    if (!previewConfig) return;
+    dispatch({
+      type: "SET_BOARD_PREVIEW_CONFIG",
+      config: { ...previewConfig, name: boardName },
+    });
+  }, [boardName]); // eslint-disable-line react-hooks/exhaustive-deps
+
   function handleTotalTilesChange(n: number) {
     const clamped = Math.max(MIN_BOARD_TILES, Math.min(MAX_BOARD_TILES, n));
     setTotalTiles(clamped);
+    // Note: callers that need to sync tileInputValue do so explicitly
 
-    // Pad or trim tiles
-    if (clamped > tiles.length) {
-      // Rebuild for the new length, preserving user's existing assignments
-      const newTiles = buildDefaultTiles(clamped);
-      for (let i = 1; i < tiles.length - 1 && i < clamped - 1; i++) {
-        newTiles[i] = tiles[i];
-      }
-      setTiles(newTiles);
-    } else if (clamped < tiles.length) {
-      const newTiles = tiles.slice(0, clamped);
-      newTiles[clamped - 1] = "finish";
-      setTiles(newTiles);
+    if (!previewConfig) return;
+    const current = previewConfig.tiles;
+
+    let newTiles: TileType[];
+    if (clamped > current.length) {
+      // Extend: add "auto" tiles, preserve existing assignments
+      newTiles = [...current, ...Array(clamped - current.length).fill("auto" as TileType)];
+      // The old FINISH tile is now a middle tile — reset it to "auto"
+      newTiles[current.length - 1] = "auto";
+    } else {
+      newTiles = current.slice(0, clamped);
     }
-  }
+    // Always clamp START/FINISH
+    newTiles[0] = "start";
+    newTiles[clamped - 1] = "finish";
 
-  function cycleTile(index: number) {
-    // start and finish can't be changed
-    if (index === 0 || index === totalTiles - 1) return;
-    const current = tiles[index];
-    const idx = CYCLE_ORDER.indexOf(current as TileType);
-    const next = CYCLE_ORDER[(idx + 1) % CYCLE_ORDER.length];
-    const newTiles = [...tiles];
-    newTiles[index] = next;
-    setTiles(newTiles);
-    dispatch({ type: "SET_TILE_TYPE", index, tileType: next });
+    dispatch({
+      type: "SET_BOARD_PREVIEW_CONFIG",
+      config: { ...previewConfig, totalTiles: clamped, tiles: newTiles, name: boardName },
+    });
   }
 
   async function handleSave() {
+    if (!previewConfig) return;
     setSaveStatus("saving");
     try {
-      const code = await saveBoard({ name: boardName, totalTiles, tiles });
+      // Resolve "auto" tiles before saving — stored boards never contain "auto"
+      const resolvedTiles = resolveAutoTiles(previewConfig.tiles, state.activeCategories);
+      const code = await saveBoard({ name: boardName, totalTiles: previewConfig.totalTiles, tiles: resolvedTiles });
       setSavedCode(code);
       localStorage.setItem(LS_BOARD_CODE, code);
 
@@ -115,11 +150,12 @@ export default function BoardBuilderPanel() {
         id: code,
         createdAt: Date.now(),
         name: boardName,
-        totalTiles,
-        tiles,
+        totalTiles: previewConfig.totalTiles,
+        tiles: resolvedTiles,
       };
       dispatch({ type: "SET_CUSTOM_BOARD_CONFIG", config: fullConfig });
-      // After dispatching, re-apply local tile state (dispatch resets positions only, not config)
+      // Keep preview in sync with the resolved config
+      dispatch({ type: "SET_BOARD_PREVIEW_CONFIG", config: fullConfig });
       setSaveStatus("saved");
       setTimeout(() => setSaveStatus("idle"), 3000);
     } catch {
@@ -140,7 +176,10 @@ export default function BoardBuilderPanel() {
         return;
       }
       dispatch({ type: "SET_CUSTOM_BOARD_CONFIG", config: loaded });
+      dispatch({ type: "SET_BOARD_PREVIEW_CONFIG", config: loaded });
       localStorage.setItem(LS_BOARD_CODE, code);
+      setBoardName(loaded.name);
+      setTotalTiles(loaded.totalTiles);
       setSavedCode(code);
       setLoadCodeInput("");
       setLoadStatus("ok");
@@ -153,13 +192,36 @@ export default function BoardBuilderPanel() {
 
   function handleClear() {
     dispatch({ type: "SET_CUSTOM_BOARD_CONFIG", config: null });
+    dispatch({ type: "SET_BOARD_PREVIEW_CONFIG", config: null });
     localStorage.removeItem(LS_BOARD_CODE);
     setSavedCode(null);
     setBoardName("My Board");
     const defaultCount = 20;
     setTotalTiles(defaultCount);
-    setTiles(buildDefaultTiles(defaultCount));
+    // Re-initialise preview with fresh defaults
+    dispatch({
+      type: "SET_BOARD_PREVIEW_CONFIG",
+      config: {
+        id: "",
+        createdAt: Date.now(),
+        name: "My Board",
+        totalTiles: defaultCount,
+        tiles: buildDefaultTiles(defaultCount),
+      },
+    });
     setSaveStatus("idle");
+  }
+
+  function handleAutoFill() {
+    if (!previewConfig) return;
+    const newTiles: TileType[] = previewConfig.tiles.map((_, i) => {
+      if (i === 0) return "start";
+      if (i === previewConfig.totalTiles - 1) return "finish";
+      if (CULTURE_POSITIONS.has(i)) return "culture";
+      if (NOT_POSITIONS.has(i)) return "not";
+      return state.activeCategories[i % state.activeCategories.length];
+    });
+    dispatch({ type: "SET_BOARD_PREVIEW_CONFIG", config: { ...previewConfig, tiles: newTiles } });
   }
 
   function handleCopyCode() {
@@ -170,7 +232,7 @@ export default function BoardBuilderPanel() {
     });
   }
 
-  const isApplied = !!state.customBoardConfig;
+  const isApplied = !!appliedConfig;
 
   return (
     <div className="flex flex-col gap-3 w-full max-w-lg">
@@ -196,8 +258,28 @@ export default function BoardBuilderPanel() {
             type="number"
             min={MIN_BOARD_TILES}
             max={MAX_BOARD_TILES}
-            value={totalTiles}
-            onChange={(e) => handleTotalTilesChange(Number(e.target.value))}
+            value={tileInputValue}
+            onChange={(e) => {
+              const raw = e.target.value;
+              setTileInputValue(raw);
+              // Arrow buttons always produce a valid in-range integer → live update
+              const n = parseInt(raw, 10);
+              if (!isNaN(n) && n >= MIN_BOARD_TILES && n <= MAX_BOARD_TILES) {
+                handleTotalTilesChange(n);
+              }
+            }}
+            onBlur={() => {
+              const clamped = Math.max(MIN_BOARD_TILES, Math.min(MAX_BOARD_TILES, parseInt(tileInputValue, 10) || MIN_BOARD_TILES));
+              handleTotalTilesChange(clamped);
+              setTileInputValue(String(clamped));
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                const clamped = Math.max(MIN_BOARD_TILES, Math.min(MAX_BOARD_TILES, parseInt(tileInputValue, 10) || MIN_BOARD_TILES));
+                handleTotalTilesChange(clamped);
+                setTileInputValue(String(clamped));
+              }
+            }}
             className="w-14 rounded-lg border border-white/10 bg-white/5 px-2 py-1.5 text-sm text-white text-center"
           />
           <input
@@ -205,39 +287,34 @@ export default function BoardBuilderPanel() {
             min={MIN_BOARD_TILES}
             max={MAX_BOARD_TILES}
             value={totalTiles}
-            onChange={(e) => handleTotalTilesChange(Number(e.target.value))}
+            onChange={(e) => {
+              const n = Number(e.target.value);
+              handleTotalTilesChange(n);
+              setTileInputValue(String(Math.max(MIN_BOARD_TILES, Math.min(MAX_BOARD_TILES, n))));
+            }}
             className="w-24 accent-fuchsia-500"
           />
         </div>
       </div>
 
-      {/* Tile editor — horizontal scroll */}
-      <div
-        ref={scrollRef}
-        className="flex gap-1.5 overflow-x-auto pb-2 pt-1"
-        style={{ scrollbarWidth: "thin" }}
-      >
-        {tiles.map((tileType, i) => {
-          const isEdge = i === 0 || i === totalTiles - 1;
-          return (
-            <button
-              key={i}
-              onClick={() => cycleTile(i)}
-              title={isEdge ? undefined : "Click to cycle tile type"}
-              disabled={isEdge}
-              className="flex-shrink-0 flex flex-col items-center gap-0.5 rounded-lg px-2 py-1.5 text-xs font-semibold text-white transition-opacity"
-              style={{
-                backgroundColor: TILE_COLORS[tileType],
-                opacity: isEdge ? 0.6 : 1,
-                cursor: isEdge ? "default" : "pointer",
-                minWidth: "42px",
-              }}
-            >
-              <span className="text-[10px] opacity-60">{i}</span>
-              <span>{TILE_LABELS[tileType]}</span>
-            </button>
-          );
-        })}
+      {/* Tile palette — drag chips onto board cells */}
+      <div className="flex flex-col gap-1.5">
+        <div className="flex items-center justify-between">
+          <p className="text-xs opacity-50">Drag tiles onto the board:</p>
+          <TextureButton size="sm" onClick={handleAutoFill} disabled={!previewConfig}>
+            Auto Fill
+          </TextureButton>
+        </div>
+        <div className="flex flex-wrap gap-1.5">
+          {PALETTE_TILES.map((chip) => (
+            <PaletteChip
+              key={chip.type}
+              tileType={chip.type}
+              label={chip.label}
+              color={chip.color}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Save / Load / Clear row */}
@@ -246,7 +323,7 @@ export default function BoardBuilderPanel() {
           size="sm"
           variant="primary"
           onClick={handleSave}
-          disabled={saveStatus === "saving"}
+          disabled={saveStatus === "saving" || !previewConfig}
         >
           {saveStatus === "saving" ? "Saving…" : saveStatus === "saved" ? "Saved!" : saveStatus === "error" ? "Error" : "Save Board"}
         </TextureButton>

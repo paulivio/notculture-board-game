@@ -1,7 +1,7 @@
 import { ref, set, get } from "firebase/database";
 import { db } from "./config";
 import { BOARD_TTL_MS } from "../lib/constants";
-import type { CustomBoardConfig, TileType } from "../types/game";
+import type { CustomBoardConfig, TileType, Category } from "../types/game";
 
 function generateBoardCode(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // omit 0/O, 1/I for readability
@@ -57,17 +57,17 @@ export async function loadBoard(code: string): Promise<CustomBoardConfig | null>
 }
 
 // Helper: build a default tiles array for a given tile count
+// All intermediate tiles are "auto" — fall back to cycling category at play-time
 export function buildDefaultTiles(totalTiles: number): TileType[] {
-  const tiles: TileType[] = [];
-  const categories: TileType[] = ["film", "science", "general", "history"];
-  for (let i = 0; i < totalTiles; i++) {
-    if (i === 0) {
-      tiles.push("start");
-    } else if (i === totalTiles - 1) {
-      tiles.push("finish");
-    } else {
-      tiles.push(categories[(i - 1) % categories.length]);
-    }
-  }
+  const tiles: TileType[] = Array(totalTiles).fill("auto");
+  tiles[0] = "start";
+  tiles[totalTiles - 1] = "finish";
   return tiles;
+}
+
+// Resolve "auto" tiles to their cycling category value before saving/applying
+export function resolveAutoTiles(tiles: TileType[], categories: Category[]): TileType[] {
+  return tiles.map((t, i) =>
+    t === "auto" ? categories[i % categories.length] : t
+  );
 }
