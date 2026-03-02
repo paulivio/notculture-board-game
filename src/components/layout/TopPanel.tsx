@@ -21,10 +21,10 @@ export default function TopPanel() {
   ];
 
   return (
-    <div className="flex flex-col items-center gap-0.5 lg:gap-1.5">
+    <div className="flex flex-col items-center gap-0.5 2xl:gap-1.5">
       <PlayerBar />
 
-      <div className="my-1 lg:my-3">
+      <div className="my-1 2xl:my-3">
         <WheelSpinner
           rolling={diceState.rolling}
           finalValue={diceState.finalValue}
