@@ -4,9 +4,10 @@ import { SPIRAL_PATH } from "../../lib/constants";
 interface BoardCanvasProps {
   boardRef: RefObject<HTMLDivElement | null>;
   cellRefs: RefObject<Map<number, HTMLDivElement>>;
+  customTotalTiles: number | null;
 }
 
-export default function BoardCanvas({ boardRef, cellRefs }: BoardCanvasProps) {
+export default function BoardCanvas({ boardRef, cellRefs, customTotalTiles }: BoardCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const draw = useCallback(() => {
@@ -30,7 +31,11 @@ export default function BoardCanvas({ boardRef, cellRefs }: BoardCanvasProps) {
 
     let started = false;
 
-    SPIRAL_PATH.forEach((gridIndex) => {
+    // Stop path at the custom finish tile when a custom board is active
+    const pathLength = customTotalTiles ?? SPIRAL_PATH.length;
+    const activePath = SPIRAL_PATH.slice(0, pathLength);
+
+    activePath.forEach((gridIndex) => {
       const cell = cellRefs.current.get(gridIndex);
       if (!cell) return;
 
@@ -47,7 +52,7 @@ export default function BoardCanvas({ boardRef, cellRefs }: BoardCanvasProps) {
     });
 
     ctx.stroke();
-  }, [boardRef, cellRefs]);
+  }, [boardRef, cellRefs, customTotalTiles]);
 
   useEffect(() => {
     // Draw after mount with increasing delays to ensure cells are laid out

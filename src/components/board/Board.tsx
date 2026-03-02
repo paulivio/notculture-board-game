@@ -4,11 +4,13 @@ import Cell from "./Cell";
 import BoardCanvas from "./BoardCanvas";
 import PlayerToken from "./PlayerToken";
 import { TOTAL_CELLS, SPIRAL_PATH, CULTURE_POSITIONS, NOT_POSITIONS, GRID_SIZE } from "../../lib/constants";
+import type { Category } from "../../types/game";
 
 export default function Board() {
   const state = useGame();
   const boardRef = useRef<HTMLDivElement>(null);
   const cellRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const customConfig = state.customBoardConfig;
 
   const setCellRef = (gridIndex: number, el: HTMLDivElement | null) => {
     if (el) {
@@ -24,6 +26,9 @@ export default function Board() {
     gridToPath.set(gridIndex, pathIndex);
   });
 
+  // When a custom board is active, the effective finish tile is at totalTiles - 1
+  const customFinish = customConfig ? customConfig.totalTiles - 1 : null;
+
   return (
     <div
       ref={boardRef}
@@ -35,27 +40,47 @@ export default function Board() {
         backgroundPosition: "center",
       }}
     >
-      <BoardCanvas boardRef={boardRef} cellRefs={cellRefs} />
+      <BoardCanvas boardRef={boardRef} cellRefs={cellRefs} customTotalTiles={customConfig?.totalTiles ?? null} />
 
       {/* Cells */}
       {Array.from({ length: TOTAL_CELLS }, (_, gridIndex) => {
         const pathIndex = gridToPath.get(gridIndex);
         const isOnPath = pathIndex !== undefined;
-        const isStart = pathIndex === 0;
-        const isFinish = pathIndex === SPIRAL_PATH.length - 1;
 
-        const isCulture = isOnPath && !isStart && !isFinish && CULTURE_POSITIONS.has(pathIndex!);
-        const isNot = isOnPath && !isStart && !isFinish && NOT_POSITIONS.has(pathIndex!);
+        // When custom board is active, tiles past the custom finish are off-path
+        const effectiveOnPath = isOnPath && (customConfig === null || pathIndex! <= customFinish!);
 
+        const isStart = effectiveOnPath && pathIndex === 0;
+        const isFinish = effectiveOnPath && (
+          customConfig ? pathIndex === customFinish : pathIndex === SPIRAL_PATH.length - 1
+        );
+
+        let isCulture = false;
+        let isNot = false;
         let category: string | null = null;
-        if (isOnPath && !isStart && !isFinish && !isCulture && !isNot) {
-          category = state.activeCategories[pathIndex % state.activeCategories.length];
+
+        if (effectiveOnPath && !isStart && !isFinish) {
+          if (customConfig) {
+            const tileType = customConfig.tiles[pathIndex!];
+            isCulture = tileType === "culture";
+            isNot = tileType === "not";
+            if (!isCulture && !isNot) {
+              category = tileType as Category;
+            }
+          } else {
+            isCulture = CULTURE_POSITIONS.has(pathIndex!);
+            isNot = NOT_POSITIONS.has(pathIndex!);
+            if (!isCulture && !isNot) {
+              category = state.activeCategories[pathIndex! % state.activeCategories.length];
+            }
+          }
         }
 
         // Figure out connection direction to next cell
         let connectClass = "";
-        if (isOnPath && pathIndex < SPIRAL_PATH.length - 1) {
-          const nextGridIndex = SPIRAL_PATH[pathIndex + 1];
+        const pathLength = customConfig ? customConfig.totalTiles : SPIRAL_PATH.length;
+        if (effectiveOnPath && pathIndex! < pathLength - 1) {
+          const nextGridIndex = SPIRAL_PATH[pathIndex! + 1];
           const curRow = Math.floor(gridIndex / GRID_SIZE);
           const curCol = gridIndex % GRID_SIZE;
           const nextRow = Math.floor(nextGridIndex / GRID_SIZE);
@@ -77,7 +102,7 @@ export default function Board() {
             ref={(el) => setCellRef(gridIndex, el)}
             gridIndex={gridIndex}
             pathIndex={pathIndex}
-            isOnPath={isOnPath}
+            isOnPath={effectiveOnPath}
             isStart={isStart}
             isFinish={isFinish}
             isCulture={isCulture}

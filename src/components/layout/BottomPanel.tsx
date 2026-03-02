@@ -5,9 +5,10 @@ import LocalControls from "../controls/LocalControls";
 import OnlineControls from "../controls/OnlineControls";
 import SettingsMenu from "../controls/SettingsMenu";
 import CategorySelector from "../controls/CategorySelector";
+import BoardBuilderPanel from "../builder/BoardBuilderPanel";
 import { TextureButton } from "../ui/TextureButton";
 
-type Section = "local" | "online" | "categories";
+type Section = "local" | "online" | "categories" | "board";
 
 export default function BottomPanel() {
   const state = useGame();
@@ -63,6 +64,13 @@ export default function BottomPanel() {
             Categories
           </TextureButton>
         )}
+        <TextureButton
+          size="sm"
+          variant={state.customBoardConfig !== null ? "primary" : openSection === "board" ? "primary" : "default"}
+          onClick={() => setOpenSection(openSection === "board" ? null : "board")}
+        >
+          Board
+        </TextureButton>
         <SettingsMenu />
       </div>
 
@@ -115,6 +123,21 @@ export default function BottomPanel() {
                 }
                 locked={gameStarted}
               />
+            </div>
+          </motion.div>
+        )}
+
+        {openSection === "board" && (
+          <motion.div
+            key="board"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="overflow-hidden w-full flex justify-center"
+          >
+            <div className="py-1 w-full max-w-lg px-2">
+              <BoardBuilderPanel />
             </div>
           </motion.div>
         )}

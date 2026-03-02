@@ -2,7 +2,7 @@ import { ref, set, update, get, runTransaction } from "firebase/database";
 
 const ROOM_TTL_MS = 60 * 60 * 1000; // 1 hour
 import { db } from "./config";
-import type { Category, TeamData } from "../types/game";
+import type { Category, CustomBoardConfig, TeamData } from "../types/game";
 
 function generateRoomCode(): string {
   return Math.random().toString(36).substring(2, 8).toUpperCase();
@@ -14,7 +14,8 @@ function generatePlayerId(): string {
 
 export async function createRoom(
   playerName: string,
-  activeCategories: Category[]
+  activeCategories: Category[],
+  customBoardConfig?: CustomBoardConfig | null
 ): Promise<{ roomCode: string; playerId: string }> {
   const roomCode = generateRoomCode();
   const playerId = generatePlayerId();
@@ -35,6 +36,7 @@ export async function createRoom(
     answerResult: null,
     gameState: "waiting",
     activeCategories,
+    customBoardConfig: customBoardConfig ?? null,
   });
 
   return { roomCode, playerId };
@@ -271,7 +273,8 @@ export async function resetRoom(roomCode: string): Promise<void> {
 export async function createTeamRoom(
   playerName: string,
   teamName: string,
-  activeCategories: Category[]
+  activeCategories: Category[],
+  customBoardConfig?: CustomBoardConfig | null
 ): Promise<{ roomCode: string; playerId: string; teamId: string }> {
   const roomCode = generateRoomCode();
   const playerId = generatePlayerId();
@@ -302,6 +305,7 @@ export async function createTeamRoom(
     currentAnswererId: playerId,
     currentDescriberId: null,
     activeCategories,
+    customBoardConfig: customBoardConfig ?? null,
   });
 
   return { roomCode, playerId, teamId };

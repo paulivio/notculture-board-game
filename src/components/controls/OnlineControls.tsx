@@ -206,7 +206,7 @@ export default function OnlineControls() {
     sessionStartedRef.current = true;
 
     if (isTeamModeChecked) {
-      const { roomCode, playerId, teamId } = await createTeamRoom(name, teamName, selectedCategories);
+      const { roomCode, playerId, teamId } = await createTeamRoom(name, teamName, selectedCategories, state.customBoardConfig);
 
       ss.setItem(LS_ROOM_CODE, roomCode);
       ss.setItem(LS_PLAYER_ID, playerId);
@@ -217,7 +217,7 @@ export default function OnlineControls() {
       setIdentity({ roomCode, playerId, playerName: name, teamId, teamName });
       setCreatedRoomCode(roomCode);
     } else {
-      const { roomCode, playerId } = await createRoom(name, selectedCategories);
+      const { roomCode, playerId } = await createRoom(name, selectedCategories, state.customBoardConfig);
 
       ss.setItem(LS_ROOM_CODE, roomCode);
       ss.setItem(LS_PLAYER_ID, playerId);

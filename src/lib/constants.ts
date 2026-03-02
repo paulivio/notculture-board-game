@@ -85,6 +85,11 @@ export const LS_PLAYER_ID = "notculture_playerId";
 export const LS_PLAYER_NAME = "notculture_playerName";
 export const LS_TEAM_ID = "notculture_teamId";
 export const LS_TEAM_NAME = "notculture_teamName";
+export const LS_BOARD_CODE = "notculture_boardCode";
+
+export const BOARD_TTL_MS = 24 * 60 * 60 * 1000; // 24 hours
+export const MIN_BOARD_TILES = 10;
+export const MAX_BOARD_TILES = 48; // === MAX_POSITION + 1
 
 export const GRID_SIZE = 8;
 export const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
