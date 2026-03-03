@@ -24,16 +24,18 @@ export default function TopPanel() {
     <div className="flex flex-col items-center gap-0.5 xl:gap-1.5">
       <PlayerBar />
 
-      <div className="my-1 xl:my-3">
-        <WheelSpinner
-          rolling={diceState.rolling}
-          finalValue={diceState.finalValue}
-          onComplete={diceState.onComplete}
-          onClick={handleDiceRoll}
-          locked={locked}
-          segmentColors={segmentColors}
-        />
-      </div>
+      {state.wheelMode === "2d" && (
+        <div className="my-1 xl:my-3">
+          <WheelSpinner
+            rolling={diceState.rolling}
+            finalValue={diceState.finalValue}
+            onComplete={diceState.onComplete}
+            onClick={handleDiceRoll}
+            locked={locked}
+            segmentColors={segmentColors}
+          />
+        </div>
+      )}
     </div>
   );
 }

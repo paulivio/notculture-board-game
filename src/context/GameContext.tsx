@@ -48,6 +48,7 @@ const initialState: GameState = {
   customBoardConfig: null,
   boardPreviewConfig: null,
   resetCount: 0,
+  wheelMode: "3d",
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -371,6 +372,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
       tiles[action.index] = action.tileType;
       return { ...state, boardPreviewConfig: { ...state.boardPreviewConfig, tiles } };
     }
+
+    case "SET_WHEEL_MODE":
+      return { ...state, wheelMode: action.mode };
 
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };

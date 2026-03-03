@@ -1,27 +1,29 @@
-import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useTexture } from "@react-three/drei";
+import { OrbitControls } from "@react-three/drei";
 import { TOUCH } from "three";
 import { useGame } from "../../context/GameContext";
-import { SPIRAL_PATH } from "../../lib/constants";
+import { useGameLogicContext } from "../../context/GameLogicContext";
+import { SPIRAL_PATH, CATEGORY_COLORS } from "../../lib/constants";
+import { TILE_HEIGHT } from "./utils3d";
 import BoardSurface3D from "./BoardSurface3D";
 import PathLine3D from "./PathLine3D";
 import PlayersLayer3D from "./PlayersLayer3D";
+import WheelSpinner3D from "./WheelSpinner3D";
 
-function LogoPlane() {
-  const texture = useTexture(`${import.meta.env.BASE_URL}assets/logo.svg`);
-  return (
-    <mesh position={[0, 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-      <planeGeometry args={[2.5, 2.5]} />
-      <meshBasicMaterial map={texture} transparent opacity={0.35} />
-    </mesh>
-  );
-}
+const CULTURE_COLOR = "#c026d3";
+const NOT_COLOR = "#f97316";
 
 function Scene() {
   const state = useGame();
+  const { handleDiceRoll, diceState } = useGameLogicContext();
   const activeConfig = state.boardPreviewConfig ?? state.customBoardConfig;
   const totalTiles = activeConfig?.totalTiles ?? SPIRAL_PATH.length;
+
+  const segmentColors = [
+    ...state.activeCategories.map((c) => CATEGORY_COLORS[c]),
+    CULTURE_COLOR,
+    NOT_COLOR,
+  ];
 
   return (
     <>
@@ -47,9 +49,18 @@ function Scene() {
       <PathLine3D totalTiles={totalTiles} />
       <PlayersLayer3D />
 
-      <Suspense fallback={null}>
-        <LogoPlane />
-      </Suspense>
+      {state.wheelMode === "3d" && (
+        <group position={[0, TILE_HEIGHT + 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <WheelSpinner3D
+            rolling={diceState.rolling}
+            finalValue={diceState.finalValue}
+            onComplete={diceState.onComplete}
+            onClick={handleDiceRoll}
+            locked={state.isTurnLocked}
+            segmentColors={segmentColors}
+          />
+        </group>
+      )}
     </>
   );
 }
