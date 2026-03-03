@@ -126,14 +126,18 @@ export default function GameLayout() {
         </div>
 
         {/* Bottom-center HUD: mode controls */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 pb-3">
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10"
+          style={{ paddingBottom: "max(12px, env(safe-area-inset-bottom))" }}
+        >
           <BottomPanel />
         </div>
 
         {/* Feedback link — bottom-right */}
         <button
           onClick={() => setFeedbackOpen(true)}
-          className="absolute bottom-2 right-3 z-10 text-xs text-white/30 hover:text-white/60 transition-colors"
+          className="absolute bottom-0 right-3 z-10 text-xs text-white/30 hover:text-white/60 transition-colors"
+          style={{ paddingBottom: "max(8px, env(safe-area-inset-bottom))" }}
         >
           Send feedback
         </button>
