@@ -78,7 +78,7 @@ export const CULTURE_TIMER_SECONDS = 30;
 export const NOT_POSITIONS = new Set([5, 15, 25, 35, 45]);
 export const NOT_TIMER_SECONDS = 30;
 
-export const MOVE_DURATION = 500;
+export const MOVE_DURATION = 1167;
 
 export const LS_ROOM_CODE = "notculture_roomCode";
 export const LS_PLAYER_ID = "notculture_playerId";

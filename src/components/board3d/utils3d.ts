@@ -5,6 +5,13 @@ export const TILE_HEIGHT = 0.18;
 export const BOARD_THICKNESS = 0.12;
 export const PAWN_SCALE = 0.28;
 
+export const HOP_HEIGHT = 0.25;
+export const CHARACTER_SCALE = 0.30;
+
+// Ordered fallback lists — first matching clip in the loaded GLTF wins
+export const ANIM_IDLE = ['Idle_A', 'Idle_B', 'Idle_C', 'Idle', 'idle', 'Stand'];
+export const ANIM_WALK = ['Jump_Full_Short', 'Jump_Full_Long', 'Walking_A', 'Walking_B', 'Walking_C', 'Running_A', 'Running_B', 'Walk', 'Run'];
+
 /** Map an 8×8 grid index (0–63) to world [x, TILE_HEIGHT, z]. Board centred at origin. */
 export function gridIndexTo3D(gridIndex: number): [number, number, number] {
   const row = Math.floor(gridIndex / GRID_SIZE);

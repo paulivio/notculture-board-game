@@ -78,13 +78,14 @@ export function useGameLogic() {
         }
 
         if (current < effectiveMax) {
-          playSound("move");
           current++;
           dispatch({
             type: "SET_PLAYER_POSITION",
             playerId,
             position: current,
           });
+          // Delay sound to match when the token visually lands
+          setTimeout(() => playSound("move"), MOVE_DURATION * 0.99);
         }
 
         remaining--;
@@ -309,6 +310,15 @@ export function useGameLogic() {
 
       const correct = selectedIndex === state.activeQuestion.correctIndex;
       playSound(correct ? "correct" : "wrong");
+
+      // In local mode, dispatch answer result so character animations (e.g. hit) can react
+      if (state.gameMode !== "online" && !correct) {
+        dispatch({
+          type: "SET_ANSWER_RESULT",
+          result: { wasCorrect: false, selectedIndex, correctIndex: state.activeQuestion.correctIndex },
+        });
+        setTimeout(() => dispatch({ type: "SET_ANSWER_RESULT", result: null }), 1500);
+      }
 
       // In online mode, write answer result to Firebase
       // In team mode, only the designated answerer may submit

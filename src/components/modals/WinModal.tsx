@@ -18,8 +18,9 @@ export default function WinModal() {
   useEffect(() => {
     const base = import.meta.env.BASE_URL as string;
     const audio = new Audio(`${base}assets/sounds/win-sound.mp3`);
-    audio.loop = true;
+    audio.loop = false;
     audio.preload = "auto";
+    audio.load(); // force buffering immediately so playback starts without delay
     winAudioRef.current = audio;
     return () => {
       audio.pause();
