@@ -1,6 +1,7 @@
 import { useMemo, Suspense } from "react";
 import { Text, RoundedBox } from "@react-three/drei";
-import { useGame } from "../../context/GameContext";
+import { useGame, useGameDispatch } from "../../context/GameContext";
+import { useBuilder } from "../../context/BuilderContext";
 import {
   SPIRAL_PATH,
   TOTAL_CELLS,
@@ -25,9 +26,11 @@ interface TileMeshProps {
   position: [number, number, number];
   color: string;
   label?: string;
+  onClick?: () => void;
+  paintable?: boolean;
 }
 
-function TileMesh({ position, color, label }: TileMeshProps) {
+function TileMesh({ position, color, label, onClick, paintable }: TileMeshProps) {
   return (
     <RoundedBox
       args={[TILE_W, TILE_HEIGHT, TILE_W]}
@@ -36,6 +39,9 @@ function TileMesh({ position, color, label }: TileMeshProps) {
       position={position}
       castShadow
       receiveShadow
+      onClick={onClick}
+      onPointerEnter={paintable ? () => { document.body.style.cursor = "crosshair"; } : undefined}
+      onPointerLeave={paintable ? () => { document.body.style.cursor = ""; } : undefined}
     >
       <meshStandardMaterial color={color} roughness={0.45} metalness={0.05} />
       {label && (
@@ -61,6 +67,8 @@ function TileMesh({ position, color, label }: TileMeshProps) {
 
 export default function BoardSurface3D() {
   const state = useGame();
+  const dispatch = useGameDispatch();
+  const { selectedTileType, setSelectedTileType } = useBuilder();
   const activeConfig = state.boardPreviewConfig ?? state.customBoardConfig;
   const totalTiles = activeConfig?.totalTiles ?? SPIRAL_PATH.length;
 
@@ -71,7 +79,7 @@ export default function BoardSurface3D() {
   }, []);
 
   const tiles = useMemo(() => {
-    const result: { gridIndex: number; position: [number, number, number]; color: string; label?: string }[] = [];
+    const result: { gridIndex: number; pathIndex: number; position: [number, number, number]; color: string; label?: string }[] = [];
 
     for (let gridIndex = 0; gridIndex < TOTAL_CELLS; gridIndex++) {
       const pathIndex = gridToPath.get(gridIndex);
@@ -121,18 +129,33 @@ export default function BoardSurface3D() {
       const color = TILE_COLORS[tileKey] ?? "#52525b";
       const [x, , z] = gridIndexTo3D(gridIndex);
       const position: [number, number, number] = [x, TILE_HEIGHT / 2, z];
-      result.push({ gridIndex, position, color, label });
+      result.push({ gridIndex, pathIndex, position, color, label });
     }
 
     return result;
   }, [gridToPath, state.activeCategories, activeConfig, totalTiles]);
 
+  const isBuilderOpen = !!state.boardPreviewConfig;
+
   return (
     <group>
       {/* Path tiles */}
-      {tiles.map(({ gridIndex, position, color, label }) => (
-        <TileMesh key={gridIndex} position={position} color={color} label={label} />
-      ))}
+      {tiles.map(({ gridIndex, position, color, label, pathIndex }) => {
+        const isEdge = pathIndex === 0 || pathIndex === totalTiles - 1;
+        const paintable = isBuilderOpen && !!selectedTileType && !isEdge;
+        return (
+          <TileMesh
+            key={gridIndex}
+            position={position}
+            color={color}
+            label={label}
+            paintable={paintable}
+            onClick={paintable ? () => {
+              dispatch({ type: "SET_BOARD_PREVIEW_TILE_TYPE", index: pathIndex, tileType: selectedTileType });
+            } : undefined}
+          />
+        );
+      })}
     </group>
   );
 }

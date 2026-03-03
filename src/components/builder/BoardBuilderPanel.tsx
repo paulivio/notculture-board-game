@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { useDraggable } from "@dnd-kit/core";
-import { CSS } from "@dnd-kit/utilities";
 import { useGame, useGameDispatch } from "../../context/GameContext";
+import { useBuilder } from "../../context/BuilderContext";
 import { TextureButton } from "../ui/TextureButton";
 import { saveBoard, loadBoard, buildDefaultTiles, resolveAutoTiles } from "../../firebase/boardService";
 import { LS_BOARD_CODE, MIN_BOARD_TILES, MAX_BOARD_TILES, CATEGORY_COLORS, CULTURE_POSITIONS, NOT_POSITIONS } from "../../lib/constants";
 import type { TileType, CustomBoardConfig } from "../../types/game";
+import { cn } from "../../lib/utils";
 
 const PALETTE_TILES: { type: TileType; label: string; color: string }[] = [
   { type: "film",    label: "Film",    color: CATEGORY_COLORS.film },
@@ -22,36 +22,29 @@ interface PaletteChipProps {
   tileType: TileType;
   label: string;
   color: string;
+  selected: boolean;
+  onSelect: (type: TileType) => void;
 }
 
-function PaletteChip({ tileType, label, color }: PaletteChipProps) {
-  const { setNodeRef, attributes, listeners, transform, isDragging } = useDraggable({
-    id: `palette-${tileType}`,
-    data: { tileType },
-  });
-
+function PaletteChip({ tileType, label, color, selected, onSelect }: PaletteChipProps) {
   return (
-    <div
-      ref={setNodeRef}
-      {...attributes}
-      {...listeners}
-      style={{
-        backgroundColor: color,
-        transform: CSS.Transform.toString(transform),
-        opacity: isDragging ? 0 : 1,
-        cursor: "grab",
-        touchAction: "none",
-      }}
-      className="flex-shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-white select-none"
+    <button
+      onClick={() => onSelect(tileType)}
+      style={{ backgroundColor: color }}
+      className={cn(
+        "flex-shrink-0 rounded-lg px-2.5 py-1.5 text-xs font-semibold text-white select-none transition-all",
+        selected ? "ring-2 ring-white ring-offset-1 ring-offset-black scale-105" : "opacity-80 hover:opacity-100"
+      )}
     >
       {label}
-    </div>
+    </button>
   );
 }
 
 export default function BoardBuilderPanel() {
   const state = useGame();
   const dispatch = useGameDispatch();
+  const { selectedTileType, setSelectedTileType } = useBuilder();
 
   const previewConfig = state.boardPreviewConfig;
   const appliedConfig = state.customBoardConfig;
@@ -297,10 +290,14 @@ export default function BoardBuilderPanel() {
         </div>
       </div>
 
-      {/* Tile palette — drag chips onto board cells */}
+      {/* Tile palette — click chip to select, then click a board tile to apply */}
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between">
-          <p className="text-xs opacity-50">Drag tiles onto the board:</p>
+          <p className="text-xs opacity-50">
+            {selectedTileType
+              ? `Painting: click a board tile to apply`
+              : "Select a tile type, then click a board tile:"}
+          </p>
           <TextureButton size="sm" onClick={handleAutoFill} disabled={!previewConfig}>
             Auto Fill
           </TextureButton>
@@ -312,6 +309,8 @@ export default function BoardBuilderPanel() {
               tileType={chip.type}
               label={chip.label}
               color={chip.color}
+              selected={selectedTileType === chip.type}
+              onSelect={(type) => setSelectedTileType(selectedTileType === type ? null : type)}
             />
           ))}
         </div>
