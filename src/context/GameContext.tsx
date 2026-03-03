@@ -45,6 +45,8 @@ const initialState: GameState = {
   activeTeamId: null,
   cultureQuestionIndex: null,
   activeCategories: [...CATEGORIES],
+  customBoardConfig: null,
+  boardPreviewConfig: null,
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -308,6 +310,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "DISMISS_WELCOME":
       return { ...state, showWelcome: false };
 
+    case "SHOW_WELCOME":
+      return { ...state, showWelcome: true };
+
     case "SET_TEAM_MODE":
       return { ...state, isTeamMode: action.value };
 
@@ -322,6 +327,48 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SET_ACTIVE_CATEGORIES":
       return { ...state, activeCategories: action.categories };
+
+    case "SET_CUSTOM_BOARD_CONFIG":
+      return {
+        ...state,
+        customBoardConfig: action.config,
+        // Reset player positions so stale positions don't exceed the new path length
+        players: state.players.map((p) => ({ ...p, position: 0 })),
+        currentPlayerIndex: 0,
+        activeQuestion: null,
+        pendingMove: 0,
+        pendingCategory: null,
+        isTurnLocked: false,
+        showWinModal: false,
+        showQuestionModal: false,
+        showCultureModal: false,
+        showNotModal: false,
+        cultureTimerStartedAt: null,
+        cultureScore: null,
+        notTimerStartedAt: null,
+        notScore: null,
+        currentNotCard: null,
+      };
+
+    case "SET_TILE_TYPE": {
+      if (!state.customBoardConfig) return state;
+      const newTiles = [...state.customBoardConfig.tiles];
+      newTiles[action.index] = action.tileType;
+      return {
+        ...state,
+        customBoardConfig: { ...state.customBoardConfig, tiles: newTiles },
+      };
+    }
+
+    case "SET_BOARD_PREVIEW_CONFIG":
+      return { ...state, boardPreviewConfig: action.config };
+
+    case "SET_BOARD_PREVIEW_TILE_TYPE": {
+      if (!state.boardPreviewConfig) return state;
+      const tiles = [...state.boardPreviewConfig.tiles];
+      tiles[action.index] = action.tileType;
+      return { ...state, boardPreviewConfig: { ...state.boardPreviewConfig, tiles } };
+    }
 
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };

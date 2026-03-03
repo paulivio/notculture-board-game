@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useTexture } from "@react-three/drei";
+import { useGame } from "../../context/GameContext";
 import { SPIRAL_PATH } from "../../lib/constants";
 import BoardSurface3D from "./BoardSurface3D";
 import PathLine3D from "./PathLine3D";
@@ -17,7 +18,9 @@ function LogoPlane() {
 }
 
 function Scene() {
-  const totalTiles = SPIRAL_PATH.length;
+  const state = useGame();
+  const activeConfig = state.boardPreviewConfig ?? state.customBoardConfig;
+  const totalTiles = activeConfig?.totalTiles ?? SPIRAL_PATH.length;
 
   return (
     <>

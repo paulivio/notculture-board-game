@@ -3,16 +3,13 @@ import { motion } from "framer-motion";
 import { useGame, useGameDispatch } from "../../context/GameContext";
 import { TextureButton } from "../ui/TextureButton";
 import { TextureCard } from "../ui/TextureCard";
-import { ALL_CATEGORIES, CATEGORY_LABELS, CATEGORY_COLORS } from "../../lib/constants";
+import { ALL_CATEGORIES, CATEGORY_LABELS } from "../../lib/constants";
 import type { Category, Question } from "../../types/game";
-
-type Tab = "editor" | "instructions";
 
 export default function QuestionEditor() {
   const state = useGame();
   const dispatch = useGameDispatch();
 
-  const [activeTab, setActiveTab] = useState<Tab>("editor");
   const [questionText, setQuestionText] = useState("");
   const [category, setCategory] = useState<Category>("film");
   const [difficulty, setDifficulty] = useState(1);
@@ -110,27 +107,7 @@ export default function QuestionEditor() {
 
         <h2 className="mb-3 text-xl font-bold">Question Editor</h2>
 
-        {/* Tabs */}
-        <div className="flex gap-2 mb-4">
-          <TextureButton
-            variant={activeTab === "editor" ? "primary" : "default"}
-            onClick={() => setActiveTab("editor")}
-            className="flex-1 text-sm"
-          >
-            Add Question
-          </TextureButton>
-          <TextureButton
-            variant={activeTab === "instructions" ? "primary" : "default"}
-            onClick={() => setActiveTab("instructions")}
-            className="flex-1 text-sm"
-          >
-            Instructions
-          </TextureButton>
-        </div>
-
-        {activeTab === "editor" ? (
-          <>
-            <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2">
               <input
                 className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-white placeholder-white/40"
                 placeholder="Question text"
@@ -247,70 +224,7 @@ export default function QuestionEditor() {
                 );
               })}
             </div>
-          </>
-        ) : (
-          /* Instructions tab */
-          <div className="space-y-5 text-sm">
-            <EditorSection title="Categories">
-              <p className="mb-2 text-white/70">Each question belongs to one of 5 categories. Choose any 4 to play with.</p>
-              <ul className="space-y-1.5">
-                {ALL_CATEGORIES.map((cat) => (
-                  <li key={cat} className="flex items-center gap-2">
-                    <span
-                      className="h-3 w-3 flex-shrink-0 rounded-full"
-                      style={{ backgroundColor: CATEGORY_COLORS[cat] }}
-                    />
-                    <span className="text-white/80">{CATEGORY_LABELS[cat]}</span>
-                  </li>
-                ))}
-              </ul>
-            </EditorSection>
-
-            <EditorSection title="Difficulty">
-              <ul className="space-y-1 text-white/70">
-                <li><strong className="text-white">1–2</strong> — Easy. Pub quiz level, widely known facts.</li>
-                <li><strong className="text-white">3–4</strong> — Medium. Requires some knowledge of the topic.</li>
-                <li><strong className="text-white">5–6</strong> — Hard. Specialist or expert-level questions.</li>
-              </ul>
-              <p className="mt-1.5 text-white/50 text-xs">The wheel value (1–6) directly selects the difficulty, so aim for a good spread across all levels.</p>
-            </EditorSection>
-
-            <EditorSection title="Question Format">
-              <ul className="space-y-1 text-white/70">
-                <li>Write a clear question with exactly <strong className="text-white">4 answers</strong>.</li>
-                <li>All answers must be <strong className="text-white">unique</strong>.</li>
-                <li>Select which answer (A–D) is correct before adding.</li>
-              </ul>
-            </EditorSection>
-
-            <EditorSection title="Special Tiles">
-              <ul className="space-y-2 text-white/70">
-                <li>
-                  <strong className="text-white">Not tile</strong> — Inactive players describe 6 words or phrases; the active player guesses. One space per correct guess, up to 6.
-                </li>
-                <li>
-                  <strong className="text-white">Culture tile</strong> — The active player guesses 1–10 answers for a trivia question. One space forward per correct answer.
-                </li>
-              </ul>
-            </EditorSection>
-
-            <EditorSection title="Exporting">
-              <p className="text-white/70">
-                <strong className="text-white">Export JSON</strong> downloads one <code className="rounded bg-white/10 px-1">.json</code> file per category containing all current questions — ready to drop back into <code className="rounded bg-white/10 px-1">src/data/</code>.
-              </p>
-            </EditorSection>
-          </div>
-        )}
       </TextureCard>
     </motion.div>
-  );
-}
-
-function EditorSection({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <p className="mb-1.5 text-xs font-bold uppercase tracking-wide text-white/50">{title}</p>
-      {children}
-    </div>
   );
 }

@@ -4,16 +4,14 @@ import { useGame, useGameDispatch } from "../../context/GameContext";
 import LocalControls from "../controls/LocalControls";
 import OnlineControls from "../controls/OnlineControls";
 import SettingsMenu from "../controls/SettingsMenu";
-import CategorySelector from "../controls/CategorySelector";
+import BoardBuilderPanel from "../builder/BoardBuilderPanel";
 import { TextureButton } from "../ui/TextureButton";
 
-type Section = "local" | "online" | "categories";
+type Section = "local" | "online" | "board";
 
 export default function BottomPanel() {
   const state = useGame();
   const dispatch = useGameDispatch();
-  const gameStarted = state.players.some((p) => p.position > 0);
-
   const [openSection, setOpenSection] = useState<Section | null>(
     state.gameMode as Section
   );
@@ -23,14 +21,21 @@ export default function BottomPanel() {
     setOpenSection(state.gameMode as Section);
   }, [state.gameMode]);
 
+  function handleSectionChange(next: Section | null) {
+    if (openSection === "board" && next !== "board") {
+      dispatch({ type: "SET_BOARD_PREVIEW_CONFIG", config: null });
+    }
+    setOpenSection(next);
+  }
+
   function handleModeClick(mode: "local" | "online") {
     if (state.gameMode !== mode) {
       dispatch({ type: "SET_GAME_MODE", mode });
-      setOpenSection(mode);
+      handleSectionChange(mode);
     } else if (openSection === mode) {
-      setOpenSection(null);
+      handleSectionChange(null);
     } else {
-      setOpenSection(mode);
+      handleSectionChange(mode);
     }
   }
 
@@ -52,17 +57,13 @@ export default function BottomPanel() {
         >
           Online
         </TextureButton>
-        {state.gameMode === "local" && (
-          <TextureButton
-            size="sm"
-            variant={openSection === "categories" ? "primary" : "default"}
-            onClick={() =>
-              setOpenSection(openSection === "categories" ? null : "categories")
-            }
-          >
-            Categories
-          </TextureButton>
-        )}
+        <TextureButton
+          size="sm"
+          variant={state.customBoardConfig !== null ? "primary" : openSection === "board" ? "primary" : "default"}
+          onClick={() => handleSectionChange(openSection === "board" ? null : "board")}
+        >
+          Board
+        </TextureButton>
         <SettingsMenu />
       </div>
 
@@ -98,23 +99,17 @@ export default function BottomPanel() {
           </motion.div>
         )}
 
-        {openSection === "categories" && state.gameMode === "local" && (
+        {openSection === "board" && (
           <motion.div
-            key="categories"
+            key="board"
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
             className="overflow-hidden w-full flex justify-center"
           >
-            <div className="py-1">
-              <CategorySelector
-                value={state.activeCategories}
-                onChange={(cats) =>
-                  dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: cats })
-                }
-                locked={gameStarted}
-              />
+            <div className="py-1 w-full max-w-lg xl:max-w-full px-2">
+              <BoardBuilderPanel />
             </div>
           </motion.div>
         )}

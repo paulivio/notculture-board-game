@@ -1,14 +1,45 @@
+import { useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useGame, useGameDispatch } from "../../context/GameContext";
 import { useOnline } from "../../context/OnlineContext";
 import { resetRoom } from "../../firebase/roomService";
 import { TextureCard } from "../ui/TextureCard";
 import { TextureButton } from "../ui/TextureButton";
+import { useSoundSettings } from "../../context/SoundContext";
 
 export default function WinModal() {
   const state = useGame();
   const dispatch = useGameDispatch();
   const { identity } = useOnline();
+  const { volume, muted } = useSoundSettings();
+  const winAudioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Create looping win audio once on mount
+  useEffect(() => {
+    const base = import.meta.env.BASE_URL as string;
+    const audio = new Audio(`${base}assets/sounds/win-sound.mp3`);
+    audio.loop = true;
+    audio.preload = "auto";
+    winAudioRef.current = audio;
+    return () => {
+      audio.pause();
+      winAudioRef.current = null;
+    };
+  }, []);
+
+  // Play/stop in response to win modal state and sound settings
+  useEffect(() => {
+    const audio = winAudioRef.current;
+    if (!audio) return;
+    if (state.showWinModal && !muted) {
+      audio.volume = volume;
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }, [state.showWinModal, volume, muted]);
 
   const handleRestart = () => {
     if (state.gameMode === "online" && identity.roomCode) {

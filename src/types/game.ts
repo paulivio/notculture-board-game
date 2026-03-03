@@ -21,6 +21,16 @@ export interface NotQuestion {
 
 export type Category = "film" | "science" | "general" | "history" | "sports";
 
+export type TileType = Category | "not" | "culture" | "start" | "finish" | "auto";
+
+export interface CustomBoardConfig {
+  id: string;          // 4-char alphanumeric board code
+  createdAt: number;   // Date.now() — used for 24 h TTL
+  name: string;
+  totalTiles: number;  // 10–48 inclusive; index 0 = start, last = finish
+  tiles: TileType[];   // length === totalTiles
+}
+
 export type GameMode = "local" | "online";
 
 export interface AnswerResult {
@@ -63,6 +73,8 @@ export interface GameState {
   activeTeamId: string | null;
   cultureQuestionIndex: number | null;
   activeCategories: Category[];
+  customBoardConfig: CustomBoardConfig | null;
+  boardPreviewConfig: CustomBoardConfig | null;
 }
 
 export interface OnlineIdentity {
@@ -102,6 +114,7 @@ export interface RoomData {
   currentAnswererId?: string | null;
   currentDescriberId?: string | null;
   activeCategories?: Category[];
+  customBoardConfig?: CustomBoardConfig | null;
 }
 
 export type GameAction =
@@ -141,8 +154,13 @@ export type GameAction =
   | { type: "SET_NOT_SCORE"; score: number | null }
   | { type: "SET_NOT_CARD"; card: NotQuestion | null }
   | { type: "DISMISS_WELCOME" }
+  | { type: "SHOW_WELCOME" }
   | { type: "SET_TEAM_MODE"; value: boolean }
   | { type: "SET_ANSWERER_IDS"; answererId: string | null; describerId: string | null }
   | { type: "SET_ACTIVE_TEAM"; teamId: string | null }
   | { type: "SET_CULTURE_QUESTION_INDEX"; index: number | null }
-  | { type: "SET_ACTIVE_CATEGORIES"; categories: Category[] };
+  | { type: "SET_ACTIVE_CATEGORIES"; categories: Category[] }
+  | { type: "SET_CUSTOM_BOARD_CONFIG"; config: CustomBoardConfig | null }
+  | { type: "SET_TILE_TYPE"; index: number; tileType: TileType }
+  | { type: "SET_BOARD_PREVIEW_CONFIG"; config: CustomBoardConfig | null }
+  | { type: "SET_BOARD_PREVIEW_TILE_TYPE"; index: number; tileType: TileType };

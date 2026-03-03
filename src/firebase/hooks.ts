@@ -158,7 +158,10 @@ export function useRoom({
             () => animatingPlayersRef.current.delete(player.id)
           );
           // Show win modal immediately — don't wait for animation to finish
-          if (player.position >= MAX_POSITION) {
+          const effectiveMax = stateRef.current.customBoardConfig
+            ? stateRef.current.customBoardConfig.totalTiles - 1
+            : MAX_POSITION;
+          if (player.position >= effectiveMax) {
             dispatch({ type: "SHOW_WIN_MODAL", show: true });
           }
           // Dispatch old position; animation will move it step-by-step
@@ -188,6 +191,15 @@ export function useRoom({
         ? roomData.activeCategories
         : CATEGORIES;
       dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: roomCategories });
+
+      // Sync custom board config — only dispatch when value actually changed to avoid
+      // unnecessary resets (SET_CUSTOM_BOARD_CONFIG resets player positions).
+      const incomingConfig = roomData.customBoardConfig ?? null;
+      const localConfig = stateRef.current.customBoardConfig;
+      const configChanged = JSON.stringify(incomingConfig) !== JSON.stringify(localConfig);
+      if (configChanged) {
+        dispatch({ type: "SET_CUSTOM_BOARD_CONFIG", config: incomingConfig });
+      }
 
       dispatch({
         type: "SYNC_ONLINE_STATE",

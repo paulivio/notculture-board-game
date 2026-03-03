@@ -64,16 +64,20 @@ export function useGameLogic() {
       let remaining = steps;
 
       function step() {
+        const effectiveMax = stateRef.current.customBoardConfig
+          ? stateRef.current.customBoardConfig.totalTiles - 1
+          : MAX_POSITION;
+
         if (remaining <= 0) {
           movingRef.current = false;
           onComplete?.();
-          if (current >= MAX_POSITION) {
+          if (current >= effectiveMax) {
             dispatch({ type: "SHOW_WIN_MODAL", show: true });
           }
           return;
         }
 
-        if (current < MAX_POSITION) {
+        if (current < effectiveMax) {
           playSound("move");
           current++;
           dispatch({
@@ -103,12 +107,34 @@ export function useGameLogic() {
       if (!currentPlayer) return; // Guard: players array may be empty during online sync
       const pathIndex = currentPlayer.position;
 
-      const activeCategories = s.activeCategories;
+      const customConfig = s.customBoardConfig;
+      const effectiveMax = customConfig ? customConfig.totalTiles - 1 : MAX_POSITION;
+
       let category: Category;
-      if (pathIndex === 0 || pathIndex === SPIRAL_PATH.length - 1) {
-        category = activeCategories[Math.floor(Math.random() * activeCategories.length)];
+      if (customConfig) {
+        // Use the tile type from the custom board config
+        const tileType = customConfig.tiles[pathIndex];
+        if (pathIndex === 0 || pathIndex >= effectiveMax) {
+          // Start/finish: pick a random category
+          const cats = s.activeCategories;
+          category = cats[Math.floor(Math.random() * cats.length)];
+        } else if (tileType === "not" || tileType === "culture" || tileType === "start" || tileType === "finish") {
+          // Special tiles handled elsewhere (auto-trigger effect); use random as fallback
+          const cats = s.activeCategories;
+          category = cats[Math.floor(Math.random() * cats.length)];
+        } else if (tileType === "auto") {
+          // "auto" tiles fall back to cycling category
+          category = s.activeCategories[pathIndex % s.activeCategories.length];
+        } else {
+          category = tileType as Category;
+        }
       } else {
-        category = activeCategories[pathIndex % activeCategories.length];
+        const activeCategories = s.activeCategories;
+        if (pathIndex === 0 || pathIndex === SPIRAL_PATH.length - 1) {
+          category = activeCategories[Math.floor(Math.random() * activeCategories.length)];
+        } else {
+          category = activeCategories[pathIndex % activeCategories.length];
+        }
       }
 
       dispatch({ type: "SET_PENDING_CATEGORY", category });
@@ -154,8 +180,18 @@ export function useGameLogic() {
     const currentPlayer = state.players[state.currentPlayerIndex];
     if (!currentPlayer) return;
     const pos = currentPlayer.position;
-    if (pos <= 0 || pos >= MAX_POSITION) return;
-    if (!CULTURE_POSITIONS.has(pos) && !NOT_POSITIONS.has(pos)) return;
+    const customConfig = state.customBoardConfig;
+    const effectiveMax = customConfig ? customConfig.totalTiles - 1 : MAX_POSITION;
+    if (pos <= 0 || pos >= effectiveMax) return;
+
+    const isCulturePos = customConfig
+      ? (customConfig.tiles[pos] === "culture")
+      : CULTURE_POSITIONS.has(pos);
+    const isNotPos = customConfig
+      ? (customConfig.tiles[pos] === "not")
+      : NOT_POSITIONS.has(pos);
+    // "auto" tiles are never culture or not
+    if (!isCulturePos && !isNotPos) return;
 
     if (state.gameMode === "online") {
       // Only the designated answerer writes to Firebase (prevents double-trigger in team mode)
@@ -166,7 +202,7 @@ export function useGameLogic() {
         if (!identity.playerName || currentPlayer.name !== identity.playerName) return;
       }
       dispatch({ type: "LOCK_TURN" });
-      if (CULTURE_POSITIONS.has(pos)) {
+      if (isCulturePos) {
         const cultures = cultureData as { id: string; question: string; answers: string[] }[];
         const seed = state.currentPlayerIndex + pos;
         const questionIndex = seed % cultures.length;
@@ -181,7 +217,7 @@ export function useGameLogic() {
       }
     } else {
       dispatch({ type: "LOCK_TURN" });
-      if (CULTURE_POSITIONS.has(pos)) {
+      if (isCulturePos) {
         dispatch({ type: "SHOW_CULTURE_MODAL", show: true });
       } else {
         const cards = notData as { id: string; answers: string[] }[];
@@ -202,6 +238,7 @@ export function useGameLogic() {
     state.isTeamMode,
     state.currentAnswererId,
     state.players,
+    state.customBoardConfig,
     identity.playerName,
     identity.playerId,
     identity.roomCode,
@@ -309,9 +346,12 @@ export function useGameLogic() {
         dispatch({ type: "UNLOCK_TURN" });
 
         if (correct) {
+          const effectiveMax = s.customBoardConfig
+            ? s.customBoardConfig.totalTiles - 1
+            : MAX_POSITION;
           const newPosition = Math.min(
             currentPlayer.position + s.pendingMove,
-            MAX_POSITION
+            effectiveMax
           );
           // Advance turn first — this clears currentQuestion in Firebase,
           // which closes the modal on all clients before movement starts
@@ -372,7 +412,10 @@ export function useGameLogic() {
       const culturePos = currentPlayer.position;
 
       animateMovement(currentPlayer.id, culturePos, score, () => {
-        const newPos = Math.min(culturePos + score, MAX_POSITION);
+        const effectiveMax = stateRef.current.customBoardConfig
+          ? stateRef.current.customBoardConfig.totalTiles - 1
+          : MAX_POSITION;
+        const newPos = Math.min(culturePos + score, effectiveMax);
         // Unlock immediately — don't wait on Firebase so a network hiccup never
         // leaves the wheel stuck locked.
         dispatch({ type: "ADVANCE_TURN" });
@@ -398,7 +441,10 @@ export function useGameLogic() {
       const notPos = currentPlayer.position;
 
       animateMovement(currentPlayer.id, notPos, score, () => {
-        const newPos = Math.min(notPos + score, MAX_POSITION);
+        const effectiveMax = stateRef.current.customBoardConfig
+          ? stateRef.current.customBoardConfig.totalTiles - 1
+          : MAX_POSITION;
+        const newPos = Math.min(notPos + score, effectiveMax);
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
         if (stateRef.current.gameMode === "online" && identity.roomCode) {
@@ -418,11 +464,20 @@ export function useGameLogic() {
   // Debug-only: trigger the tile effect at an arbitrary position
   const triggerTileAt = useCallback(
     (position: number) => {
-      if (position === 0 || position >= MAX_POSITION) return;
+      const customConfig = state.customBoardConfig;
+      const effectiveMax = customConfig ? customConfig.totalTiles - 1 : MAX_POSITION;
+      if (position === 0 || position >= effectiveMax) return;
 
       dispatch({ type: "LOCK_TURN" });
 
-      if (CULTURE_POSITIONS.has(position)) {
+      const isCulturePos = customConfig
+        ? customConfig.tiles[position] === "culture"
+        : CULTURE_POSITIONS.has(position);
+      const isNotPos = customConfig
+        ? customConfig.tiles[position] === "not"
+        : NOT_POSITIONS.has(position);
+
+      if (isCulturePos) {
         if (state.gameMode === "online" && identity.roomCode) {
           const cultures = cultureData as { id: string; question: string; answers: string[] }[];
           const seed = state.currentPlayerIndex + position;
@@ -434,7 +489,7 @@ export function useGameLogic() {
         return;
       }
 
-      if (NOT_POSITIONS.has(position)) {
+      if (isNotPos) {
         const cards = notData as { id: string; answers: string[] }[];
         let pool = cards.filter((c) => !usedNotIds.current.has(c.id));
         if (pool.length === 0) {
@@ -452,7 +507,10 @@ export function useGameLogic() {
         return;
       }
 
-      const category = state.activeCategories[position % state.activeCategories.length];
+      const rawTile = customConfig?.tiles[position];
+      const category = rawTile && rawTile !== "start" && rawTile !== "finish" && rawTile !== "not" && rawTile !== "culture" && rawTile !== "auto"
+        ? rawTile as Category
+        : state.activeCategories[position % state.activeCategories.length];
       dispatch({ type: "SET_PENDING_CATEGORY", category });
 
       const roll = Math.floor(Math.random() * 6) + 1;
@@ -464,7 +522,7 @@ export function useGameLogic() {
         }
       }
     },
-    [state.gameMode, identity.roomCode, dispatch, getQuestion]
+    [state.customBoardConfig, state.gameMode, state.activeCategories, state.currentPlayerIndex, identity.roomCode, dispatch, getQuestion]
   );
 
   const handleSkip = useCallback(() => {

@@ -14,11 +14,14 @@ interface CellProps {
   category: string | null;
   connectClass: string;
   debugMode: boolean;
+  isAutoTile?: boolean;
+  /** True for spiral positions beyond the current path length — shown dimmer in builder */
+  isOutsidePath?: boolean;
 }
 
 const Cell = forwardRef<HTMLDivElement, CellProps>(
   (
-    { pathIndex, isOnPath, isStart, isFinish, isCulture, isNot, category, debugMode },
+    { pathIndex, isOnPath, isStart, isFinish, isCulture, isNot, category, debugMode, isAutoTile, isOutsidePath },
     ref
   ) => {
     if (!isOnPath) {
@@ -30,29 +33,33 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
       ? "bg-white text-black"
       : isFinish
         ? "bg-amber-400 text-black"
-        : isCulture
-          ? "bg-fuchsia-600 text-white"
-          : isNot
-            ? "bg-orange-500 text-white"
-            : category
-              ? CATEGORY_BG_COLORS[category as Category]
-              : "bg-white";
+        : isAutoTile
+          ? "bg-zinc-700 text-white/80"
+          : isCulture
+            ? "bg-fuchsia-600 text-white"
+            : isNot
+              ? "bg-orange-500 text-white"
+              : category
+                ? CATEGORY_BG_COLORS[category as Category]
+                : "bg-white";
 
     const label = isStart
       ? "START"
       : isFinish
         ? "FINISH"
-        : isCulture
-          ? debugMode && pathIndex !== undefined
-            ? String(pathIndex)
-            : "★"
-          : isNot
+        : isAutoTile
+          ? pathIndex !== undefined ? String(pathIndex) : ""
+          : isCulture
             ? debugMode && pathIndex !== undefined
               ? String(pathIndex)
-              : "✦"
-            : debugMode && pathIndex !== undefined
-              ? String(pathIndex)
-              : "";
+              : "★"
+            : isNot
+              ? debugMode && pathIndex !== undefined
+                ? String(pathIndex)
+                : "✦"
+              : debugMode && pathIndex !== undefined
+                ? String(pathIndex)
+                : "";
 
     return (
       <div
@@ -62,12 +69,12 @@ const Cell = forwardRef<HTMLDivElement, CellProps>(
           bgColor
         )}
       >
-        {isCulture && !(debugMode && pathIndex !== undefined) ? (
+        {!isAutoTile && isCulture && !(debugMode && pathIndex !== undefined) ? (
           <div className="flex flex-col items-center leading-none gap-0.5 text-[clamp(13px,2.6vw,22px)]">
             <span>★</span>
             <span className="text-[0.75em]">Culture</span>
           </div>
-        ) : isNot && !(debugMode && pathIndex !== undefined) ? (
+        ) : !isAutoTile && isNot && !(debugMode && pathIndex !== undefined) ? (
           <div className="flex flex-col items-center leading-none gap-0.5 text-[clamp(13px,2.6vw,22px)]">
             <span>✦</span>
             <span className="text-[0.75em]">Not</span>

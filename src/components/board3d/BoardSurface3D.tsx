@@ -9,7 +9,7 @@ import {
   CATEGORY_COLORS,
 } from "../../lib/constants";
 import { gridIndexTo3D, CELL_SIZE, TILE_HEIGHT } from "./utils3d";
-import type { Category } from "../../types/game";
+import type { Category, TileType } from "../../types/game";
 
 const TILE_COLORS: Record<string, string> = {
   start: "#ffffff",
@@ -61,6 +61,8 @@ function TileMesh({ position, color, label }: TileMeshProps) {
 
 export default function BoardSurface3D() {
   const state = useGame();
+  const activeConfig = state.boardPreviewConfig ?? state.customBoardConfig;
+  const totalTiles = activeConfig?.totalTiles ?? SPIRAL_PATH.length;
 
   const gridToPath = useMemo(() => {
     const m = new Map<number, number>();
@@ -74,25 +76,41 @@ export default function BoardSurface3D() {
     for (let gridIndex = 0; gridIndex < TOTAL_CELLS; gridIndex++) {
       const pathIndex = gridToPath.get(gridIndex);
       if (pathIndex === undefined) continue;
+      if (pathIndex >= totalTiles) continue; // respect custom board length
+
+      // Tile type: custom board overrides default derivation
+      let tileType: TileType | null = null;
+      if (activeConfig) {
+        const raw = activeConfig.tiles[pathIndex] as TileType;
+        // Guard against stale "start"/"finish" in middle positions (same fix as Board.tsx)
+        if (raw === "start" && pathIndex !== 0) tileType = null;
+        else if (raw === "finish" && pathIndex !== totalTiles - 1) tileType = null;
+        else tileType = raw;
+      }
 
       const isStart = pathIndex === 0;
-      const isFinish = pathIndex === SPIRAL_PATH.length - 1;
-      const isCulture = !isStart && !isFinish && CULTURE_POSITIONS.has(pathIndex);
-      const isNot = !isStart && !isFinish && NOT_POSITIONS.has(pathIndex);
+      const isFinish = pathIndex === totalTiles - 1;
 
       let tileKey: string;
       let label: string | undefined;
 
-      if (isStart) {
+      if (tileType && tileType !== "auto") {
+        // Custom board tile
+        tileKey = tileType;
+        if (tileType === "start") label = "START";
+        else if (tileType === "finish") label = "FINISH";
+        else if (tileType === "culture") label = "CULTURE";
+        else if (tileType === "not") label = "NOT";
+      } else if (isStart) {
         tileKey = "start";
         label = "START";
       } else if (isFinish) {
         tileKey = "finish";
         label = "FINISH";
-      } else if (isCulture) {
+      } else if (!activeConfig && CULTURE_POSITIONS.has(pathIndex)) {
         tileKey = "culture";
         label = "CULTURE";
-      } else if (isNot) {
+      } else if (!activeConfig && NOT_POSITIONS.has(pathIndex)) {
         tileKey = "not";
         label = "NOT";
       } else {
@@ -100,14 +118,14 @@ export default function BoardSurface3D() {
         tileKey = cat;
       }
 
-      const color = TILE_COLORS[tileKey] ?? "#888888";
+      const color = TILE_COLORS[tileKey] ?? "#52525b";
       const [x, , z] = gridIndexTo3D(gridIndex);
       const position: [number, number, number] = [x, TILE_HEIGHT / 2, z];
       result.push({ gridIndex, position, color, label });
     }
 
     return result;
-  }, [gridToPath, state.activeCategories]);
+  }, [gridToPath, state.activeCategories, activeConfig, totalTiles]);
 
   return (
     <group>
