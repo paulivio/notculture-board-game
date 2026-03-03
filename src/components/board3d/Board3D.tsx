@@ -1,6 +1,7 @@
 import { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useTexture } from "@react-three/drei";
+import { TOUCH } from "three";
 import { useGame } from "../../context/GameContext";
 import { SPIRAL_PATH } from "../../lib/constants";
 import BoardSurface3D from "./BoardSurface3D";
@@ -36,9 +37,10 @@ function Scene() {
 
       <OrbitControls
         makeDefault
-        enablePan={false}
+        enablePan={true}
         minDistance={4}
         maxDistance={20}
+        touches={{ ONE: TOUCH.ROTATE, TWO: TOUCH.DOLLY_PAN }}
       />
 
       <BoardSurface3D />
