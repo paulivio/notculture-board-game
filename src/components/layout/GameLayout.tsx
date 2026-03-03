@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useGame, useGameDispatch } from "../../context/GameContext";
 import TopPanel from "./TopPanel";
 import BottomPanel from "./BottomPanel";
-import Board from "../board/Board";
+import Board3D from "../board3d/Board3D";
 import QuestionModal from "../modals/QuestionModal";
 import WinModal from "../modals/WinModal";
 import QuestionEditor from "../modals/QuestionEditor";
@@ -50,7 +50,7 @@ export default function GameLayout() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-start gap-1 p-2.5 2xl:flex-row 2xl:items-start 2xl:justify-center 2xl:gap-10">
       <TopPanel />
-      <Board />
+      <Board3D />
       <div className="flex flex-col items-center">
         <BottomPanel />
         <button
