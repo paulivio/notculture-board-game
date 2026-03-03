@@ -14,12 +14,15 @@ export default function PathLine3D({ totalTiles }: Props) {
 
     const points = activePath.map((gridIndex) => {
       const [x, , z] = gridIndexTo3D(gridIndex);
-      return new Vector3(x, TILE_HEIGHT + 0.05, z);
+      // Run through the vertical centre of the tiles so the tile geometry
+      // occludes the tube where they overlap, revealing a pipe cross-section
+      // only in the gaps between tiles.
+      return new Vector3(x, TILE_HEIGHT / 2, z);
     });
 
     // tension=0 → straight lines between axis-aligned grid centres (no overshoot at corners)
     const curve = new CatmullRomCurve3(points, false, "catmullrom", 0);
-    return new TubeGeometry(curve, totalTiles * 2, 0.04, 6, false);
+    return new TubeGeometry(curve, totalTiles * 2, 0.05, 12, false);
   }, [totalTiles]);
 
   useEffect(() => {
@@ -32,7 +35,7 @@ export default function PathLine3D({ totalTiles }: Props) {
 
   return (
     <mesh geometry={geometry}>
-      <meshStandardMaterial color="white" opacity={0.7} transparent roughness={1} />
+      <meshStandardMaterial color="#ffffff" roughness={0.2} metalness={0.6} />
     </mesh>
   );
 }

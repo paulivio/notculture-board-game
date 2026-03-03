@@ -1,5 +1,5 @@
 import { useMemo, Suspense } from "react";
-import { Text } from "@react-three/drei";
+import { Text, RoundedBox } from "@react-three/drei";
 import { useGame } from "../../context/GameContext";
 import {
   SPIRAL_PATH,
@@ -8,7 +8,7 @@ import {
   NOT_POSITIONS,
   CATEGORY_COLORS,
 } from "../../lib/constants";
-import { gridIndexTo3D, CELL_SIZE, TILE_HEIGHT, BOARD_THICKNESS } from "./utils3d";
+import { gridIndexTo3D, CELL_SIZE, TILE_HEIGHT } from "./utils3d";
 import type { Category } from "../../types/game";
 
 const TILE_COLORS: Record<string, string> = {
@@ -29,9 +29,15 @@ interface TileMeshProps {
 
 function TileMesh({ position, color, label }: TileMeshProps) {
   return (
-    <mesh position={position} castShadow receiveShadow>
-      <boxGeometry args={[TILE_W, TILE_HEIGHT, TILE_W]} />
-      <meshStandardMaterial color={color} roughness={0.55} metalness={0.05} />
+    <RoundedBox
+      args={[TILE_W, TILE_HEIGHT, TILE_W]}
+      radius={0.06}
+      smoothness={4}
+      position={position}
+      castShadow
+      receiveShadow
+    >
+      <meshStandardMaterial color={color} roughness={0.45} metalness={0.05} />
       {label && (
         <Suspense fallback={null}>
           <Text
@@ -49,7 +55,7 @@ function TileMesh({ position, color, label }: TileMeshProps) {
           </Text>
         </Suspense>
       )}
-    </mesh>
+    </RoundedBox>
   );
 }
 
@@ -103,16 +109,8 @@ export default function BoardSurface3D() {
     return result;
   }, [gridToPath, state.activeCategories]);
 
-  const boardSize = 8 * CELL_SIZE + 1.0; // 9 units wide
-
   return (
     <group>
-      {/* Board base slab */}
-      <mesh position={[0, -BOARD_THICKNESS / 2, 0]} receiveShadow>
-        <boxGeometry args={[boardSize, BOARD_THICKNESS, boardSize]} />
-        <meshStandardMaterial color="#1e1e1e" roughness={0.85} />
-      </mesh>
-
       {/* Path tiles */}
       {tiles.map(({ gridIndex, position, color, label }) => (
         <TileMesh key={gridIndex} position={position} color={color} label={label} />

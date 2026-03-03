@@ -97,7 +97,7 @@ export default function SettingsMenu() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.15 }}
-            className="absolute left-1/2 -translate-x-1/2 top-full mt-1 flex flex-col gap-1.5 rounded-lg border border-white/10 bg-surface p-2.5 z-20 min-w-[260px]"
+            className="absolute left-1/2 -translate-x-1/2 bottom-full mb-1 flex flex-col gap-1.5 rounded-lg border border-white/10 bg-surface p-2.5 z-20 min-w-[260px] max-h-[80vh] overflow-y-auto"
           >
             <TextureButton
               className="w-full justify-start"

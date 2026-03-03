@@ -48,18 +48,30 @@ export default function GameLayout() {
   }, [state.showQuestionModal, state.showEditor, state.showWinModal, state.showCultureModal, state.showNotModal, state.showWelcome]);
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-start gap-1 p-2.5 2xl:flex-row 2xl:items-start 2xl:justify-center 2xl:gap-10">
-      <TopPanel />
-      <Board3D />
-      <div className="flex flex-col items-center">
-        <BottomPanel />
-        <button
-          onClick={() => setFeedbackOpen(true)}
-          className="mt-2 text-xs text-white/30 hover:text-white/60 transition-colors"
-        >
-          Send feedback
-        </button>
+    <div className="relative w-screen h-screen overflow-hidden">
+
+      {/* Full-screen 3D board */}
+      <div className="absolute inset-0">
+        <Board3D />
       </div>
+
+      {/* Top-left HUD: player bar + wheel spinner */}
+      <div className="absolute top-0 left-0 z-10 p-3">
+        <TopPanel />
+      </div>
+
+      {/* Bottom-center HUD: mode controls */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 pb-3">
+        <BottomPanel />
+      </div>
+
+      {/* Feedback link — bottom-right */}
+      <button
+        onClick={() => setFeedbackOpen(true)}
+        className="absolute bottom-2 right-3 z-10 text-xs text-white/30 hover:text-white/60 transition-colors"
+      >
+        Send feedback
+      </button>
 
       {state.showQuestionModal && state.activeQuestion && <QuestionModal />}
       {state.showWinModal && <WinModal />}

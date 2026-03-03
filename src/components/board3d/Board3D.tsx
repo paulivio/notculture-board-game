@@ -51,7 +51,7 @@ function Scene() {
 
 export default function Board3D() {
   return (
-    <div className="w-[min(92vw,92vh)] aspect-square 2xl:flex-1 2xl:max-h-[90vh] 2xl:max-w-[90vh] 2xl:w-auto relative">
+    <div className="w-full h-full relative">
       <Canvas
         style={{ position: "absolute", inset: 0 }}
         camera={{ position: [0, 8, 7], fov: 45 }}
