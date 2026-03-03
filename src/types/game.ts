@@ -76,6 +76,7 @@ export interface GameState {
   customBoardConfig: CustomBoardConfig | null;
   boardPreviewConfig: CustomBoardConfig | null;
   resetCount: number;
+  wheelMode: "3d" | "2d";
 }
 
 export interface OnlineIdentity {
@@ -164,4 +165,5 @@ export type GameAction =
   | { type: "SET_CUSTOM_BOARD_CONFIG"; config: CustomBoardConfig | null }
   | { type: "SET_TILE_TYPE"; index: number; tileType: TileType }
   | { type: "SET_BOARD_PREVIEW_CONFIG"; config: CustomBoardConfig | null }
-  | { type: "SET_BOARD_PREVIEW_TILE_TYPE"; index: number; tileType: TileType };
+  | { type: "SET_BOARD_PREVIEW_TILE_TYPE"; index: number; tileType: TileType }
+  | { type: "SET_WHEEL_MODE"; mode: "3d" | "2d" };
