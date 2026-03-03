@@ -15,16 +15,18 @@ import {
 } from './utils3d';
 import { MOVE_DURATION } from '../../lib/constants';
 
+const BASE = import.meta.env.BASE_URL as string;
+
 const MODEL_URLS = [
-  '/models/Knight.glb',
-  '/models/Mage.glb',
-  '/models/Ranger.glb',
-  '/models/Barbarian.glb',
+  `${BASE}models/Knight.glb`,
+  `${BASE}models/Mage.glb`,
+  `${BASE}models/Ranger.glb`,
+  `${BASE}models/Barbarian.glb`,
 ];
 
 const ANIM_URLS = [
-  '/models/Rig_Medium_General.glb',
-  '/models/Rig_Medium_MovementBasic.glb',
+  `${BASE}models/Rig_Medium_General.glb`,
+  `${BASE}models/Rig_Medium_MovementBasic.glb`,
 ];
 
 [...MODEL_URLS, ...ANIM_URLS].forEach((url) => useGLTF.preload(url));
