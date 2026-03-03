@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, feature/custom-board-builder]
+    branches: [main]
 
 permissions:
   contents: write
