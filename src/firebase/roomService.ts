@@ -236,6 +236,10 @@ export async function submitNotScore(roomCode: string, score: number): Promise<v
   await update(ref(db, `rooms/${roomCode}/notEvent`), { score });
 }
 
+export async function updateRoomCategories(roomCode: string, categories: Category[]): Promise<void> {
+  await update(ref(db, `rooms/${roomCode}`), { activeCategories: categories });
+}
+
 export async function clearTurnState(roomCode: string): Promise<void> {
   await update(ref(db, `rooms/${roomCode}`), {
     currentQuestion: null,

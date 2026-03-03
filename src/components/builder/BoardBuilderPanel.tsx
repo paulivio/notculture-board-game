@@ -56,6 +56,11 @@ export default function BoardBuilderPanel() {
   // the actual clamped value is applied on blur or Enter.
   const [tileInputValue, setTileInputValue] = useState(String(appliedConfig?.totalTiles ?? 20));
 
+  // Palette lock
+  const gameInProgress = state.players.some((p) => p.position > 0);
+  const [paletteUnlocked, setPaletteUnlocked] = useState(false);
+  const paletteLocked = gameInProgress && !paletteUnlocked;
+
   // Load/save UI state
   const [savedCode, setSavedCode] = useState<string | null>(appliedConfig?.id ?? null);
   const [loadCodeInput, setLoadCodeInput] = useState("");
@@ -92,6 +97,12 @@ export default function BoardBuilderPanel() {
       setLoadCodeInput(lastCode);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Clear paint selection and re-lock on game reset
+  useEffect(() => {
+    setSelectedTileType(null);
+    setPaletteUnlocked(false);
+  }, [state.resetCount]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Sync name into preview whenever boardName changes
   useEffect(() => {
@@ -294,15 +305,32 @@ export default function BoardBuilderPanel() {
       <div className="flex flex-col gap-1.5">
         <div className="flex items-center justify-between">
           <p className="text-xs opacity-50">
-            {selectedTileType
-              ? `Painting: click a board tile to apply`
+            {paletteLocked
+              ? "Board locked while game is in progress"
+              : selectedTileType
+              ? "Painting: click a board tile to apply"
               : "Select a tile type, then click a board tile:"}
           </p>
-          <TextureButton size="sm" onClick={handleAutoFill} disabled={!previewConfig}>
-            Auto Fill
-          </TextureButton>
+          <div className="flex gap-1.5">
+            {paletteLocked ? (
+              <TextureButton size="sm" onClick={() => setPaletteUnlocked(true)}>
+                🔓 Unlock
+              </TextureButton>
+            ) : (
+              <>
+                {gameInProgress && (
+                  <TextureButton size="sm" variant="danger" onClick={() => { setPaletteUnlocked(false); setSelectedTileType(null); }}>
+                    🔒 Lock
+                  </TextureButton>
+                )}
+                <TextureButton size="sm" onClick={handleAutoFill} disabled={!previewConfig}>
+                  Auto Fill
+                </TextureButton>
+              </>
+            )}
+          </div>
         </div>
-        <div className="flex flex-wrap gap-1.5">
+        <div className={`flex flex-wrap gap-1.5 ${paletteLocked ? "opacity-30 pointer-events-none" : ""}`}>
           {PALETTE_TILES.map((chip) => (
             <PaletteChip
               key={chip.type}
@@ -314,6 +342,9 @@ export default function BoardBuilderPanel() {
             />
           ))}
         </div>
+        {paletteUnlocked && (
+          <p className="text-xs text-amber-400 opacity-80">Saving will reset all player positions.</p>
+        )}
       </div>
 
       {/* Save / Load / Clear row */}

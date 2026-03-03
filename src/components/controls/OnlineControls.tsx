@@ -13,6 +13,7 @@ import {
   leaveTeam,
   resetRoom,
   resetTeamRoom,
+  updateRoomCategories,
 } from "../../firebase/roomService";
 import { useRoom } from "../../firebase/hooks";
 import { useGame, useGameDispatch } from "../../context/GameContext";
@@ -465,8 +466,11 @@ export default function OnlineControls() {
         </p>
         <CategorySelector
           value={state.activeCategories}
-          onChange={() => {}}
-          locked={true}
+          onChange={(cats) => {
+            dispatch({ type: "SET_ACTIVE_CATEGORIES", categories: cats });
+            updateRoomCategories(identity.roomCode!, cats);
+          }}
+          locked={false}
         />
         <div className="flex gap-2">
           <TextureButton variant="danger" onClick={handleLeave}>

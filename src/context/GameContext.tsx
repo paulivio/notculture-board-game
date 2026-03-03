@@ -47,6 +47,7 @@ const initialState: GameState = {
   activeCategories: [...CATEGORIES],
   customBoardConfig: null,
   boardPreviewConfig: null,
+  resetCount: 0,
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -233,6 +234,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         currentPlayerIndex: 0,
         activeQuestion: null,
         pendingMove: 0,
+        resetCount: state.resetCount + 1,
         pendingCategory: null,
         isTurnLocked: false,
         usedQuestionIds: new Set(),

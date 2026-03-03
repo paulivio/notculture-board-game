@@ -75,6 +75,7 @@ export interface GameState {
   activeCategories: Category[];
   customBoardConfig: CustomBoardConfig | null;
   boardPreviewConfig: CustomBoardConfig | null;
+  resetCount: number;
 }
 
 export interface OnlineIdentity {
