@@ -1,6 +1,6 @@
 # NotCulture Board Game
 
-A multiplayer trivia board game with 462 questions across 5 categories. Play locally with up to 4 players or online via Firebase real-time rooms, including online team mode and a custom board builder.
+A multiplayer trivia board game with 462 questions across 5 categories. Play locally with up to 4 players or online via Firebase real-time rooms, including online team mode and a custom board builder — all rendered in a fully interactive 3D scene.
 
 ## Getting Started
 
@@ -40,16 +40,29 @@ The modal triggers at the **start** of a turn when the player is already sitting
 
 ### Category Selector
 
-Choose exactly 4 of the 5 categories to play with. In **local mode** the selector is inside the Local panel and locks once any player has moved. In **online mode** the host picks categories when creating the room; all joined players receive the host's selection automatically.
+Choose exactly 4 of the 5 categories to play with. In **local mode** the selector is inside the Local panel and locks once any player has moved. In **online mode** categories can be changed by any player at any time from within the room — all clients receive updates automatically.
 
 ### Custom Board Builder
 
-Open the **Board** panel to design a board with 10–48 tiles using drag-and-drop:
+Open the **Board** panel to design a board with 10–48 tiles:
 
-- Drag category, Not, Culture, or Blank tiles from the palette onto any cell
+- Select a tile type from the palette (Film, Science, General, History, Sports, NOT, CULTURE, or Blank), then click any tile on the 3D board to paint it
 - **Auto Fill** populates the board with a balanced spread instantly
 - **Save Board** generates a 4-character shareable code (valid 24 hours)
-- Load a code to restore any saved board; saving resets all player positions
+- Load a code to restore any saved board
+- The palette locks when a game is in progress — click **Unlock** to edit mid-game (saving will reset all player positions)
+
+### 3D Board & Camera
+
+The board is rendered as a fully interactive 3D scene:
+
+| Input | Action |
+|-------|--------|
+| Left-drag / 1 finger | Orbit / rotate view |
+| Right-drag / 2-finger drag | Pan camera |
+| Scroll / pinch | Zoom in and out |
+
+Player tokens are 3D chess-piece pawns that smoothly animate across the board. Multiple players on the same tile fan out in a circle.
 
 ### Settings (gear icon)
 
@@ -71,9 +84,10 @@ Open the **Board** panel to design a board with 10–48 tiles using drag-and-dro
 - **React 19** with TypeScript
 - **Vite 7** — dev server and bundler
 - **Tailwind CSS v4** — utility-first styling with custom theme colors
-- **Framer Motion** — wheel spinner animation, player token springs, modal transitions
+- **Three.js + React Three Fiber v9 + Drei v10** — 3D board scene, orbit camera, rounded tiles, chess-pawn tokens
+- **Framer Motion** — wheel spinner animation, modal transitions
 - **Firebase Realtime Database** — online multiplayer room sync and board code storage
-- **dnd-kit** — drag-and-drop for the custom board builder
+- **dnd-kit** — drag-and-drop context (board builder uses paint-mode; context kept for future use)
 - **Cult UI** — TextureButton and TextureCard components (via class-variance-authority + Radix)
 
 ## Project Structure
@@ -81,7 +95,7 @@ Open the **Board** panel to design a board with 10–48 tiles using drag-and-dro
 ```
 src/
   main.tsx                          # Entry point
-  App.tsx                           # Providers (GameContext + GameLogicContext)
+  App.tsx                           # Providers
   index.css                         # Tailwind directives + @theme colors
 
   types/game.ts                     # Player, Question, GameState, RoomData, etc.
@@ -91,11 +105,12 @@ src/
   context/
     GameContext.tsx                  # useReducer state management
     GameLogicContext.tsx             # Shared game logic (dice, answers, movement)
+    BuilderContext.tsx               # Selected palette tile type for paint-mode editor
 
   hooks/
     useGameLogic.ts                 # Roll → question → answer → move → turn
-    useQuestions.ts                  # Question pool selection with used-tracking
-    useSound.ts                     # Audio playback (dice, move, correct, wrong)
+    useQuestions.ts                 # Question pool selection with used-tracking
+    useSound.ts                     # Audio playback (tick, move, correct, wrong, win)
 
   firebase/
     config.ts                       # Firebase init
@@ -105,9 +120,16 @@ src/
 
   components/
     ui/                             # TextureButton, TextureCard
-    layout/                         # GameLayout, TopPanel, BottomPanel
-    board/                          # Board (7×7 grid), Cell, PlayerToken, BoardCanvas
-    builder/                        # BoardBuilderPanel, BuilderCell, PaletteChip
+    layout/                         # GameLayout (full-screen HUD), TopPanel, BottomPanel
+    board3d/                        # 3D board scene
+      Board3D.tsx                   # R3F Canvas root, lights, OrbitControls
+      BoardSurface3D.tsx            # Rounded tile meshes + labels + paint-mode click handler
+      PathLine3D.tsx                # CatmullRomCurve3 tube through tile gaps
+      PlayerPawn3D.tsx              # LatheGeometry chess pawn, useFrame lerp animation
+      PlayersLayer3D.tsx            # Maps state.players → PlayerPawn3D
+      utils3d.ts                    # Coord mapping (8×8 grid → world XZ), pawn offsets
+    board/                          # Legacy 2D board (kept, not rendered)
+    builder/                        # BoardBuilderPanel (palette + save/load/clear)
     dice/                           # WheelSpinner (SVG spin-the-wheel, Framer Motion)
     modals/                         # QuestionModal, WinModal, QuestionEditor, NotModal,
                                     #   CultureModal, InstructionsModal, FeedbackModal
@@ -124,7 +146,7 @@ src/
     culture.json                    # Culture tile cards
 
 public/
-  assets/sounds/                    # Audio files (dice, move, correct, wrong)
+  assets/sounds/                    # Audio files (tick, move, correct, wrong, win)
   assets/logo.svg                   # Game logo
 ```
 
@@ -142,6 +164,6 @@ Questions have difficulty levels 1–6. The wheel value determines which difficu
 
 ## Board Layout
 
-The **default board** is 39 tiles in a spiral path on a 7×7 grid. The **custom board builder** supports 10–48 tiles with fully configurable tile types. Player tokens animate between cells with spring physics.
+The **default board** is 39 tiles in a spiral path on an 8×8 grid, rendered as 3D raised tiles floating in space with a glowing tube tracing the path. The **custom board builder** supports 10–48 tiles with fully configurable tile types.
 
-Special Not and Culture tiles are at fixed positions on the default board (5, 15, 25, 35, 45 for Not; 10, 20, 30, 40 for Culture) and can be placed anywhere on a custom board.
+Special Not and Culture tiles are at fixed positions on the default board (5, 15, 25, 35 for Not; 10, 20, 30, 40 for Culture) and can be placed anywhere on a custom board.
