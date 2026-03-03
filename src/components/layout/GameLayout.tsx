@@ -113,7 +113,7 @@ export default function GameLayout() {
 
   return (
     <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-      <div className="relative w-screen h-screen overflow-hidden">
+      <div className="relative w-screen overflow-hidden" style={{ height: "100dvh" }}>
 
         {/* Full-screen 3D board */}
         <div className="absolute inset-0">
@@ -121,7 +121,10 @@ export default function GameLayout() {
         </div>
 
         {/* Top-left HUD: player bar + wheel spinner */}
-        <div className="absolute top-0 left-0 z-10 p-3">
+        <div
+          className="absolute top-0 left-0 z-10 p-3"
+          style={{ paddingTop: "max(12px, env(safe-area-inset-top))" }}
+        >
           <TopPanel />
         </div>
 
