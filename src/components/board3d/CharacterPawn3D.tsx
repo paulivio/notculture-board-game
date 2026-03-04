@@ -252,7 +252,10 @@ export default function CharacterPawn3D({ player, allPlayers, playerIndex, hitTr
       startPosRef.current.set(tx, TILE_HEIGHT, tz);
       targetVec.current.set(tx, TILE_HEIGHT, tz);
       moveProgressRef.current = 1;
-      if (groupRef.current) groupRef.current.position.set(tx, TILE_HEIGHT, tz);
+      if (groupRef.current) {
+        groupRef.current.position.set(tx, TILE_HEIGHT, tz);
+        targetRotY.current = groupRef.current.rotation.y; // preserve facing direction
+      }
     }
     wasPlatformingRef.current = platformingActive ?? false;
   }, [platformingActive, player.position]); // eslint-disable-line react-hooks/exhaustive-deps
