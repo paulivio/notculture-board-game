@@ -1,4 +1,5 @@
-import { Canvas } from "@react-three/fiber";
+import { useEffect } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
 import { TOUCH } from "three";
 import { useGame } from "../../context/GameContext";
@@ -16,6 +17,7 @@ const NOT_COLOR = "#f97316";
 function Scene() {
   const state = useGame();
   const { handleDiceRoll, diceState } = useGameLogicContext();
+  const { camera } = useThree();
   const activeConfig = state.boardPreviewConfig ?? state.customBoardConfig;
   const totalTiles = activeConfig?.totalTiles ?? SPIRAL_PATH.length;
 
@@ -24,6 +26,14 @@ function Scene() {
     CULTURE_COLOR,
     NOT_COLOR,
   ];
+
+  // Reset camera to top-down overview when platforming ends
+  useEffect(() => {
+    if (!state.platformingMode) {
+      camera.position.set(0, 8, 7);
+      camera.lookAt(0, 0, 0);
+    }
+  }, [state.platformingMode, camera]);
 
   return (
     <>
@@ -37,19 +47,21 @@ function Scene() {
       />
       <directionalLight position={[-5, 6, -5]} intensity={0.35} />
 
-      <OrbitControls
-        makeDefault
-        enablePan={true}
-        minDistance={4}
-        maxDistance={20}
-        touches={{ ONE: TOUCH.ROTATE, TWO: TOUCH.DOLLY_PAN }}
-      />
+      {!state.platformingMode && (
+        <OrbitControls
+          makeDefault
+          enablePan={true}
+          minDistance={4}
+          maxDistance={20}
+          touches={{ ONE: TOUCH.ROTATE, TWO: TOUCH.DOLLY_PAN }}
+        />
+      )}
 
       <BoardSurface3D />
       <PathLine3D totalTiles={totalTiles} />
       <PlayersLayer3D />
 
-      {state.wheelMode === "3d" && (
+      {state.wheelMode === "3d" && !state.platformingMode && (
         <group position={[0, TILE_HEIGHT + 0.01, 0]} rotation={[-Math.PI / 2, 0, 0]}>
           <WheelSpinner3D
             rolling={diceState.rolling}

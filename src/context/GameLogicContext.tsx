@@ -13,6 +13,7 @@ interface GameLogicValue {
   triggerDiceAnimation: (roll: number, onComplete: () => void) => void;
   processRoll: (roll: number) => void;
   animateMovement: (playerId: number, startPos: number, steps: number, onComplete?: () => void) => void;
+  handlePlatformingComplete: () => void;
 }
 
 const GameLogicContext = createContext<GameLogicValue | null>(null);

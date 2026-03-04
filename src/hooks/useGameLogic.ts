@@ -9,6 +9,7 @@ import {
   NOT_POSITIONS,
   MAX_POSITION,
   MOVE_DURATION,
+  PLATFORMING_TEST_MODE,
 } from "../lib/constants";
 import type { Category } from "../types/game";
 import notData from "../data/not.json";
@@ -136,6 +137,13 @@ export function useGameLogic() {
         } else {
           category = activeCategories[pathIndex % activeCategories.length];
         }
+      }
+
+      // Test mode: skip question entirely, go straight to platforming
+      if (PLATFORMING_TEST_MODE && s.gameMode !== "online") {
+        const target = Math.min(currentPlayer.position + roll, effectiveMax);
+        dispatch({ type: "ACTIVATE_PLATFORMING", target });
+        return;
       }
 
       dispatch({ type: "SET_PENDING_CATEGORY", category });
@@ -402,11 +410,20 @@ export function useGameLogic() {
 
       // Local mode
       if (correct) {
-        animateMovement(currentPlayer.id, currentPlayer.position, s.pendingMove);
-        setTimeout(() => {
-          dispatch({ type: "ADVANCE_TURN" });
-          dispatch({ type: "UNLOCK_TURN" });
-        }, s.pendingMove * MOVE_DURATION + 100);
+        if (PLATFORMING_TEST_MODE) {
+          const effectiveMax = s.customBoardConfig
+            ? s.customBoardConfig.totalTiles - 1
+            : MAX_POSITION;
+          const target = Math.min(currentPlayer.position + s.pendingMove, effectiveMax);
+          dispatch({ type: "ACTIVATE_PLATFORMING", target });
+          // Turn stays locked; PlatformingController calls handlePlatformingComplete
+        } else {
+          animateMovement(currentPlayer.id, currentPlayer.position, s.pendingMove);
+          setTimeout(() => {
+            dispatch({ type: "ADVANCE_TURN" });
+            dispatch({ type: "UNLOCK_TURN" });
+          }, s.pendingMove * MOVE_DURATION + 100);
+        }
       } else {
         dispatch({ type: "ADVANCE_TURN" });
         dispatch({ type: "UNLOCK_TURN" });
@@ -414,6 +431,18 @@ export function useGameLogic() {
     },
     [dispatch, animateMovement, identity]
   );
+
+  const handlePlatformingComplete = useCallback(() => {
+    const s = stateRef.current;
+    const p = s.players[s.currentPlayerIndex];
+    if (!p || s.platformingTarget === null) return;
+    dispatch({ type: "DEACTIVATE_PLATFORMING" });
+    dispatch({ type: "SET_PLAYER_POSITION", playerId: p.id, position: s.platformingTarget });
+    const max = s.customBoardConfig ? s.customBoardConfig.totalTiles - 1 : MAX_POSITION;
+    if (s.platformingTarget >= max) dispatch({ type: "SHOW_WIN_MODAL", show: true });
+    dispatch({ type: "ADVANCE_TURN" });
+    dispatch({ type: "UNLOCK_TURN" });
+  }, [dispatch]);
 
   const handleCultureScore = useCallback(
     (score: number) => {
@@ -570,5 +599,6 @@ export function useGameLogic() {
     animateMovement,
     processRoll,
     triggerDiceAnimation,
+    handlePlatformingComplete,
   };
 }

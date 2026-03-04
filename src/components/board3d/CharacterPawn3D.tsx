@@ -1,8 +1,8 @@
-import { useRef, useEffect, useLayoutEffect, useMemo } from 'react';
+import { useRef, useEffect, useLayoutEffect, useMemo, type MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { SkeletonUtils } from 'three-stdlib';
-import { Group, Vector3, LoopOnce } from 'three';
+import { Group, Vector3, LoopOnce, type AnimationAction } from 'three';
 import type { Player } from '../../types/game';
 import {
   multiPlayerPositions,
@@ -38,13 +38,16 @@ interface Props {
   hitTrigger: number;  // increments on each wrong answer for this player
   playDeath: boolean;  // true when game over and this player lost
   playWin: boolean;    // true when this player won
+  groupRefOut?: MutableRefObject<Group | null>;
+  actionsRefOut?: MutableRefObject<Record<string, AnimationAction | null> | null>;
+  platformingActive?: boolean;  // when true, suppress own position writes
 }
 
 function easeInOut(t: number) {
   return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
 }
 
-export default function CharacterPawn3D({ player, allPlayers, playerIndex, hitTrigger, playDeath, playWin }: Props) {
+export default function CharacterPawn3D({ player, allPlayers, playerIndex, hitTrigger, playDeath, playWin, groupRefOut, actionsRefOut, platformingActive }: Props) {
   const modelUrl = MODEL_URLS[playerIndex % MODEL_URLS.length];
   const { scene } = useGLTF(modelUrl);
   const { animations: animsGeneral } = useGLTF(ANIM_URLS[0]);
@@ -62,6 +65,21 @@ export default function CharacterPawn3D({ player, allPlayers, playerIndex, hitTr
   // Stable ref so timeout callbacks always see latest actions
   const actionsRef = useRef(actions);
   useEffect(() => { actionsRef.current = actions; }, [actions]);
+
+  // Forward refs to PlatformingController when platformingActive
+  useEffect(() => {
+    if (groupRefOut) groupRefOut.current = groupRef.current;
+  }, [groupRefOut]);
+
+  // Debug: log all available clip names when this character enters platforming mode
+  useEffect(() => {
+    if (!platformingActive) return;
+    const clips = Object.keys(actions).filter((k) => actions[k]).sort();
+    console.log(`[CharacterPawn3D] Available clips (${clips.length}):\n  ${clips.join('\n  ')}`);
+  }, [platformingActive]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (actionsRefOut) actionsRefOut.current = actionsRef.current;
+  }, [actions, actionsRefOut]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // --- Position helpers ---
   const playersAtPos = useMemo(
@@ -265,6 +283,7 @@ export default function CharacterPawn3D({ player, allPlayers, playerIndex, hitTr
   // --- useFrame: timed XZ movement + arc + facing ---
   useFrame((_, delta) => {
     if (!groupRef.current) return;
+    if (platformingActive) return;  // PlatformingController owns this character's position
 
     if (moveProgressRef.current < 1) {
       moveProgressRef.current = Math.min(

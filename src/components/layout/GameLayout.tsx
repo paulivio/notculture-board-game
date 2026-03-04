@@ -145,6 +145,12 @@ export default function GameLayout() {
           Send feedback
         </button>
 
+        {state.platformingMode && (
+          <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 bg-black/60 text-white px-4 py-2 rounded-lg text-sm pointer-events-none">
+            Walk to the glowing tile · WASD to move · Mouse to look · Click canvas to lock mouse
+          </div>
+        )}
+
         {state.showQuestionModal && state.activeQuestion && <QuestionModal />}
         {state.showWinModal && <WinModal />}
         {state.showEditor && <QuestionEditor />}

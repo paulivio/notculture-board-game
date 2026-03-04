@@ -6,15 +6,17 @@ import {
   type ReactNode,
 } from "react";
 import type { GameState, GameAction } from "../types/game";
-import { MAX_POSITION, PLAYER_COLORS, CATEGORIES } from "../lib/constants";
+import { MAX_POSITION, PLAYER_COLORS, CATEGORIES, PLATFORMING_TEST_MODE } from "../lib/constants";
 
 const initialState: GameState = {
   questionsLoaded: false,
   questions: [],
-  players: [
-    { id: 1, name: "Player 1", position: 0, color: PLAYER_COLORS[1] },
-    { id: 2, name: "Player 2", position: 0, color: PLAYER_COLORS[2] },
-  ],
+  players: PLATFORMING_TEST_MODE
+    ? [{ id: 1, name: "Tester", position: 0, color: PLAYER_COLORS[1] }]
+    : [
+        { id: 1, name: "Player 1", position: 0, color: PLAYER_COLORS[1] },
+        { id: 2, name: "Player 2", position: 0, color: PLAYER_COLORS[2] },
+      ],
   localPlayers: [],
   maxPlayers: 4,
   minPlayers: 1,
@@ -49,6 +51,8 @@ const initialState: GameState = {
   boardPreviewConfig: null,
   resetCount: 0,
   wheelMode: "3d",
+  platformingMode: false,
+  platformingTarget: null,
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -250,6 +254,8 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         currentNotCard: null,
         currentAnswererId: null,
         currentDescriberId: null,
+        platformingMode: false,
+        platformingTarget: null,
       };
 
     case "SET_QUESTIONS":
@@ -375,6 +381,12 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SET_WHEEL_MODE":
       return { ...state, wheelMode: action.mode };
+
+    case "ACTIVATE_PLATFORMING":
+      return { ...state, platformingMode: true, platformingTarget: action.target, isTurnLocked: true };
+
+    case "DEACTIVATE_PLATFORMING":
+      return { ...state, platformingMode: false, platformingTarget: null };
 
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };

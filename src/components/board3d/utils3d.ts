@@ -11,6 +11,8 @@ export const CHARACTER_SCALE = 0.30;
 // Ordered fallback lists — first matching clip in the loaded GLTF wins
 export const ANIM_IDLE = ['Idle_A', 'Idle_B', 'Idle_C', 'Idle', 'idle', 'Stand'];
 export const ANIM_WALK = ['Jump_Full_Short', 'Jump_Full_Long', 'Walking_A', 'Walking_B', 'Walking_C', 'Running_A', 'Running_B', 'Walk', 'Run'];
+export const ANIM_RUN  = ['Running_A', 'Running_B', 'Run', 'Walking_A', 'Walking_B', 'Walking_C', 'Walk'];
+export const ANIM_JUMP = ['Jump_Full_Short', 'Jump_Full_Long'];
 
 /** Map an 8×8 grid index (0–63) to world [x, TILE_HEIGHT, z]. Board centred at origin. */
 export function gridIndexTo3D(gridIndex: number): [number, number, number] {

@@ -1,5 +1,7 @@
 import type { Category } from "../types/game";
 
+export const PLATFORMING_TEST_MODE = true;   // flip to false for production
+
 export const SPIRAL_PATH = [
   // Outer ring (28 tiles)
   0, 1, 2, 3, 4, 5, 6, 7,           // top row →

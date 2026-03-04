@@ -77,6 +77,8 @@ export interface GameState {
   boardPreviewConfig: CustomBoardConfig | null;
   resetCount: number;
   wheelMode: "3d" | "2d";
+  platformingMode: boolean;
+  platformingTarget: number | null;
 }
 
 export interface OnlineIdentity {
@@ -166,4 +168,6 @@ export type GameAction =
   | { type: "SET_TILE_TYPE"; index: number; tileType: TileType }
   | { type: "SET_BOARD_PREVIEW_CONFIG"; config: CustomBoardConfig | null }
   | { type: "SET_BOARD_PREVIEW_TILE_TYPE"; index: number; tileType: TileType }
-  | { type: "SET_WHEEL_MODE"; mode: "3d" | "2d" };
+  | { type: "SET_WHEEL_MODE"; mode: "3d" | "2d" }
+  | { type: "ACTIVATE_PLATFORMING"; target: number }
+  | { type: "DEACTIVATE_PLATFORMING" };
