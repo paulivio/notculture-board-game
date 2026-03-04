@@ -241,12 +241,11 @@ export default function CharacterPawn3D({ player, allPlayers, playerIndex, hitTr
     }
   }, [playDeath]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // --- Suppress hop when platforming just ended (character already at destination) ---
+  // --- Suppress hop + restart idle when platforming just ended ---
   const wasPlatformingRef = useRef(false);
   useEffect(() => {
     if (wasPlatformingRef.current && !platformingActive) {
-      // Platforming just ended — teleport to the exact tile so no hop plays and
-      // prevPositionRef matches, causing the position-change effect below to exit early.
+      // Teleport to exact tile, sync all refs so position-change effect exits early.
       const [tx, , tz] = pathIndexTo3D(player.position);
       prevPositionRef.current = player.position;
       startPosRef.current.set(tx, TILE_HEIGHT, tz);
@@ -254,8 +253,12 @@ export default function CharacterPawn3D({ player, allPlayers, playerIndex, hitTr
       moveProgressRef.current = 1;
       if (groupRef.current) {
         groupRef.current.position.set(tx, TILE_HEIGHT, tz);
-        targetRotY.current = groupRef.current.rotation.y; // preserve facing direction
+        targetRotY.current = groupRef.current.rotation.y;
       }
+      // Explicitly restart idle — PlatformingController cleanup also does this,
+      // but we guarantee it here in case the cleanup ref was stale or null.
+      clearIdleTimer();
+      startIdling(actionsRef.current);
     }
     wasPlatformingRef.current = platformingActive ?? false;
   }, [platformingActive, player.position]); // eslint-disable-line react-hooks/exhaustive-deps

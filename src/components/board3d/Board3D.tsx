@@ -27,13 +27,15 @@ function Scene() {
     NOT_COLOR,
   ];
 
-  // Smooth camera pull-back when platforming ends
+  // Smooth camera pull-back when platforming ends (true → false only, not on initial load)
   const camTargetRef = useRef(new Vector3(0, 8, 7));
   const camTransitionRef = useRef(false);
+  const wasPlatformingRef = useRef(false);
   useEffect(() => {
-    if (!state.platformingMode) {
+    if (wasPlatformingRef.current && !state.platformingMode) {
       camTransitionRef.current = true;
     }
+    wasPlatformingRef.current = state.platformingMode;
   }, [state.platformingMode]);
 
   useFrame(() => {
