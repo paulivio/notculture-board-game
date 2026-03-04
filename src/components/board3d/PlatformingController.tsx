@@ -128,14 +128,15 @@ export default function PlatformingController({
     };
   }, [gl.domElement, requestLock]);
 
-  // ── Cleanup on unmount: fade walk → idle ────────────────────────
+  // ── Cleanup on unmount: stop all platforming anims → idle ───────
   useEffect(() => {
     return () => {
       const a = characterActionsRef.current;
       if (!a) return;
-      ANIM_RUN.forEach((n) => a[n]?.fadeOut(0.3));
+      ANIM_RUN.forEach((n) => a[n]?.fadeOut(0.15));
+      ['Jump_Start', 'Jump_Idle', 'Jump_Land'].forEach((n) => a[n]?.fadeOut(0.1));
       const clip = ANIM_IDLE.find((n) => a[n]);
-      if (clip) a[clip]!.reset().fadeIn(0.3).play();
+      if (clip) a[clip]!.reset().fadeIn(0.2).play();
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

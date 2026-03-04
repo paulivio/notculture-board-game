@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { Canvas, useThree } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import { Canvas, useThree, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
-import { TOUCH } from "three";
+import { TOUCH, Vector3 } from "three";
 import { useGame } from "../../context/GameContext";
 import { useGameLogicContext } from "../../context/GameLogicContext";
 import { SPIRAL_PATH, CATEGORY_COLORS } from "../../lib/constants";
@@ -27,13 +27,24 @@ function Scene() {
     NOT_COLOR,
   ];
 
-  // Reset camera to top-down overview when platforming ends
+  // Smooth camera pull-back when platforming ends
+  const camTargetRef = useRef(new Vector3(0, 8, 7));
+  const camTransitionRef = useRef(false);
   useEffect(() => {
     if (!state.platformingMode) {
-      camera.position.set(0, 8, 7);
-      camera.lookAt(0, 0, 0);
+      camTransitionRef.current = true;
     }
-  }, [state.platformingMode, camera]);
+  }, [state.platformingMode]);
+
+  useFrame(() => {
+    if (!camTransitionRef.current) return;
+    camera.position.lerp(camTargetRef.current, 0.06);
+    camera.lookAt(0, 0, 0);
+    if (camera.position.distanceTo(camTargetRef.current) < 0.05) {
+      camera.position.copy(camTargetRef.current);
+      camTransitionRef.current = false;
+    }
+  });
 
   return (
     <>

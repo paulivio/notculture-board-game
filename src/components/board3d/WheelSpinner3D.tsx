@@ -100,8 +100,10 @@ export default function WheelSpinner3D({
   useEffect(() => {
     if (!rolling) return;
 
-    const segCentre = (finalValue - 1) * 60 + 30;
-    const targetAngle = (360 - segCentre) % 360;
+    // Segments start at -90° (6-o'clock), pointer is at 90° (12-o'clock).
+    // Segment V-1 centre is at (-60 + (V-1)*60)°; clockwise rotation to 90°
+    // = (V-1)*60 - 150 → mod 360 = (V-1)*60 + 210.
+    const targetAngle = ((finalValue - 1) * 60 + 210) % 360;
     const currentAngle = accumRotRef.current % 360;
     const delta = (targetAngle - currentAngle + 360) % 360;
     const totalDeg = 1440 + delta;
