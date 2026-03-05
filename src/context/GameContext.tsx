@@ -49,6 +49,7 @@ const initialState: GameState = {
   boardPreviewConfig: null,
   resetCount: 0,
   wheelMode: "3d",
+  cameraMode: "front",
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -250,6 +251,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         currentNotCard: null,
         currentAnswererId: null,
         currentDescriberId: null,
+        cameraMode: "front",
       };
 
     case "SET_QUESTIONS":
@@ -375,6 +377,9 @@ function gameReducer(state: GameState, action: GameAction): GameState {
 
     case "SET_WHEEL_MODE":
       return { ...state, wheelMode: action.mode };
+
+    case "SET_CAMERA_MODE":
+      return { ...state, cameraMode: action.mode };
 
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };

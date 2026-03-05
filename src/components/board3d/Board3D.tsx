@@ -1,5 +1,7 @@
-import { Canvas } from "@react-three/fiber";
+import { useEffect, useRef } from "react";
+import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei";
+import type { OrbitControls as OrbitControlsImpl } from "three-stdlib";
 import { TOUCH } from "three";
 import { useGame } from "../../context/GameContext";
 import { useGameLogicContext } from "../../context/GameLogicContext";
@@ -16,6 +18,25 @@ const NOT_COLOR = "#f97316";
 function Scene() {
   const state = useGame();
   const { handleDiceRoll, diceState } = useGameLogicContext();
+  const { camera } = useThree();
+  const controlsRef = useRef<OrbitControlsImpl>(null);
+
+  useEffect(() => {
+    const snapCamera = (x: number, y: number, z: number) => {
+      camera.position.set(x, y, z);
+      if (controlsRef.current) {
+        controlsRef.current.target.set(0, 0, 0);
+        controlsRef.current.update();
+      }
+    };
+
+    if (state.cameraMode === "aerial") {
+      snapCamera(0, 16, 0);
+    } else if (state.cameraMode === "front") {
+      snapCamera(0, 4.5, 7.5);
+    }
+  }, [state.cameraMode, camera]);
+
   const activeConfig = state.boardPreviewConfig ?? state.customBoardConfig;
   const totalTiles = activeConfig?.totalTiles ?? SPIRAL_PATH.length;
 
@@ -38,11 +59,13 @@ function Scene() {
       <directionalLight position={[-5, 6, -5]} intensity={0.35} />
 
       <OrbitControls
+        ref={controlsRef}
         makeDefault
         enablePan={true}
+        enableRotate={state.cameraMode === "free"}
         minDistance={4}
         maxDistance={20}
-        touches={{ ONE: TOUCH.ROTATE, TWO: TOUCH.DOLLY_PAN }}
+        touches={{ ONE: state.cameraMode === "free" ? TOUCH.ROTATE : TOUCH.PAN, TWO: TOUCH.DOLLY_PAN }}
       />
 
       <BoardSurface3D />
@@ -70,7 +93,7 @@ export default function Board3D() {
     <div className="w-full h-full relative">
       <Canvas
         style={{ position: "absolute", inset: 0 }}
-        camera={{ position: [0, 8, 7], fov: 45 }}
+        camera={{ position: [0, 4.5, 7.5], fov: 45 }}
         shadows
       >
         <Scene />
