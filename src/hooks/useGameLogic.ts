@@ -271,7 +271,10 @@ export function useGameLogic() {
     if (state.isTurnLocked) return;
 
     // Online mode: write roll to Firebase; useRoom listener handles animation + logic
-    if (state.gameMode === "online" && identity.roomCode && identity.playerId) {
+    if (state.gameMode === "online") {
+      // Not yet in a room — bail out rather than falling into local-mode logic
+      // (which would dispatch LOCK_TURN and permanently disable the spinner)
+      if (!identity.roomCode || !identity.playerId) return;
       if (state.isTeamMode) {
         // Only active team members can roll; server validates
         if (state.activeTeamId && identity.teamId !== state.activeTeamId) return;

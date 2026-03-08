@@ -43,6 +43,16 @@ export default function PlayersLayer3D() {
   return (
     <>
       {state.players.map((player, i) => {
+        if (state.tokenMode === "pawn") {
+          return (
+            <PlayerPawn3D
+              key={player.id}
+              player={player}
+              allPlayers={state.players}
+            />
+          );
+        }
+
         const isWinner = state.showWinModal && player.position >= effectiveMax;
         const playDeath = state.showWinModal && !isWinner;
         const playWin = isWinner;

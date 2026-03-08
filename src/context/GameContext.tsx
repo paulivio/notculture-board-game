@@ -48,8 +48,9 @@ const initialState: GameState = {
   customBoardConfig: null,
   boardPreviewConfig: null,
   resetCount: 0,
-  wheelMode: "3d",
+  wheelMode: "2d",
   cameraMode: "front",
+  tokenMode: "pawn",
 };
 
 function shuffleArray<T>(array: T[]): T[] {
@@ -381,11 +382,18 @@ function gameReducer(state: GameState, action: GameAction): GameState {
     case "SET_CAMERA_MODE":
       return { ...state, cameraMode: action.mode };
 
+    case "SET_TOKEN_MODE":
+      return { ...state, tokenMode: action.mode };
+
     case "SET_PENDING_CATEGORY":
       return { ...state, pendingCategory: action.category };
 
     case "SYNC_ONLINE_STATE": {
       const playerIndexChanged = action.currentPlayerIndex !== state.currentPlayerIndex;
+      // Also clear the lock on the very first sync after joining (0 → N players).
+      // This recovers from the case where the spinner was clicked in online mode
+      // before a room was joined, which accidentally dispatched LOCK_TURN.
+      const initialJoin = state.players.length === 0 && action.players.length > 0;
       return {
         ...state,
         // Never let a sync move a player backwards — this protects mid-animation steps
@@ -400,7 +408,7 @@ function gameReducer(state: GameState, action: GameAction): GameState {
         currentPlayerIndex: action.currentPlayerIndex,
         // Safety net: if Firebase says it's a new player's turn, always clear the lock.
         // Guards against any code path that fails to dispatch UNLOCK_TURN.
-        isTurnLocked: playerIndexChanged ? false : state.isTurnLocked,
+        isTurnLocked: (playerIndexChanged || initialJoin) ? false : state.isTurnLocked,
       };
     }
 

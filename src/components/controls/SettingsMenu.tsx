@@ -236,6 +236,27 @@ export default function SettingsMenu() {
               </div>
             </div>
 
+            {/* Token style toggle */}
+            <hr className="border-white/10" />
+            <div className="flex items-center justify-between px-1">
+              <span className="text-sm text-white/70">Tokens</span>
+              <div className="flex gap-1.5">
+                {(["character", "pawn"] as const).map((mode) => (
+                  <button
+                    key={mode}
+                    onClick={() => dispatch({ type: "SET_TOKEN_MODE", mode })}
+                    className={`px-2.5 py-1 rounded text-xs font-semibold transition-colors ${
+                      state.tokenMode === mode
+                        ? "bg-white text-black"
+                        : "bg-white/10 text-white/60 hover:bg-white/20"
+                    }`}
+                  >
+                    {mode === "character" ? "CHARS" : "PAWNS"}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {/* Camera mode toggle */}
             <hr className="border-white/10" />
             <div className="flex items-center justify-between px-1">

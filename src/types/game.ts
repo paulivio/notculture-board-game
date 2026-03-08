@@ -78,6 +78,7 @@ export interface GameState {
   resetCount: number;
   wheelMode: "3d" | "2d";
   cameraMode: "aerial" | "free" | "front";
+  tokenMode: "character" | "pawn";
 }
 
 export interface OnlineIdentity {
@@ -168,4 +169,5 @@ export type GameAction =
   | { type: "SET_BOARD_PREVIEW_CONFIG"; config: CustomBoardConfig | null }
   | { type: "SET_BOARD_PREVIEW_TILE_TYPE"; index: number; tileType: TileType }
   | { type: "SET_WHEEL_MODE"; mode: "3d" | "2d" }
-  | { type: "SET_CAMERA_MODE"; mode: "aerial" | "free" | "front" };
+  | { type: "SET_CAMERA_MODE"; mode: "aerial" | "free" | "front" }
+  | { type: "SET_TOKEN_MODE"; mode: "character" | "pawn" };
